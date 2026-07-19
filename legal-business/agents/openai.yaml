@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legal & Business"
+  short_description: "Prepare launch-ready legal document templates"
+  default_prompt: "Use $legal-business to prepare the legal and business documents this product needs before launch."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Visibility"
+  short_description: "SEO, AI crawlability, and previews"
+  default_prompt: "Use $visibility to audit and improve a website's SEO, AI crawlability, schema, sitemap, robots.txt, llms.txt, and link previews."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Toolkit"
+  short_description: "Design, build, and verify polished frontend UI"
+  default_prompt: "Use $design-toolkit to design and verify a responsive, accessible, performant frontend with appropriate components and motion."

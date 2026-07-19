@@ -1,0 +1,4 @@
+interface:
+  display_name: "Incident Response"
+  short_description: "Observability, incident, and recovery readiness"
+  default_prompt: "Use $incident-response to audit detection and recovery readiness or run a blameless production incident process."
