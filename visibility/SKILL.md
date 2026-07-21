@@ -34,12 +34,15 @@ Use this skill to make a website findable and accurately represented by search e
    - Structured data rendered server-side where possible.
    - `robots.txt` and `sitemap.xml` generated from real route/content data.
    - `llms.txt` with factual business summary, key pages, key facts, contact, and AI crawler guidance aligned with robots.txt.
+   - Crawl the internal link graph to find broken links, orphan pages, excessive crawl depth, redirect chains or loops, soft 404s, duplicate URL variants, and canonical conflicts.
+   - Validate useful 404 behavior, pagination and breadcrumbs where applicable, the web app manifest and icon set, and RSS/Atom for sites with regularly published content.
 
 4. Choose schema by page and business type.
    - Local physical business: `LocalBusiness` or a specific subtype with real address and contact fields.
    - Hotel/lodging: include `Hotel`, `LodgingBusiness`, `Offer`, and room/service data where appropriate.
    - Product pages: `Product` with image, description, offers, price/currency/availability when real data exists.
    - Blog/content: `Article` or `BlogPosting`.
+   - Add `Restaurant`, `Event`, `Course`, `FAQPage`, `BreadcrumbList`, `SearchAction`, `Review`, `AggregateRating`, `VideoObject`, or `ImageObject` only when the visible content and working feature genuinely support that type.
    - Avoid fake ratings, fake reviews, stale prices, or hardcoded facts that can drift from source data.
 
 5. Handle local SEO for hotels, restaurants, and physical businesses.
@@ -57,6 +60,7 @@ Use this skill to make a website findable and accurately represented by search e
    - Add or update `llms.txt`.
    - Consider markdown mirrors for important pages when useful.
    - Verify social previews with actual share/debug tools or by inspecting server-rendered OG tags.
+   - Treat `humans.txt` as optional attribution, `/.well-known/security.txt` as a maintained security-contact convention, and `browserconfig.xml` as platform-specific metadata rather than universal SEO requirements.
 
 7. Optimize speed and mobile usability.
    - Compress local images into modern formats such as WebP/AVIF while preserving original fallbacks.
@@ -74,6 +78,8 @@ Use this skill to make a website findable and accurately represented by search e
    - JSON-LD is valid for the page type.
    - No placeholders remain in visibility assets.
    - If live, use Google Search Console URL Inspection and Bing Webmaster Tools/IndexNow where relevant.
+   - Verify configured analytics providers in the browser Network panel, including duplicate events, consent behavior, and CSP-blocked collection endpoints; do not claim dashboard receipt from script presence alone.
+   - Separate readiness from verified registration/indexing for Google, Bing/Yahoo, DuckDuckGo, Brave, Yandex, and Baidu, and recommend only engines relevant to the site's audience.
 
 ## Output Expectations
 

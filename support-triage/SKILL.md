@@ -1,3 +1,8 @@
+---
+name: support-triage
+description: Classify and route customer support tickets, form failures, booking or payment issues, complaints, bug reports, and sensitive escalations. Use when Codex needs to resolve a known support issue automatically, gather an assisted-triage context package, identify human-required legal/privacy/security or policy cases, or produce a structured support handoff.
+---
+
 # Support Triage Skill
 
 Use this skill on any project with a customer support surface where tickets,
@@ -159,4 +164,3 @@ For `automated_resolution`, `Next owner` may be `agent`.
 
 For `assisted_triage` and `human_required`, `Next owner` must name the relevant
 team or person if known.
-

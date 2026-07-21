@@ -226,9 +226,15 @@ exact domains their scripts call, and wildcards are future-proof.
 ```
 Content-Security-Policy:
   script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://va.vercel-scripts.com;
-  connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+  connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com;
   img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com;
 ```
+
+Verify the actual collection hosts in DevTools because enabled GA4 advertising features can add
+Google or DoubleClick endpoints. Allow only the features in use. A Vercel Deployment Protection
+preview may also inject a `https://vercel.com/sso-api` manifest; if that console warning must be
+removed, add `https://vercel.com` to `manifest-src` only for preview deployments rather than
+broadening the production policy.
 
 **Vercel example** (`vercel.json`):
 ```json
@@ -237,7 +243,7 @@ Content-Security-Policy:
     "source": "/(.*)",
     "headers": [{
       "key": "Content-Security-Policy",
-      "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
+      "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
     }]
   }]
 }

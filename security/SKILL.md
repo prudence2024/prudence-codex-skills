@@ -43,6 +43,9 @@ Use this skill to keep production web projects from shipping with avoidable secu
 5. Review infrastructure controls.
    - Restrict CORS to exact origins.
    - Set CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and related headers.
+   - Reproduce CSP violations in the target environment and map each blocked URL to its directive and owner. Distinguish application resources from hosting-provider preview/authentication injection, and keep production allowlists narrower than preview allowlists where feasible.
+   - Verify cookie flags and an applicable CSRF defense for state-changing cookie-authenticated requests; do not treat CORS as a CSRF control.
+   - Consider `/.well-known/security.txt` only when a monitored security contact and renewal process exist.
    - Verify file upload type/content/size checks and safe storage.
    - Verify payments/webhooks use signature checks and idempotency.
 

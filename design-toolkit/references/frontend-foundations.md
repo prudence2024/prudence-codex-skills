@@ -37,7 +37,15 @@ Use this checklist after choosing the visual direction and again after implement
 - Verify static assets use durable cache headers plus content-hashed filenames or another cache-busting mechanism.
 - Load fonts without blocking rendering where possible, for example with preload where justified and `font-display: swap`.
 - Check route-level code splitting and remove avoidable client-side work or oversized dependencies.
+- Inspect bundle composition, unused JavaScript/CSS, dead exports, hydration cost, long tasks, tree shaking, and avoidable third-party execution before adding micro-optimizations.
 - Use Lighthouse and the browser Network panel as evidence. Prioritize real bottlenecks such as Largest Contentful Paint rather than chasing a score in isolation.
+
+## Progressive enhancement
+
+- Keep critical information and navigation readable when JavaScript, animation, web fonts, media, analytics, or a third-party dependency fails.
+- Prefer real links, buttons, labels, and native form behavior as the baseline, then enhance with client-side interaction.
+- Do not let preloaders, reveal animations, carousels, or hydration hide the initial page content from users, assistive technology, or performance tooling.
+- Verify that failure of a non-essential integration does not block the primary page or form workflow.
 
 ## Browser diagnostics
 

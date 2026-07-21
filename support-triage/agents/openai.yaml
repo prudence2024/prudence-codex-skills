@@ -1,0 +1,4 @@
+interface:
+  display_name: "Support Triage"
+  short_description: "Classify, resolve, or escalate support issues"
+  default_prompt: "Use $support-triage to classify this support issue, gather the required context, and choose the safest resolution path."

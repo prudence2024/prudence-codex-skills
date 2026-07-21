@@ -1,0 +1,4 @@
+interface:
+  display_name: "Post-Production Audit"
+  short_description: "Audit and harden websites before release"
+  default_prompt: "Use $post-production to audit this website, apply safe fixes, and report remaining production-readiness gaps."
