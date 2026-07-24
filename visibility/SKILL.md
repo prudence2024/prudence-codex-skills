@@ -81,6 +81,22 @@ Use this skill to make a website findable and accurately represented by search e
    - Verify configured analytics providers in the browser Network panel, including duplicate events, consent behavior, and CSP-blocked collection endpoints; do not claim dashboard receipt from script presence alone.
    - Separate readiness from verified registration/indexing for Google, Bing/Yahoo, DuckDuckGo, Brave, Yandex, and Baidu, and recommend only engines relevant to the site's audience.
 
+9. Validate agent accessibility and ARIA.
+   - Run standard accessibility checks and inspect the rendered browser accessibility tree. Review PageSpeed Agentic Browsing findings separately when available; this evolving audit category is not a direct SEO ranking factor.
+   - Prefer native HTML semantics. Search rendered markup for invalid or misleading role overrides, confirm roles are permitted and appropriate, and verify every `aria-labelledby` and `aria-describedby` reference resolves to a real, unique ID.
+   - Use `aria-modal` only with a genuine `dialog`, `alertdialog`, or correct native modal implementation. Treat consent and preference banners as non-modal unless they block background interaction and implement focus entry, containment, dismissal, and restoration.
+   - Do not add unnecessary ARIA to chase a score. Verify Preview or Production output, then rerun Lighthouse/PageSpeed after deployment; a local source change does not prove the live result is fixed.
+
+   Final verification:
+
+   - [ ] No inappropriate role overrides on semantic HTML elements.
+   - [ ] All ARIA references resolve to real, unique elements.
+   - [ ] Non-modal banners do not claim dialog/modal semantics.
+   - [ ] Real modal dialogs implement focus entry, focus containment, dismissal, and focus restoration.
+   - [ ] PageSpeed Agentic Browsing findings reviewed when available.
+   - [ ] Accessibility tree inspected in browser developer tools.
+   - [ ] Fix verified on the deployed Preview or live URL.
+
 ## Output Expectations
 
 When auditing, report findings by severity with file/line references where local code is available. When implementing, keep changes aligned to the framework's official head/meta APIs and existing route/data patterns. Mention which checks were run, which could not be run, and any owner-only tasks such as Search Console verification.
