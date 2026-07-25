@@ -10,6 +10,14 @@ Use this reference to prepare for incidents or audit detection and recovery. Dur
 - Never record passwords, tokens, payment-card data, raw sensitive payloads, or unnecessary personal data. Configure scrubbing in both application code and the monitoring provider.
 - Distinguish client errors, dependency failures, warnings, and critical server failures. Group repeated events so volume does not hide the number of distinct defects.
 
+## Deployment skew and stale code-split assets
+
+- Treat `Importing a module script failed`, `Failed to fetch dynamically imported module`, and similar route-load errors as possible deployment-version skew. Confirm release timing, failed asset status, caching, service-worker behavior, network conditions, and extension blocking before declaring the root cause.
+- Install recovery before lazy route navigation using the framework or bundler's native failure event. For Vite, handle `vite:preloadError`, call `preventDefault()` only when claiming recovery, and reload the document at most once with a session-scoped cooldown.
+- If automatic recovery is unavailable or already attempted, let a useful error boundary explain that a newer version may exist and offer a full-page reload. Do not repeatedly retry the same dynamic import or create an infinite reload loop.
+- Revalidate or disable caching for HTML while keeping content-hashed assets immutable. Check for a stale service worker before adding one; do not add a service worker solely to solve a rare chunk failure without assessing its cache lifecycle.
+- Test in preview by keeping an old tab open across a deployment or safely blocking a lazy-route chunk. Verify one reload, successful navigation after unblocking or updating, bounded fallback on persistent failure, and no recurring monitoring event in the fixed release. Resolve the historical issue only after deployed verification.
+
 ## Alerts and triage
 
 - Alert on user impact and critical-path symptoms such as sustained availability loss, elevated 5xx rate, failed checkout/auth flows, or breached latency thresholds.

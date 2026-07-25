@@ -43,6 +43,8 @@ Use only relevant controls. Mark every item with evidence as `[x] Completed`, `[
 - Fonts avoid render blocking; resource hints are justified rather than added indiscriminately.
 - JavaScript/CSS bundles, route splitting, tree shaking, unused code, long tasks, hydration work, critical CSS, compression, caching, and CDN delivery are inspected.
 - Static assets use durable caching and content hashes; HTML/private/transactional responses use safe freshness rules.
+- Code-split clients handle deployment-version skew with the framework or bundler's native dynamic-import/preload failure hook, at most one guarded automatic reload, and a useful fallback if recovery fails; broad error matching and reload loops are avoided.
+- HTML revalidates or uses `no-cache`, content-hashed JS/CSS remains immutable, and navigation from an old tab across a new preview deployment is tested for missing chunks, one-time recovery, and monitoring behavior.
 
 ## Security and privacy
 
