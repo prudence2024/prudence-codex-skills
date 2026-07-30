@@ -289,7 +289,11 @@ def ingest_zip(root: Path, request: IngestionRequest) -> dict[str, Any]:
     if issues:
         shutil.rmtree(raw_target, ignore_errors=True)
         raise EcosystemError(issues[0].message)
-    _write_yaml(manifest, manifest_path)
+    try:
+        _write_yaml(manifest, manifest_path)
+    except Exception:
+        shutil.rmtree(raw_target, ignore_errors=True)
+        raise
     return {
         "status": "accepted",
         "manifest": manifest_path.relative_to(root).as_posix(),

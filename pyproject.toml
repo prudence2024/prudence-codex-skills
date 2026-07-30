@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "prudence-skill-ecosystem"
-version = "0.1.0"
-description = "Developer infrastructure for validating and managing modular Codex skills"
+version = "0.2.0"
+description = "Developer infrastructure for modular skills, Design Intelligence, and approval-gated skill learning"
 requires-python = ">=3.11"
 dependencies = [
   "PyYAML>=6.0,<7",
@@ -14,11 +14,14 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-  "pytest>=8,<9",
+  "pytest>=8,<10",
 ]
 
 [project.scripts]
 skill-ecosystem = "skill_ecosystem.cli:main"
+design-intelligence = "skill_ecosystem.intelligence_cli:main"
+skill-learning = "skill_ecosystem.skill_learning_cli:main"
+ecosystem-integrate = "skill_ecosystem.integration_cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "ecosystem/src"}
@@ -29,4 +32,3 @@ where = ["ecosystem/src"]
 [tool.pytest.ini_options]
 addopts = "-ra"
 testpaths = ["tests"]
-
