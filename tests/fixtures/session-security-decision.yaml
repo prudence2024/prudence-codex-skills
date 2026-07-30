@@ -1,0 +1,46 @@
+schema_version: 1
+decision_id: session-security-fixture
+created_at: "2026-07-30T20:30:00Z"
+authoring_skill: session-security
+project_revision: abc123
+policy:
+  idle_seconds: 1800
+  absolute_seconds: 28800
+  warning_seconds: 60
+  server_authority: Server session expiry and refresh responses.
+upstream_inputs:
+  security_decisions: [security-decision-fixture]
+  design_decisions: [design-decision-fixture]
+  unresolved_conflicts: []
+selected_approach:
+  summary: Coordinate a server-derived warning and explicit refresh across tabs.
+  rationale: This preserves server authority and avoids duplicate refresh races.
+  existing_capabilities_reused: [existing auth refresh endpoint, BroadcastChannel]
+  new_dependencies: []
+alternatives:
+  - name: Extend on every mouse movement.
+    rejection_reasons: [Passive motion is not meaningful activity.]
+    trade_offs: [Simpler tracking would create effectively unlimited sessions.]
+domains:
+  server_expiry: {status: pass, evidence: [Expired requests are rejected.], actions: [], risks: []}
+  meaningful_activity: {status: pass, evidence: [Only allowlisted actions update activity.], actions: [], risks: []}
+  sustained_focus: {status: partial, evidence: [Visible reading progress is bounded.], actions: [Exercise absolute expiry during reading.], risks: [Long reading has not been tested.]}
+  warning_extension: {status: pass, evidence: [Warning begins at 60 seconds and waits for refresh success.], actions: [], risks: []}
+  cross_instance: {status: pass, evidence: [Two tabs share extension and expiry results.], actions: [], risks: []}
+  reauthentication: {status: pass, evidence: [Expired sessions redirect through the provider.], actions: [], risks: []}
+  restoration: {status: partial, evidence: [Allowlisted draft state restores.], actions: [Test expired envelope.], risks: [Expiry path is unverified.]}
+  accessibility_privacy: {status: pass, evidence: [Keyboard focus and prohibited-field checks pass.], actions: [], risks: []}
+risks:
+  - description: An expired restoration envelope could confuse users.
+    severity: medium
+    mitigation: Show a clear expiration message and return to a safe route.
+trade_offs:
+  - Cross-tab coordination adds state-machine complexity but prevents refresh races.
+remaining_uncertainties: [Sleeping-device clock behavior is not verified.]
+validation:
+  - name: two-tab-expiry
+    status: pass
+    evidence: [Both tabs entered the expired state after server rejection.]
+    environment: local-browser
+context_changes: [Added session timeout policy and unverified sleep behavior.]
+handoffs: [Design Toolkit should retain the approved accessible warning presentation.]

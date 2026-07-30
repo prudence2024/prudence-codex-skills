@@ -1,0 +1,49 @@
+schema_version: 1
+decision_id: legal-business-fixture
+created_at: "2026-07-30T21:00:00Z"
+authoring_skill: legal-business
+project_revision: abc123
+fact_sheet:
+  - fact: The product sells monthly SaaS subscriptions.
+    source: Approved pricing configuration.
+    status: verified
+  - fact: Governing law clause.
+    source: Qualified counsel.
+    status: counsel_dependent
+selected_approach:
+  summary: Separate public consumer terms from negotiated B2B agreements.
+  rationale: The customer roles and negotiated obligations differ.
+  audiences: [individual subscribers, business customers]
+  jurisdictions: [Nigeria, cross-border review required]
+alternatives:
+  - name: Use one document for every customer.
+    rejection_reasons: [Consumer and negotiated B2B obligations would be conflated.]
+    trade_offs: [Fewer files would create less drafting work but greater ambiguity.]
+documents:
+  terms: {status: draft, version: "0.1", facts_used: [monthly subscription], unresolved_fields: [governing law], review_markers: ["[LAWYER REVIEW REQUIRED]"]}
+  privacy: {status: draft, version: "0.1", facts_used: [data inventory], unresolved_fields: [transfer safeguard], review_markers: ["[LAWYER REVIEW REQUIRED]"]}
+  dpa: {status: draft, version: "0.1", facts_used: [processor role], unresolved_fields: [transfer clause], review_markers: ["[LAWYER REVIEW REQUIRED]"]}
+  refund: {status: draft, version: "0.1", facts_used: [monthly subscription], unresolved_fields: [statutory carve-out], review_markers: ["[LAWYER REVIEW REQUIRED]"]}
+  msa_sla: {status: draft, version: "0.1", facts_used: [support hours], unresolved_fields: [liability cap], review_markers: ["[LAWYER REVIEW REQUIRED]"]}
+  cyber_insurance: {status: draft, version: "0.1", facts_used: [security evidence], unresolved_fields: [requested coverage], review_markers: []}
+consistency:
+  - name: entity-name
+    status: pass
+    evidence: [The same approved entity name appears in all drafts.]
+approvals:
+  business_owner: {status: pending, evidence: []}
+  qualified_counsel: {status: pending, evidence: []}
+  publication: {status: not_requested, evidence: []}
+risks:
+  - description: Jurisdiction-dependent clauses are unresolved.
+    severity: high
+    mitigation: Obtain qualified counsel review before publication or signature.
+trade_offs:
+  - Separate documents add maintenance work but keep roles and promises clear.
+remaining_uncertainties: [Transfer safeguard and governing law are unresolved.]
+validation:
+  - name: unresolved-placeholder-scan
+    status: pass
+    evidence: [All unresolved fields have explicit owner or lawyer markers.]
+context_changes: [Added draft document set and counsel dependencies.]
+handoffs: [Business owner and qualified counsel must review the drafts.]

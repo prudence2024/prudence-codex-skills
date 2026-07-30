@@ -1,4 +1,4 @@
 interface:
   display_name: "Security"
   short_description: "Security and production-readiness audit"
-  default_prompt: "Use $security to audit this project for security, data, deployment, cost, scaling, monitoring, backup, and launch-readiness risks."
+  default_prompt: "Use $security to assess and improve this project's application, API, data, infrastructure, supply-chain, and launch security with evidence-backed findings."

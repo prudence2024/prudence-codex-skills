@@ -1,0 +1,117 @@
+schema_version: 1
+id: incident-response
+name: Incident Response
+version: 1.0.0
+category: operations
+status: stable
+purpose: >-
+  Establish and operate evidence-backed observability, incident command,
+  recovery, communication, review, remediation, and recurring-failure learning.
+scope:
+  includes:
+    - Error tracking, structured logs, user-impact alerts, uptime, health checks, and detection-path validation.
+    - Severity, incident ownership, append-only timelines, mitigation, recovery, verification, and closure.
+    - Independent status pages, incident updates, scheduled maintenance, subscriber notices, and in-app communication.
+    - Transactional email authentication, reputation, deliverability events, inbox placement, and alerting.
+    - Recovery objectives, backups, restores, rollback, runbooks, and safe drills.
+    - Automatic 48-hour post-mortem scheduling, blameless reviews, remediation tracking, and prior-pattern matching.
+  excludes:
+    - Preventive application-security control ownership and vulnerability-remediation prioritization.
+    - Customer-ticket classification and support-queue operations.
+    - Legal notification interpretation, contract drafting, and compliance conclusions.
+    - Interface design, component selection, and search-visibility strategy.
+responsibilities:
+  - Establish services, workflows, owners, evidence sources, communication channels, recovery objectives, and uncertainty.
+  - Build or audit the detection-to-recovery and review lifecycle.
+  - Operate severity, command, factual timelines, mitigation, recovery verification, and status transitions.
+  - Coordinate truthful public, subscriber, maintenance, and email-delivery communication.
+  - Schedule reviews within 48 hours, conduct blameless analysis, and track prevention actions.
+  - Search prior reviews and surface reasoned matches without treating similarity as proof.
+  - Consume Security, Support Triage, and Legal Business constraints without duplicating ownership.
+  - Update Shared Context and produce standardized reports and handoffs.
+inputs:
+  - id: project-context
+    description: Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.
+    schema: ecosystem/schemas/shared-context.json
+  - id: incident-request
+    description: Readiness, active incident, recovery, communication, deliverability, review, or audit request.
+  - id: operational-evidence
+    description: Logs, alerts, traces, health checks, dashboards, deployments, backups, status, delivery events, and runbooks.
+  - id: specialist-evidence
+    description: Applicable Security, Support Triage, Legal Business, Design Toolkit, or Visibility decisions.
+outputs:
+  - id: incident-response-decision
+    description: Lifecycle strategy or incident record with alternatives, evidence, actions, risks, uncertainty, and handoffs.
+    schema: incident-response/schemas/incident-response-decision.json
+  - id: validation-report
+    description: Standardized evidence-backed skill-run report.
+    schema: ecosystem/schemas/report.json
+  - id: context-update
+    description: Attributable Shared Context additions and handoff.
+    schema: ecosystem/schemas/shared-context.json
+dependencies:
+  required: []
+  optional:
+    - security
+    - support-triage
+    - legal-business
+    - design-toolkit
+    - visibility
+configuration:
+  - name: postmortem_due_hours
+    description: Maximum interval from incident logging to review due time.
+    required: false
+    default: 48
+  - name: status_timezone
+    description: User-facing timezone displayed alongside authoritative UTC timestamps.
+    required: false
+    default: project-defined
+context:
+  reads:
+    - project
+    - goals
+    - constraints
+    - state.facts
+    - state.assumptions
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+  writes:
+    - state.facts
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+    - handoff
+pipeline:
+  processing:
+    - Validate or create Shared Context and inventory the operational lifecycle.
+    - Establish readiness or incident state, ownership, severity, evidence, impact, and timeline.
+    - Mitigate and recover before completing review administration.
+    - Communicate verified status, validate recovery, schedule review, and track prevention actions.
+    - Update Shared Context, report evidence, and hand off specialist work.
+  reasoning:
+    - Prioritize customer impact, safety, containment, reversible mitigation, and verified recovery.
+    - Separate facts, hypotheses, decisions, configuration, exercised behavior, and monitored outcomes.
+    - Prefer existing operational systems and idempotent automation.
+    - Explain selected actions, alternatives, rejection reasons, risks, trade-offs, communication limits, and uncertainty.
+validation:
+  - Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.
+  - Validate incident decisions against incident-response/schemas/incident-response-decision.json.
+  - Validate detection, alert, timeline, scheduling, retry, status, communication, recovery, review, access, and pattern-matching paths.
+  - Validate Shared Context writes, specialist handoffs, and the standardized report.
+  - Validate registry freshness and run the full repository test suite.
+reporting:
+  report_type: incident-response-run
+extension_points:
+  - observability-providers
+  - alert-routing-adapters
+  - status-page-providers
+  - notification-providers
+  - email-delivery-providers
+  - recovery-orchestrators
+  - incident-knowledge-indexes
+  - report-sections

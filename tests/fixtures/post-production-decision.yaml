@@ -1,0 +1,71 @@
+schema_version: 1
+decision_id: post-production-fixture
+created_at: "2026-07-30T22:30:00Z"
+authoring_skill: post-production
+scope:
+  request: Audit launch readiness for the web application.
+  project_revision: abc123
+  environments: [repository, local-production-build]
+  applicable_controls: [design quality, visibility, security, incident readiness]
+deployment_identity:
+  status: not_verified
+  repository_revision: abc123
+  deployed_revision: null
+  evidence: [No live deployment evidence was supplied.]
+specialist_runs:
+  - skill_id: design-toolkit
+    skill_version: 1.0.0
+    decision_id: design-decision-fixture
+    environment: local-production-build
+    status: completed
+    evidence: [Responsive and accessibility checks passed.]
+    limitations: [No physical-device testing.]
+  - skill_id: security
+    skill_version: 1.0.0
+    decision_id: security-decision-fixture
+    environment: repository
+    status: partial
+    evidence: [Repository controls were reviewed.]
+    limitations: [Provider controls were not accessed.]
+domains:
+  design_quality: {owner: design-toolkit, status: completed, evidence: [Specialist report linked.], actions: []}
+  visibility: {owner: visibility, status: partial, evidence: [Local visibility checks passed.], actions: [Verify live indexing controls.]}
+  security: {owner: security, status: partial, evidence: [Repository security report linked.], actions: [Verify deployed headers.]}
+  sessions: {owner: session-security, status: not_applicable, evidence: [The application has no authenticated session.], actions: []}
+  legal_business: {owner: legal-business, status: unverified, evidence: [No owner-approved legal evidence supplied.], actions: [Obtain owner and counsel review.]}
+  incident_readiness: {owner: incident-response, status: partial, evidence: [Runbooks exist.], actions: [Exercise alerts and restore.]}
+  support_readiness: {owner: support-triage, status: unverified, evidence: [No support system supplied.], actions: [Confirm intake routing.]}
+  deployment_code_quality: {owner: post-production, status: completed, evidence: [Build and tests passed for abc123.], actions: []}
+conflicts:
+  - description: CSP hardening blocks an analytics endpoint required by Visibility.
+    owners: [security, visibility]
+    resolution: Keep the endpoint blocked until its necessity and data impact are approved.
+    alternatives: [Allow the endpoint immediately.]
+    trade_offs: [Analytics remains incomplete while exposure stays minimized.]
+readiness:
+  status: not_enough_evidence
+  score: null
+  formula: Completed and partial values over applicable verified controls.
+  denominator: 6
+  limitations: [Live deployment and provider evidence are absent.]
+findings:
+  - severity: high
+    owner: incident-response
+    finding: Restore behavior has not been exercised.
+    impact: Recovery time and data integrity are unknown.
+    evidence: [Only backup configuration was supplied.]
+    remediation: Run a bounded isolated restore drill.
+changes: []
+risks:
+  - description: Repository results may not match production.
+    severity: high
+    mitigation: Verify the deployed revision and live responses.
+trade_offs: [Deferring a score preserves integrity but provides less executive simplicity.]
+remaining_uncertainties: [The deployed revision and provider settings are unknown.]
+validation:
+  - name: repository-suite
+    status: pass
+    evidence: [All project tests passed.]
+    environment: repository
+context_changes: [Added aggregate readiness and deployment uncertainty.]
+handoffs: [Owners must supply live deployment and provider evidence.]

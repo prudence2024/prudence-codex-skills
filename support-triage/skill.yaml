@@ -1,0 +1,112 @@
+schema_version: 1
+id: support-triage
+name: Support Triage
+version: 1.0.0
+category: support
+status: stable
+purpose: >-
+  Classify, safely resolve, enrich, communicate, and route customer-support
+  issues using risk-first evidence and explicit automation authority.
+scope:
+  includes:
+    - Automated resolution for current, known, deterministic, authorized support paths.
+    - Assisted triage for incomplete, unknown, ambiguous, or mixed support issues.
+    - Human-required classification for billing, refund, policy, legal, privacy, security, safety, abuse, identity, and emotional escalation.
+    - Context gathering, data minimization, customer acknowledgement, routing, handoff quality, follow-up, and closure evidence.
+    - Form, booking, payment, email, account, complaint, and bug-report intake.
+  excludes:
+    - Active incident command, recovery, public status, and incident-communication ownership.
+    - Security or privacy investigation and remediation ownership.
+    - Legal conclusions, refund decisions, policy exceptions, compensation, and unauthorized business commitments.
+    - Product-roadmap decisions and engineering implementation ownership.
+responsibilities:
+  - Establish ticket facts, customer impact, urgency, risk signals, current incidents, authorization, and uncertainty.
+  - Apply the highest-risk tier among automated resolution, assisted triage, and human required.
+  - Verify known-path preconditions before any automated action and validate the outcome.
+  - Gather a complete, minimized, access-appropriate escalation context package.
+  - Communicate calmly without blame, internal detail exposure, or unauthorized promises.
+  - Consume approved Incident Response status and hand off security, legal, billing, policy, product, or engineering work.
+  - Track owner acceptance, follow-up, resolution, closure evidence, Shared Context, and standardized reports.
+inputs:
+  - id: project-context
+    description: Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.
+    schema: ecosystem/schemas/shared-context.json
+  - id: support-ticket
+    description: Customer message, channel, history, identifiers, attachments, and supplied evidence.
+  - id: resolution-catalog
+    description: Current approved known issues, deterministic steps, authorization, rollback, and closure criteria.
+  - id: specialist-status
+    description: Approved Incident Response, Security, Legal Business, billing, product, or engineering information.
+outputs:
+  - id: support-triage-decision
+    description: Classification, rationale, context, actions, communication, routing, risks, uncertainty, and handoffs.
+    schema: support-triage/schemas/support-triage-decision.json
+  - id: validation-report
+    description: Standardized evidence-backed skill-run report.
+    schema: ecosystem/schemas/report.json
+  - id: context-update
+    description: Attributable Shared Context additions and handoff.
+    schema: ecosystem/schemas/shared-context.json
+dependencies:
+  required: []
+  optional:
+    - incident-response
+    - security
+    - legal-business
+configuration:
+  - name: automation_authority
+    description: Current approved action catalog and limits for automated resolution.
+    required: false
+    default: []
+  - name: sensitive_data_policy
+    description: Project policy for minimizing, redacting, retaining, and sharing support evidence.
+    required: false
+    default: project-defined
+context:
+  reads:
+    - project
+    - goals
+    - constraints
+    - state.facts
+    - state.assumptions
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+  writes:
+    - state.facts
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+    - handoff
+pipeline:
+  processing:
+    - Validate or create Shared Context and establish ticket facts, authorization, incidents, and risk signals.
+    - Minimize evidence, compare known paths, classify using the highest-risk applicable tier, and explain alternatives.
+    - Resolve authorized known paths or build a complete escalation package and customer acknowledgement.
+    - Track outcome, owner acceptance, closure evidence, Shared Context, and handoffs.
+  reasoning:
+    - Prefer customer safety, reversibility, data minimization, current approved procedures, and the least risky valid tier.
+    - Separate sent, received, accepted, resolved, and verified states.
+    - Preserve Incident Response, Security, Legal Business, billing, product, and engineering ownership.
+    - Explain classification, alternatives, rejection reasons, risks, trade-offs, authorization, and uncertainty.
+validation:
+  - Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.
+  - Validate triage decisions against support-triage/schemas/support-triage-decision.json.
+  - Validate known-path version and authorization, context completeness, redaction, routing, communication, and closure evidence.
+  - Validate Shared Context writes, specialist handoffs, and the standardized report.
+  - Validate registry freshness and run the full repository test suite.
+reporting:
+  report_type: support-triage-run
+extension_points:
+  - intake-channel-adapters
+  - resolution-catalogs
+  - classification-rules
+  - redaction-providers
+  - routing-providers
+  - customer-communication-templates
+  - closure-validators
+  - report-sections

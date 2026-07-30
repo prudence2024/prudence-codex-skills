@@ -1,4 +1,4 @@
 interface:
   display_name: "Incident Response"
   short_description: "Incidents, status pages, recovery, and email health"
-  default_prompt: "Use $incident-response to audit or build incident detection, public communication, recovery, and email-delivery readiness."
+  default_prompt: "Use $incident-response to establish or operate evidence-backed detection, incident command, recovery, communication, review, and recurring-failure learning."

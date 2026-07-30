@@ -1,0 +1,116 @@
+schema_version: 1
+id: post-production
+name: Post Production
+version: 1.0.0
+category: orchestration
+status: stable
+purpose: >-
+  Coordinate specialist-owned production-readiness audits, safe remediation,
+  deployment verification, aggregate prioritization, and consolidated reporting.
+scope:
+  includes:
+    - Repository, revision, build, preview, deployment, and live-environment identity.
+    - Cross-discipline audit coverage, specialist routing, dependency sequencing, conflict handling, and evidence provenance.
+    - Baseline and final five-state audit matrices with severity-ranked findings.
+    - Safe remediation coordination, affected-check reruns, production-build verification, and live verification separation.
+    - Evidence-based readiness formulas, category aggregation, owner actions, and consolidated reports.
+  excludes:
+    - Primary design, visibility, security, session, legal, incident, or support domain reasoning.
+    - Fabricated scores, provider evidence, deployment state, legal approval, recovery, indexing, or customer resolution.
+    - Unauthorized production deployment, intrusive testing, destructive recovery, fault injection, external publication, or communication.
+responsibilities:
+  - Establish project scope, worktree state, environments, deployed revision, audit applicability, constraints, and uncertainty.
+  - Produce the evidence-backed baseline before changes.
+  - Route controls to Design Toolkit, Visibility, Security, Session Security, Legal Business, Incident Response, and Support Triage.
+  - Preserve each specialist result's identity, version, evidence, environment, limitations, risks, and checks not run.
+  - Sequence dependencies, resolve cross-domain conflicts with owners, and coordinate authorized reversible fixes.
+  - Re-run affected checks and distinguish local, build, preview, deployed, live, provider, field, and owner evidence.
+  - Calculate readiness transparently or report insufficient evidence.
+  - Update Shared Context and produce the consolidated standardized report and handoffs.
+inputs:
+  - id: project-context
+    description: Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.
+    schema: ecosystem/schemas/shared-context.json
+  - id: audit-request
+    description: Launch, release, live-vs-repository, tool-result, or production-readiness request.
+  - id: project-artifacts
+    description: Repository, instructions, configuration, deployments, provider evidence, measurements, and supplied reports.
+  - id: specialist-results
+    description: Versioned decisions and reports from the seven first-party specialist skills.
+outputs:
+  - id: post-production-decision
+    description: Scope, deployment identity, specialist plan, results, conflicts, readiness, priorities, and handoffs.
+    schema: post-production/schemas/post-production-decision.json
+  - id: validation-report
+    description: Consolidated standardized evidence-backed audit and remediation report.
+    schema: ecosystem/schemas/report.json
+  - id: context-update
+    description: Attributable Shared Context additions and handoff.
+    schema: ecosystem/schemas/shared-context.json
+dependencies:
+  required: []
+  optional:
+    - design-toolkit
+    - visibility
+    - security
+    - session-security
+    - legal-business
+    - incident-response
+    - support-triage
+configuration:
+  - name: target_environment
+    description: Requested repository, build, preview, staging, or production environment.
+    required: false
+    default: repository
+  - name: readiness_weights
+    description: Approved category weights used only with explicit relevant checks and evidence.
+    required: false
+    default: {}
+context:
+  reads:
+    - project
+    - goals
+    - constraints
+    - state.facts
+    - state.assumptions
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+  writes:
+    - state.facts
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+    - handoff
+pipeline:
+  processing:
+    - Validate or create Shared Context and establish project, revision, environment, and deployment truth.
+    - Produce the baseline and route relevant controls to one specialist owner each.
+    - Preserve specialist provenance, sequence dependencies, and resolve conflicts with owners.
+    - Coordinate authorized fixes and re-run affected local, build, preview, deployed, live, provider, or field checks.
+    - Calculate transparent readiness or report insufficient evidence, then update Shared Context and consolidate reporting.
+  reasoning:
+    - Prioritize user harm, security, accessibility, correctness, recoverability, visibility, and evidence over vanity scores.
+    - Reuse specialist decisions and avoid duplicating domain reasoning.
+    - Distinguish all environment and outcome evidence states.
+    - Explain sequencing, selected resolutions, alternatives, rejection reasons, risks, trade-offs, limitations, and uncertainty.
+validation:
+  - Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.
+  - Validate coordination decisions against post-production/schemas/post-production-decision.json.
+  - Validate specialist provenance, coverage, single ownership, environment identity, scoring formula, conflicts, and handoffs.
+  - Validate baseline and final matrices, changed artifacts, affected-check reruns, Shared Context writes, and standardized reporting.
+  - Validate registry freshness and run the full repository test suite.
+reporting:
+  report_type: post-production-run
+extension_points:
+  - specialist-skills
+  - audit-domains
+  - deployment-identity-adapters
+  - evidence-collectors
+  - readiness-models
+  - conflict-resolvers
+  - report-sections

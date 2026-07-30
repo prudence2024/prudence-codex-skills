@@ -1,0 +1,51 @@
+schema_version: 1
+decision_id: security-decision-fixture
+created_at: "2026-07-30T20:00:00Z"
+authoring_skill: security
+project_revision: abc123
+scope:
+  assets: [customer records, account sessions]
+  actors: [customer, administrator, anonymous attacker]
+  trust_boundaries: [browser to application API, application to database]
+  data_classes: [personal data, credentials]
+  environments: [repository, staging]
+selected_controls:
+  summary: Enforce server-side authorization and tenant-scoped database access.
+  rationale: The API and database are the enforceable trust boundaries.
+  existing_capabilities_reused: [existing authentication provider, database policies]
+  new_dependencies: []
+  rollback: Revert the policy migration and API authorization commit together.
+alternatives:
+  - name: Hide unauthorized controls in the client only.
+    rejection_reasons: [Client visibility is not an authorization control.]
+    trade_offs: [Simpler UI code would leave direct API access exposed.]
+domains:
+  secrets: {status: pass, evidence: [No tracked environment files found.], actions: [], risks: []}
+  inputs_outputs: {status: pass, evidence: [API payloads use server schemas.], actions: [], risks: []}
+  authentication_authorization: {status: pass, evidence: [Cross-user requests are denied server-side.], actions: [], risks: []}
+  data_access: {status: pass, evidence: [Tenant policies constrain representative queries.], actions: [], risks: []}
+  apis_integrations: {status: partial, evidence: [Webhook signatures are checked.], actions: [Exercise idempotent replay in staging.], risks: [Replay behavior is not verified.]}
+  uploads_payments: {status: not_applicable, evidence: [], actions: [], risks: []}
+  infrastructure_delivery: {status: partial, evidence: [Headers are present in local production output.], actions: [Verify deployed responses.], risks: [Deployment is not observed.]}
+  dependencies: {status: pass, evidence: [The lockfile audit has no high or critical findings.], actions: [], risks: []}
+  resilience_backups: {status: not_verified, evidence: [Provider configuration was not accessed.], actions: [Exercise restore in staging.], risks: [Recoverability is unknown.]}
+  security_observability: {status: partial, evidence: [Authentication failures are logged.], actions: [Exercise the alert route.], risks: [Alert delivery is not verified.]}
+risks:
+  - description: Backup recovery has not been exercised.
+    severity: high
+    likelihood: unknown
+    mitigation: Run a bounded staging restore drill.
+    residual_risk: Production recovery time remains unknown until exercised.
+trade_offs:
+  - Database policy tests add delivery work but provide enforceable tenant isolation.
+remaining_uncertainties:
+  - Provider-side backup and alert settings are not verified.
+validation:
+  - name: cross-user-authorization
+    status: pass
+    evidence: [A second-user request received a denied response.]
+    environment: staging
+context_changes:
+  - Added verified authorization evidence and backup uncertainty.
+handoffs:
+  - Incident Response should validate alert delivery and recovery ownership.

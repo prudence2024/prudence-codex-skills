@@ -1,0 +1,119 @@
+schema_version: 1
+id: security
+name: Security
+version: 1.0.0
+category: security
+status: stable
+purpose: >-
+  Identify, prioritize, implement, and validate evidence-backed application,
+  API, data, infrastructure, supply-chain, and production security controls.
+scope:
+  includes:
+    - Threat, asset, trust-boundary, and launch-risk assessment.
+    - Secrets, environment isolation, input handling, output encoding, and injection prevention.
+    - Authentication, authorization, tenant isolation, least privilege, cookies, CSRF, and login-abuse controls.
+    - API, database, storage, file-upload, payment, webhook, and idempotency security.
+    - CORS, CSP, HTTP headers, TLS, deployment, rollback, caching, resilience, cloud-cost abuse, and capacity safeguards.
+    - Dependency provenance, vulnerability management, CI/CD security gates, backups, restore evidence, and security observability.
+  excludes:
+    - Session timeout UX, meaningful-activity policy, cross-tab coordination, and workflow restoration.
+    - Active incident command, public status communication, post-mortems, and remediation-program ownership.
+    - Legal document drafting and jurisdiction-specific legal interpretation.
+    - Interface design, visual hierarchy, component selection, and search-visibility strategy.
+responsibilities:
+  - Establish assets, actors, trust boundaries, data classes, environments, threat scenarios, constraints, and uncertainty.
+  - Inspect repository and authorized runtime evidence without exposing secrets.
+  - Prioritize findings using likelihood, impact, reachability, existing controls, and evidence strength.
+  - Evaluate alternatives and explain selected controls, rejection reasons, risks, trade-offs, and residual uncertainty.
+  - Implement only authorized, narrowly scoped controls using existing platform capabilities where practical.
+  - Validate implemented, built, deployed, exercised, and monitored states separately.
+  - Supply constraints and handoffs to Session Security, Incident Response, Legal Business, Design Toolkit, and Visibility.
+  - Update Shared Context and produce standardized security reports.
+inputs:
+  - id: project-context
+    description: Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.
+    schema: ecosystem/schemas/shared-context.json
+  - id: security-request
+    description: The requested security review, implementation, hardening, or launch-readiness outcome.
+  - id: implementation-artifacts
+    description: Source, configuration, infrastructure definitions, dependency manifests, logs, and authorized runtime evidence.
+  - id: specialist-decisions
+    description: Applicable Design Toolkit, Visibility, Session Security, Incident Response, or Legal Business decisions.
+outputs:
+  - id: security-decision
+    description: Selected controls, alternatives, threat evidence, residual risks, trade-offs, uncertainty, and handoffs.
+    schema: security/schemas/security-decision.json
+  - id: validation-report
+    description: Standardized evidence-backed skill-run report.
+    schema: ecosystem/schemas/report.json
+  - id: context-update
+    description: Attributable Shared Context additions and handoff.
+    schema: ecosystem/schemas/shared-context.json
+  - id: specialist-handoff
+    description: Scoped follow-up for Session Security, Incident Response, Legal Business, Design Toolkit, Visibility, or an owner.
+dependencies:
+  required: []
+  optional:
+    - session-security
+    - incident-response
+    - legal-business
+    - design-toolkit
+    - visibility
+configuration:
+  - name: target_environment
+    description: Environment authorized for validation or implementation.
+    required: false
+    default: repository
+  - name: active_testing_authorized
+    description: Whether bounded active security testing is explicitly authorized.
+    required: false
+    default: false
+context:
+  reads:
+    - project
+    - goals
+    - constraints
+    - state.facts
+    - state.assumptions
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+  writes:
+    - state.facts
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+    - handoff
+pipeline:
+  processing:
+    - Validate or create the Shared Context envelope.
+    - Inspect assets, actors, trust boundaries, data, environments, source, configuration, and authorized evidence.
+    - Model applicable threats and prioritize risk.
+    - Compare controls, implement authorized changes, and validate evidence states separately.
+    - Update Shared Context, produce the report, and hand off domain-owned follow-up.
+  reasoning:
+    - Evaluate likelihood, impact, reachability, control effectiveness, evidence strength, residual risk, and operational cost.
+    - Prefer least privilege, defense in depth, secure defaults, existing platform controls, and minimal dependencies.
+    - Preserve specialist ownership for session behavior, incidents, legal documents, interface design, and visibility.
+    - Explain selected controls, alternatives, rejection reasons, trade-offs, rollback, owner actions, and uncertainty.
+validation:
+  - Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.
+  - Validate security decisions against security/schemas/security-decision.json.
+  - Validate applicable controls with repository, build, runtime, provider, and exercised evidence kept distinct.
+  - Validate Shared Context writes, specialist handoffs, and the standardized report.
+  - Validate registry freshness and run the full repository test suite.
+reporting:
+  report_type: security-run
+extension_points:
+  - threat-model-adapters
+  - framework-security-guidance
+  - dependency-audit-adapters
+  - cloud-security-adapters
+  - secret-scanners
+  - active-test-providers
+  - control-validators
+  - report-sections

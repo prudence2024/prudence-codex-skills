@@ -1,0 +1,114 @@
+schema_version: 1
+id: session-security
+name: Session Security
+version: 1.0.0
+category: security
+status: stable
+purpose: >-
+  Provide secure, accessible, server-authoritative authenticated-session timeout,
+  extension, coordination, reauthentication, and workflow-restoration behavior.
+scope:
+  includes:
+    - Meaningful-activity classification and bounded sustained-focus evidence.
+    - Idle and absolute session expiry policy and state transitions.
+    - Exact 60-second warning, explicit extension, and failure behavior.
+    - Cross-tab or cross-instance refresh, warning, expiry, and sign-out coordination.
+    - Safe, user-bound, short-lived workflow and draft restoration after reauthentication.
+    - Session timeout accessibility, privacy, offline, clock-skew, race, and recovery validation.
+  excludes:
+    - Authentication-provider selection, token cryptography, general authorization, and application-wide threat ownership.
+    - General interface, component, visual, responsive, motion, and brand design.
+    - Active incident command, alert ownership, public communications, and post-mortems.
+responsibilities:
+  - Establish provider semantics, lifetimes, sensitive routes, platforms, workflows, data sensitivity, constraints, and uncertainty.
+  - Consume applicable Security and Design Toolkit decisions without duplicating their reasoning.
+  - Define a server-authoritative session state machine and meaningful-activity policy.
+  - Design bounded sustained-focus, cross-tab coordination, explicit extension, expiry, reauthentication, and restoration behavior.
+  - Compare alternatives and explain rationale, rejection reasons, privacy impacts, risks, trade-offs, and uncertainty.
+  - Validate server, client, multi-tab, offline, clock-skew, accessibility, and restoration behavior.
+  - Update Shared Context and produce standardized reports and specialist handoffs.
+inputs:
+  - id: project-context
+    description: Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.
+    schema: ecosystem/schemas/shared-context.json
+  - id: session-request
+    description: The requested timeout, warning, extension, coordination, reauthentication, restoration, implementation, or audit outcome.
+  - id: security-decision
+    description: Authentication, token, cookie, authorization, threat, and server-enforcement constraints supplied by Security.
+    schema: security/schemas/security-decision.json
+  - id: design-decision
+    description: Applicable warning, focus, responsive, motion, and interaction decisions supplied by Design Toolkit.
+    schema: design-toolkit/schemas/design-decision.json
+outputs:
+  - id: session-security-decision
+    description: Selected policy, state machine, alternatives, evidence, risks, trade-offs, uncertainty, and handoffs.
+    schema: session-security/schemas/session-security-decision.json
+  - id: validation-report
+    description: Standardized evidence-backed skill-run report.
+    schema: ecosystem/schemas/report.json
+  - id: context-update
+    description: Attributable Shared Context additions and handoff.
+    schema: ecosystem/schemas/shared-context.json
+dependencies:
+  required: []
+  optional:
+    - security
+    - design-toolkit
+    - incident-response
+configuration:
+  - name: warning_seconds
+    description: Required warning lead time before idle expiry.
+    required: false
+    default: 60
+  - name: restoration_storage
+    description: Approved client or server restoration storage mechanism.
+    required: false
+    default: project-defined
+context:
+  reads:
+    - project
+    - goals
+    - constraints
+    - state.facts
+    - state.assumptions
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+  writes:
+    - state.facts
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+    - handoff
+pipeline:
+  processing:
+    - Validate or create Shared Context and consume applicable Security and Design Toolkit decisions.
+    - Inspect provider semantics, server enforcement, clients, workflows, and data sensitivity.
+    - Define policy, state transitions, activity, coordination, extension, reauthentication, and restoration.
+    - Implement authorized changes and exercise relevant server, client, multi-instance, failure, and accessibility paths.
+    - Update Shared Context, report evidence, and hand off security, design, or incident work.
+  reasoning:
+    - Preserve server authority and absolute expiry while minimizing avoidable workflow loss.
+    - Count only intentional activity and bound sustained-focus evidence without invasive surveillance.
+    - Prefer existing provider and application primitives before new dependencies.
+    - Explain selected behavior, alternatives, rejection reasons, privacy risks, trade-offs, failure modes, and uncertainty.
+validation:
+  - Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.
+  - Validate session decisions against session-security/schemas/session-security-decision.json.
+  - Validate server expiry, warning timing, extension, races, coordination, restoration, privacy, accessibility, and failure behavior.
+  - Validate Shared Context writes, specialist handoffs, and the standardized report.
+  - Validate registry freshness and run the full repository test suite.
+reporting:
+  report_type: session-security-run
+extension_points:
+  - auth-provider-adapters
+  - client-platform-adapters
+  - activity-classifiers
+  - coordination-transports
+  - restoration-stores
+  - session-test-harnesses
+  - report-sections

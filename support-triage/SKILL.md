@@ -3,164 +3,94 @@ name: support-triage
 description: Classify and route customer support tickets, form failures, booking or payment issues, complaints, bug reports, and sensitive escalations. Use when Codex needs to resolve a known support issue automatically, gather an assisted-triage context package, identify human-required legal/privacy/security or policy cases, or produce a structured support handoff.
 ---
 
-# Support Triage Skill
+# Support Triage
 
-Use this skill on any project with a customer support surface where tickets,
-messages, form submissions, emails, chats, or reports need to be classified and
-routed.
+## Purpose and boundaries
 
-## Purpose
+Classify each support issue on arrival, resolve only known and authorized paths,
+and deliver complete context to the correct owner. Use the highest-risk
+applicable tier.
 
-Classify every support ticket on arrival and route it immediately to the right
-resolution path. Do not wait for manual sorting after the fact.
+- Support Triage owns intake classification, safe known-path resolution,
+  context gathering, customer acknowledgements, routing, handoff quality, and
+  support closure criteria.
+- `$incident-response` owns active service incidents, public status, recovery,
+  and incident communication. Consume approved customer-safe status.
+- `$security` owns security and privacy investigation or remediation.
+- `$legal-business` owns refunds, legal conclusions, policy exceptions, and
+  business commitments requiring judgment.
+- Product, engineering, billing, and account owners retain decisions that exceed
+  the supplied automation authority.
 
-The goal is to resolve known issues automatically, escalate ambiguous issues with
-full context, and protect human time for cases that genuinely require human
-judgment.
+## Classification tiers
 
-## Three-Tier Classification
+### `automated_resolution`
 
-### 1. Automated Resolution
+Use only when evidence matches a known, current, authorized, deterministic
+resolution path and no higher-risk criterion applies. Perform or explain the
+resolution, log the action, verify the outcome when possible, and close only
+when resolved or the next customer action is clear.
 
-Use this tier for known issues the agent can handle end-to-end without human
-involvement.
+### `assisted_triage`
 
-Examples:
+Use for incomplete, unknown, ambiguous, or mixed issues. Gather only necessary
+context, ask concise blocking questions, inspect authorized evidence, record
+what was checked and ruled out, and hand off a package that the receiving owner
+can act on without reconstructing the conversation.
 
-- Password reset or account access flows with a known process.
-- Form submission errors with a known validation fix or documented workaround.
-- Common setup questions already covered by documentation.
-- Known service status issues with an approved customer-facing response.
-- Re-sending confirmation emails, receipts, or booking details when permitted.
-- Simple troubleshooting with deterministic steps.
+### `human_required`
 
-Requirements:
+Use immediately for billing disputes, refunds, chargebacks, duplicate charges,
+policy exceptions, emotional escalation, threats, harassment, distress, legal,
+privacy, abuse, safety, security, account ownership, identity verification
+beyond approved flows, or any request requiring human judgment.
 
-- Confirm the issue matches a known resolution path.
-- Perform the fix or provide the exact resolution steps.
-- Log the action taken.
-- Close the ticket only when the customer-facing issue is resolved or the next
-  customer action is clearly stated.
+If tiers conflict, select the highest risk. If safe automation cannot be
+established, use assisted triage.
 
-Do not use automated resolution when the ticket includes billing uncertainty,
-emotional escalation, legal/privacy risk, security risk, or a request that
-changes product/business policy.
+## Workflow
 
-### 2. Assisted Triage
+1. Validate Shared Context or create an in-memory envelope. Record the ticket,
+   channel, customer-visible facts, environment, relevant identifiers, prior
+   contact, known issues, current incidents, authorization limits, and
+   uncertainty.
+2. Minimize and redact evidence. Do not include secrets, full payment data,
+   authentication tokens, unnecessary personal data, or private logs in
+   customer responses or broadly accessible handoffs.
+3. Identify customer impact, urgency, safety, security, privacy, legal, billing,
+   policy, operational, and emotional-escalation signals.
+4. Compare the evidence with maintained known-resolution paths and current
+   Incident Response status. Verify version, preconditions, authorization,
+   reversibility, and expected outcome.
+5. Select the tier and explain why. Record credible alternative tiers, why they
+   were rejected, risks, trade-offs, and uncertainty.
+6. For automated resolution, perform only authorized actions, validate the
+   outcome, log the exact action, and state rollback or failure handling.
+7. For assisted or human-required work, assemble the escalation context package:
+   summary, request, timeline, identifiers, environment, evidence, attempted
+   fixes, ruled-out causes, uncertainty, impact, urgency, risk, recommended next
+   action, and named owner when known.
+8. Send a calm, specific acknowledgement. Do not expose internal details, assign
+   blame, or promise refunds, compensation, timelines, policy exceptions, legal
+   outcomes, or incident resolution without authority.
+9. Update Shared Context with attributable support facts and handoffs. Record
+   customer response, owner acceptance, follow-up state, and closure evidence.
 
-Use this tier for unknown, incomplete, ambiguous, or mixed issues where a human
-may need to decide, but the agent can still gather context first.
+## Decision and reporting contract
 
-Examples:
+Validate structured decisions against
+`schemas/support-triage-decision.json`. Every report includes classification,
+rationale, impact, evidence, context gathered, action, authorization, customer
+communication, next owner, next step, risks, uncertainty, checks not run, Shared
+Context changes, and handoffs.
 
-- A bug report without enough reproduction details.
-- A customer complaint that may be caused by configuration, user error, or a
-  real product issue.
-- A request involving multiple systems where ownership is unclear.
-- A failed payment, failed email, failed booking, or missing notification where
-  logs need to be checked before escalation.
-- A support message that is unclear but not emotionally escalated.
+## Guardrails
 
-Requirements:
-
-- Gather the relevant context before routing.
-- Ask concise follow-up questions only if the missing information is required.
-- Check available logs, request payloads, timestamps, customer identifiers,
-  environment, browser/device details, and recent changes where applicable.
-- Summarize what is known, what was checked, what remains unclear, and the
-  recommended next action.
-- Route to the correct human/team only after the context package is complete.
-
-Assisted triage is not a cold handoff. The receiving human should be able to
-understand the issue without re-reading the entire conversation from scratch.
-
-### 3. Human-Required
-
-Use this tier for anything that genuinely needs a person.
-
-Human-required examples:
-
-- Billing disputes where the customer may be right and the system may be wrong.
-- Refund decisions, chargebacks, double charges, or price exceptions.
-- Feature requests disguised as bug reports.
-- Customer requests that require business approval or policy judgment.
-- Escalated emotional situations, threats, harassment, distressed customers, or
-  repeated frustration.
-- Legal, privacy, compliance, abuse, safety, or security-sensitive reports.
-- Account ownership disputes or identity verification beyond approved automated
-  flows.
-
-Requirements:
-
-- Route immediately to the appropriate human owner.
-- Include the complete customer interaction history.
-- Include all gathered context, logs, timestamps, screenshots, payloads, account
-  identifiers, order/booking identifiers, and previous attempted fixes.
-- Clearly mark why the ticket is human-required.
-- Do not make promises about refunds, compensation, timelines, legal outcomes,
-  or policy exceptions unless explicitly authorized.
-
-## Automatic Routing Rules
-
-Every incoming ticket must be classified at arrival into one of:
-
-- `automated_resolution`
-- `assisted_triage`
-- `human_required`
-
-Routing should happen before any manual queue sorting.
-
-Use the highest-risk applicable tier. If a ticket fits both automated and
-human-required criteria, route it as human-required. If the agent lacks enough
-information to safely automate, use assisted triage.
-
-## Escalation Context Package
-
-Any escalation to `assisted_triage` or `human_required` must include:
-
-- Customer name or identifier, if available.
-- Contact channel and reply destination.
-- Full customer interaction history.
-- Ticket summary in 2-5 sentences.
-- Exact customer request or complaint.
-- Timeline of events with timestamps.
-- Relevant account, booking, order, invoice, or submission IDs.
-- Browser, device, location, app version, or environment details if relevant.
-- Logs, error codes, request URLs, response statuses, and payload summaries.
-- Steps already taken by the agent.
-- What the agent ruled out.
-- Remaining uncertainty.
-- Recommended next action.
-- Urgency and risk level.
-
-## Customer Communication
-
-Keep responses clear, calm, and specific.
-
-- For automated resolution, tell the customer what was fixed or what to do next.
-- For assisted triage, acknowledge the issue and explain that the team is
-  reviewing the gathered details.
-- For human-required cases, acknowledge the concern without overpromising and
-  state that a person will review it.
-
-Avoid blame. Avoid exposing internal logs or sensitive implementation details to
-the customer.
-
-## Classification Output Format
-
-When classifying a ticket, produce:
-
-```text
-Classification: automated_resolution | assisted_triage | human_required
-Reason:
-Customer impact:
-Context gathered:
-Action taken:
-Next owner:
-Next step:
-```
-
-For `automated_resolution`, `Next owner` may be `agent`.
-
-For `assisted_triage` and `human_required`, `Next owner` must name the relevant
-team or person if known.
+- Never automate a destructive, money-moving, identity-changing, policy-changing,
+  or security-sensitive action unless a current approved path explicitly permits
+  it and required confirmation succeeds.
+- Do not treat a known incident as the cause without matching evidence.
+- Do not close on message delivery alone; distinguish sent, received, accepted,
+  resolved, and verified states.
+- Preserve the complete relevant interaction history for human escalation while
+  applying access controls and data minimization.

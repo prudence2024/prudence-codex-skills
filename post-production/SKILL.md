@@ -5,61 +5,86 @@ description: Coordinate a complete evidence-based post-production audit and hard
 
 # Post Production
 
-Audit the real project and deployed environment before claiming production readiness. Coordinate the existing specialist skills instead of duplicating their detailed guidance.
+## Purpose
 
-## Reference routing
+Coordinate a complete evidence-based production-readiness audit and hardening
+pass. Audit the real repository and intended environment. Delegate domain
+reasoning to the owning skills and preserve the provenance of their decisions.
 
-- Read [references/audit-matrix.md](references/audit-matrix.md) for the complete cross-discipline checklist and result statuses.
-- Use `$visibility` for SEO, AI crawlability, metadata, schema, indexing, local SEO, analytics, and social-preview work.
-- Use `$design-toolkit` for accessibility, responsive behavior, progressive enhancement, forms, browser diagnostics, and frontend performance.
-- Use `$security` for secrets, APIs, headers, CSP, cookies, dependencies, rate limiting, data access, and infrastructure controls.
-- Use `$incident-response` for error tracking, logs, alerts, uptime, health checks, rollback, backups, runbooks, and recovery drills.
-- Use `$legal-business` when the site collects personal data, takes reservations or payments, or publishes legal policies.
-- Use `$session-security` only when authenticated sessions exist.
-- Use `$support-triage` when the request begins with a user-reported production failure or deployment discrepancy.
+Post Production owns scope, deployment truth, coverage, sequencing, conflict
+handling, aggregate prioritization, readiness calculation, verification
+coordination, and the consolidated report. It does not replace specialists.
+
+## Specialist routing
+
+- `$design-toolkit`: accessibility, responsive and mobile behavior, progressive
+  enhancement, forms, browser behavior, and frontend performance.
+- `$visibility`: SEO, AI discoverability, crawlability, indexing, metadata,
+  structured data, analytics, search platforms, local visibility, and social
+  previews.
+- `$security`: secrets, APIs, headers, CSP, cookies, dependencies, rate
+  limiting, data access, infrastructure, and launch security.
+- `$session-security`: timeout and restoration behavior when authenticated
+  sessions exist.
+- `$legal-business`: legal documents, privacy disclosures, contractual
+  commitments, and counsel or owner approvals.
+- `$incident-response`: monitoring, logs, alerts, uptime, health, status,
+  rollback, backups, restores, runbooks, recovery, and email health.
+- `$support-triage`: user-reported failures and support-context handoffs.
+
+Read [audit-matrix.md](references/audit-matrix.md) for the complete checklist.
+Read [orchestration.md](references/orchestration.md) for Shared Context,
+provenance, scoring, conflict, and reporting rules.
 
 ## Workflow
 
-1. Establish scope and deployment truth.
-   - Read project instructions and inspect the stack, routes, integrations, data stores, auth, payments, forms, hosting, Git branches, and deployment configuration.
-   - Record the current worktree state before editing. Preserve unrelated changes.
-   - Identify the exact deployed revision when possible. Compare live asset hashes, build identifiers, or distinctive markup with the repository; a pushed commit is not proof of deployment.
+1. Validate Shared Context or create an in-memory envelope. Record the request,
+   project instructions, worktree, stack, routes, services, data, auth, payments,
+   forms, analytics, hosting, environments, deployment configuration, current
+   branch, revision, and unknowns.
+2. Establish deployment truth. A commit, push, build, preview, production
+   deployment, and live verified response are separate states. Compare build
+   identifiers, asset hashes, release metadata, or distinctive markup where
+   possible.
+3. Produce the baseline before changes. Inventory existing capabilities and
+   classify every relevant control as Completed, Partial, Not Started, N/A, or
+   Unverified with evidence and owner.
+4. Create a specialist execution plan. Route each control to one owner, define
+   inputs, dependencies, safe sequencing, validation environment, and handoff.
+   Do not copy specialist guidance into the coordinator.
+5. Run proportionate project commands and specialist audits. Preserve each
+   result's skill ID, version, timestamp, environment, evidence, limitations,
+   decisions, risks, and checks not run.
+6. Resolve cross-domain conflicts explicitly. Return disputed decisions to their
+   owner and record the selected resolution, alternatives, rejection reasons,
+   risks, trade-offs, and uncertainty.
+7. Apply only authorized fixes. Prefer existing and framework-native patterns;
+   keep changes small, reversible, and tied to evidence.
+8. Re-run affected checks and the production build. Validate preview before
+   production where available and verify live behavior separately after
+   deployment.
+9. Calculate readiness only from explicit relevant checks. Publish the formula,
+   denominator, weights, evidence gaps, and limitations; otherwise report
+   `Not enough evidence`. Never invent a score or optimize solely for 100.
+10. Deliver the consolidated report: executive outcome, three largest risks,
+    category results, severity-ranked findings, changes, verification, owner
+    actions, checks run, checks not run, final matrix, handoffs, and a concise
+    commit message when project files changed.
 
-2. Produce the baseline report before changes.
-   - Inventory what already exists and do not duplicate it.
-   - Classify each relevant control as `[x] Completed`, `[-] Partial`, `[ ] Not Started`, `N/A`, or `Unverified`.
-   - Rank findings as Critical, High, Medium, or Low and give evidence plus user impact.
-   - Never invent a score. Derive scores from explicit completed/relevant checks or report tool scores with their source, URL, mode, timestamp, and limitations.
+## Decision and reporting contract
 
-3. Run proportionate checks.
-   - Build, test, type-check, lint, and audit dependencies using the project's real commands.
-   - Inspect initial server HTML, metadata, links, status codes, redirects, structured data, robots, sitemap, llms.txt, manifests, headers, and browser console/network behavior.
-   - Test representative phone, tablet, and desktop layouts plus keyboard-only operation.
-   - Run Lighthouse/PageSpeed against a production build or deployed URL. Distinguish lab results from field data and local results from live results.
-   - Mark provider-dashboard controls such as billing alerts, uptime notifications, Search Console ownership, and rollback history `Unverified` until direct evidence exists.
-
-4. Apply authorized fixes.
-   - Prefer framework-native and existing-project patterns.
-   - Keep changes small, reversible, and tied to confirmed findings.
-   - Preserve working functionality and user data. Do not add a provider, tracker, cookie, or paid service without confirming configuration and privacy impact.
-   - Do not run intrusive security scans, load tests, destructive recovery tests, or production fault injection without explicit authorization and safe bounds.
-
-5. Verify after changes.
-   - Re-run affected checks and the production build.
-   - Check the preview deployment before production when available.
-   - Verify the live environment separately after deployment; a successful local build or preview is not production evidence.
-   - Confirm fixes using concrete output, not code inspection alone.
-
-6. Deliver the final report.
-   - Lead with the executive outcome and the three largest remaining risks.
-   - Include measured SEO, accessibility, performance, security, AI-discoverability, and Core Web Vitals results where evidence supports them.
-   - List Critical, High, Medium, and Low findings; changes applied; remaining owner actions; commands/checks run; and checks that could not be completed.
-   - End with the status checklist from the audit matrix and provide a concise GitHub commit message whenever project files changed.
+Validate coordination decisions against
+`schemas/post-production-decision.json`. Every result must preserve specialist
+provenance. Use the common report and Shared Context schemas for run output.
 
 ## Guardrails
 
-- Do not promise or optimize solely for a Lighthouse score of 100. Prioritize user harm, conformance, Core Web Vitals, and repeatable evidence.
-- Do not add schema types merely because they are listed. Add only types supported by visible, truthful page content and working features; never fabricate reviews, ratings, prices, or SearchAction behavior.
-- Treat `llms.txt`, `humans.txt`, and similar conventions accurately: useful where applicable, but not guaranteed ranking signals.
-- Distinguish application behavior from hosting-provider preview or authentication injection when diagnosing CSP, manifest, console, or indexing issues.
-- Keep preview/staging URLs out of search indexes and canonicalize public content to the production domain.
+- Do not fabricate rankings, indexing, schema facts, provider settings, field
+  metrics, production deployment, security controls, legal approval, recovery,
+  alerting, or customer resolution.
+- Do not add a provider, tracker, cookie, schema type, paid service, or dependency
+  without confirming configuration, ownership, cost, and privacy impact.
+- Do not run intrusive scans, load tests, destructive recovery, or production
+  fault injection without explicit authorization and safe bounds.
+- Preserve unrelated work and user data. Record the worktree before editing.
+- Keep preview and staging URLs out of public indexing.

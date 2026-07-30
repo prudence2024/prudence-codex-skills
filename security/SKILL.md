@@ -5,64 +5,100 @@ description: Production security, architecture, and launch-readiness workflow fo
 
 # Security
 
-## Overview
+## Purpose
 
-Use this skill to keep production web projects from shipping with avoidable security and operational gaps. Treat production readiness as a launch gate: validate secrets, inputs, auth, authorization, headers, dependencies, data design, deployment, cost controls, capacity, logs, backups, and failure handling before calling work done.
+Use this skill to assess or implement evidence-backed application, API, data,
+infrastructure, supply-chain, and production security controls. Treat security as
+a launch gate and never infer that configuration, deployment, or provider
+behavior is verified without evidence.
 
-## Reference Routing
+## Ownership boundaries
 
-- Read `references/security-skill-source.md` for the full checklist, form validation examples, launch checklist, and detailed section guidance.
-- Use the reference when the task touches forms, public APIs, authentication, payments/webhooks, database access, file uploads, deployment, dependency audits, or production launch checks.
-- Read `references/production-foundations.md` when the task includes backend contracts, schema quality, deploy/rollback readiness, cloud cost, version-control discipline, caching/CDN behavior, or load and scaling checks.
+- Security owns threat and risk assessment, secrets, input and output handling,
+  authentication and authorization controls, data access, API and webhook
+  security, uploads, headers, CORS, CSRF, dependencies, CI security gates,
+  deployment safeguards, resilience, backups, cost-abuse controls, and
+  security-relevant observability.
+- `$session-security` owns idle and absolute timeout behavior, warning UX,
+  meaningful activity, cross-tab coordination, reauthentication, and workflow
+  restoration. Supply it with Security's authentication and server-enforcement
+  constraints rather than redesigning those behaviors here.
+- `$incident-response` owns active incident command, severity, communications,
+  recovery coordination, post-mortems, and remediation tracking. Security may
+  identify readiness gaps and create a handoff.
+- `$legal-business` owns legal documents and jurisdiction-specific legal
+  interpretation. Security supplies verified data and control facts.
+- `$design-toolkit` owns interface and interaction design. Security supplies
+  constraints for safe forms, errors, authentication, and sensitive actions.
+- `$visibility` owns crawlability and search visibility. Coordinate CSP,
+  redirects, and public endpoints without taking over search decisions.
 
-## Core Workflow
+## Reference routing
 
-1. Establish scope and risk.
-   - Identify stack, deployment target, data stores, auth provider, payment/provider integrations, public APIs, forms, uploads, and admin routes.
-   - Treat anything handling personal data, money, credentials, bookings, or admin actions as high risk.
+- Read [security-skill-source.md](references/security-skill-source.md) for the
+  complete control checklist and implementation examples.
+- Read [production-foundations.md](references/production-foundations.md) for
+  backend contracts, data design, deployment, cloud cost, delivery, caching, and
+  capacity.
+- Read [security-reasoning.md](references/security-reasoning.md) for Shared
+  Context, evidence levels, decision records, reporting, and handoff rules.
 
-2. Check secrets and environment hygiene first.
-   - Confirm `.env`, `.env.local`, and `.env.*.local` are ignored.
-   - Confirm `.env.example` lists required names with empty values.
-   - Search for committed secrets without printing secret values.
-   - Ensure frontend-exposed env vars are genuinely public.
+## Workflow
 
-3. Review inputs, forms, and APIs.
-   - Validate every payload server-side with an explicit schema.
-   - Sanitize or escape user content before storage/rendering.
-   - Save only expected fields, never raw submitted objects.
-   - Add honeypot and rate limiting for public forms.
-   - Return generic client errors and log detailed server errors only server-side.
+1. Validate supplied Shared Context or create an in-memory envelope. Record the
+   project, environment, assets, trust boundaries, data classes, actors,
+   integrations, constraints, and unknowns.
+2. Inspect the repository and authorized runtime evidence. Do not print secret
+   values or perform active testing against production without authorization.
+3. Establish threat scenarios and risk using likelihood, impact, reachability,
+   existing controls, and evidence strength.
+4. Review applicable controls:
+   - secrets and environment isolation;
+   - server-side validation, sanitization, encoding, query safety, and mass
+     assignment;
+   - authentication, authorization, least privilege, tenant isolation, cookies,
+     CSRF, and login abuse;
+   - databases, storage, uploads, payments, webhooks, idempotency, and failure
+     handling;
+   - CORS, CSP, headers, TLS, caching, deployment, rollback, cost, and capacity;
+   - dependencies, lockfiles, provenance, audits, CI/CD, backups, restore
+     evidence, logging, alerting, and security ownership.
+5. Compare credible remediation alternatives. Prefer existing platform and
+   project controls, minimal privileges, and narrowly scoped dependencies.
+6. Implement only authorized changes. Preserve existing behavior unless the
+   unsafe behavior is the finding being remediated.
+7. Validate locally and, when authorized, against the intended environment.
+   Separate implemented, built, deployed, reachable, exercised, and monitored
+   evidence.
+8. Record the decision, update Shared Context, produce the standardized report,
+   and hand off domain-owned follow-up.
 
-4. Review auth, authorization, and data access.
-   - Use a proven auth provider.
-   - Enforce authorization server-side on every sensitive request.
-   - Verify row/table policies or equivalent access controls are least privilege.
-   - Test cross-user access by changing IDs/URLs where applicable.
+## Required decision record
 
-5. Review infrastructure controls.
-   - Restrict CORS to exact origins.
-   - Set CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and related headers.
-   - Reproduce CSP violations in the target environment and map each blocked URL to its directive and owner. Distinguish application resources from hosting-provider preview/authentication injection, and keep production allowlists narrower than preview allowlists where feasible.
-   - Verify cookie flags and an applicable CSRF defense for state-changing cookie-authenticated requests; do not treat CORS as a CSRF control.
-   - Consider `/.well-known/security.txt` only when a monitored security contact and renewal process exist.
-   - Verify file upload type/content/size checks and safe storage.
-   - Verify payments/webhooks use signature checks and idempotency.
+For every material security decision, record:
 
-6. Run dependency and code checks.
-   - Run the project’s build/test/lint/security audit commands when available.
-   - Use ecosystem tools such as `npm audit`, `pip-audit`, or `cargo audit`.
-   - Investigate high/critical findings before launch.
-   - Avoid adding unknown packages without checking registry existence and maintenance history.
+- selected control and why it was chosen;
+- credible alternatives, rejection reasons, and trade-offs;
+- affected assets, actors, threats, and trust boundaries;
+- evidence, validation environment, and residual risk;
+- assumptions, uncertainties, owner actions, and rollback considerations;
+- Shared Context changes and specialist handoffs.
 
-7. Check operations readiness.
-   - Confirm error tracking, structured logs, uptime monitoring, and billing alerts exist.
-   - Confirm backups exist, location/frequency are known, and restore has been tested.
-   - Confirm incident/breach response ownership and contact path are defined.
-   - Apply the production-foundation checks relevant to the stack and expected traffic.
+Validate machine-readable decisions against
+`schemas/security-decision.json`. Use the common report and Shared Context
+schemas for run reporting and context updates.
 
-## Output Expectations
+## Evidence and safety rules
 
-When reviewing, lead with findings ordered by severity and include file/line references when local code is available. Separate confirmed issues from recommendations. Include commands run and any checks that could not be completed. Do not expose secret values in output.
-
-When implementing, keep fixes narrowly scoped, preserve user changes, and avoid dummy or development-only security behavior in production branches unless the user explicitly requests it.
+- Label findings as confirmed, likely, informational, not applicable, or not
+  verified; do not convert missing evidence into a confirmed vulnerability.
+- Never expose secrets, tokens, private keys, personal data, or exploitable
+  detail unnecessarily in reports.
+- Do not run destructive, exploitative, high-volume, or production-active tests
+  without explicit authorization and a bounded plan.
+- Treat client-side validation, hidden UI, CORS, and obscurity as insufficient
+  substitutes for server-side controls.
+- Do not claim a backup is recoverable until restore has been exercised.
+- Do not claim monitoring works until an alert path has been exercised.
+- Report the three highest-risk launch blockers first, then lower-priority
+  improvements and checks not run.

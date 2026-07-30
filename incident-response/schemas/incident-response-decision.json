@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.local/schemas/incident-response-decision.json",
+  "title": "Incident Response decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "decision_id", "created_at", "authoring_skill",
+    "incident", "selected_approach", "alternatives", "domains", "timeline",
+    "actions", "risks", "trade_offs", "remaining_uncertainties",
+    "validation", "context_changes", "handoffs"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "decision_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "authoring_skill": {"const": "incident-response"},
+    "project_revision": {"type": ["string", "null"]},
+    "incident": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "title", "severity", "status", "affected_services", "logged_at", "review_due_at", "incident_lead", "impact"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "severity": {"enum": ["SEV-1", "SEV-2", "SEV-3", "SEV-4", "not_applicable"]},
+        "status": {"enum": ["readiness", "investigating", "identified", "mitigating", "monitoring", "resolved", "review_pending", "closed"]},
+        "affected_services": {"$ref": "#/$defs/stringList"},
+        "logged_at": {"type": "string", "format": "date-time"},
+        "review_due_at": {"type": "string", "format": "date-time"},
+        "incident_lead": {"type": "string", "minLength": 1},
+        "impact": {"type": "string", "minLength": 1}
+      }
+    },
+    "selected_approach": {
+      "type": "object", "additionalProperties": false,
+      "required": ["summary", "rationale", "abort_conditions"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "rationale": {"type": "string", "minLength": 1},
+        "abort_conditions": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "alternatives": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "rejection_reasons", "trade_offs"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "rejection_reasons": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "trade_offs": {"$ref": "#/$defs/stringList"}
+        }
+      }
+    },
+    "domains": {
+      "type": "object", "additionalProperties": false,
+      "required": ["observability", "triage_command", "mitigation_recovery", "status_communications", "maintenance", "email_delivery", "postmortem", "remediation_learning"],
+      "properties": {
+        "observability": {"$ref": "#/$defs/assessment"},
+        "triage_command": {"$ref": "#/$defs/assessment"},
+        "mitigation_recovery": {"$ref": "#/$defs/assessment"},
+        "status_communications": {"$ref": "#/$defs/assessment"},
+        "maintenance": {"$ref": "#/$defs/assessment"},
+        "email_delivery": {"$ref": "#/$defs/assessment"},
+        "postmortem": {"$ref": "#/$defs/assessment"},
+        "remediation_learning": {"$ref": "#/$defs/assessment"}
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["timestamp", "type", "entry"],
+        "properties": {
+          "timestamp": {"type": "string", "format": "date-time"},
+          "type": {"enum": ["fact", "hypothesis", "decision", "action", "result", "follow_up"]},
+          "entry": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["action", "owner", "priority", "due_at", "verification", "status"],
+        "properties": {
+          "action": {"type": "string", "minLength": 1},
+          "owner": {"type": "string", "minLength": 1},
+          "priority": {"enum": ["low", "medium", "high", "critical"]},
+          "due_at": {"type": "string", "format": "date-time"},
+          "verification": {"type": "string", "minLength": 1},
+          "status": {"enum": ["open", "in_progress", "blocked", "verified", "closed"]}
+        }
+      }
+    },
+    "risks": {"type": "array", "items": {"$ref": "#/$defs/risk"}},
+    "trade_offs": {"$ref": "#/$defs/stringList"},
+    "remaining_uncertainties": {"$ref": "#/$defs/stringList"},
+    "validation": {"type": "array", "items": {"$ref": "#/$defs/validation"}},
+    "context_changes": {"$ref": "#/$defs/stringList"},
+    "handoffs": {"$ref": "#/$defs/stringList"}
+  },
+  "$defs": {
+    "stringList": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["pass", "fail", "partial", "not_applicable", "not_verified"]},
+    "assessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "evidence", "actions", "risks"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "evidence": {"$ref": "#/$defs/stringList"},
+        "actions": {"$ref": "#/$defs/stringList"},
+        "risks": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "risk": {
+      "type": "object", "additionalProperties": false,
+      "required": ["description", "severity", "mitigation"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1},
+        "severity": {"enum": ["low", "medium", "high", "critical"]},
+        "mitigation": {"type": "string", "minLength": 1}
+      }
+    },
+    "validation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "status", "evidence", "environment"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "status": {"$ref": "#/$defs/status"},
+        "evidence": {"$ref": "#/$defs/stringList"},
+        "environment": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

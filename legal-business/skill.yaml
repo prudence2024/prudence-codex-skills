@@ -1,0 +1,111 @@
+schema_version: 1
+id: legal-business
+name: Legal & Business Protection
+version: 1.0.0
+category: legal-business
+status: stable
+purpose: >-
+  Prepare evidence-grounded legal and business drafts, consistency reviews,
+  approval packages, and counsel handoffs without overstating compliance.
+scope:
+  includes:
+    - Terms of Service, Privacy Policy, B2B DPA, Refund Policy, MSA/SLA, and cyber-liability readiness drafting.
+    - Product, entity, jurisdiction, data, vendor, pricing, refund, support, service-level, and insurance fact sheets.
+    - Cross-document definition, obligation, contact, role, timeline, and commitment consistency.
+    - Legal and business issue spotting, lawyer-review markers, owner decisions, versioning, and approval readiness.
+  excludes:
+    - Final legal advice, compliance certification, regulator filing, contract execution, and unauthorized publication.
+    - Security-control design or verification, incident operations, and support-queue operations.
+    - Interface design, accessibility implementation, metadata, indexing, and search strategy.
+responsibilities:
+  - Establish verified facts, owner decisions, assumptions, unresolved questions, jurisdictions, and counsel dependencies.
+  - Consume Security, Incident Response, Support Triage, and project-owner evidence without inventing operational facts.
+  - Select the needed document set and keep consumer and negotiated B2B obligations distinct.
+  - Compare drafting approaches and explain selections, alternatives, rejection reasons, risks, trade-offs, and uncertainty.
+  - Draft accurate documents and cross-check definitions, roles, commitments, dates, contacts, and obligations.
+  - Mark counsel-dependent language and require business-owner and qualified-legal review.
+  - Maintain document versions, approval evidence, Shared Context, standardized reports, and handoffs.
+inputs:
+  - id: project-context
+    description: Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.
+    schema: ecosystem/schemas/shared-context.json
+  - id: legal-request
+    description: Requested document, audit, issue-spotting, consistency, or readiness outcome.
+  - id: business-fact-sheet
+    description: Entity, product, customer, pricing, refund, support, jurisdiction, data, vendor, and operational facts.
+  - id: specialist-evidence
+    description: Applicable Security, Incident Response, Support Triage, and owner decisions or reports.
+outputs:
+  - id: legal-business-decision
+    description: Document strategy, facts, alternatives, review markers, consistency, approvals, risks, and handoffs.
+    schema: legal-business/schemas/legal-business-decision.json
+  - id: document-drafts
+    description: Selected, versioned, explicitly non-final draft documents.
+  - id: validation-report
+    description: Standardized evidence-backed skill-run report.
+    schema: ecosystem/schemas/report.json
+  - id: context-update
+    description: Attributable Shared Context additions and handoff.
+    schema: ecosystem/schemas/shared-context.json
+dependencies:
+  required: []
+  optional:
+    - security
+    - incident-response
+    - support-triage
+configuration:
+  - name: target_jurisdictions
+    description: Owner-supplied jurisdictions for issue spotting and counsel routing.
+    required: false
+    default: []
+  - name: publication_authorized
+    description: Whether the user explicitly authorized external publication.
+    required: false
+    default: false
+context:
+  reads:
+    - project
+    - goals
+    - constraints
+    - state.facts
+    - state.assumptions
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+  writes:
+    - state.facts
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+    - handoff
+pipeline:
+  processing:
+    - Validate or create Shared Context and build the evidence-backed fact sheet.
+    - Consume specialist evidence and classify facts, decisions, assumptions, unknowns, and counsel dependencies.
+    - Select documents, compare approaches, draft, and cross-check the complete set.
+    - Produce review markers, owner actions, approval evidence, version metadata, and handoffs.
+  reasoning:
+    - Prefer accurate, operationally supportable language over broad promises.
+    - Separate consumer, B2B, controller, processor, provider, and customer roles.
+    - Preserve uncertainty and require counsel for jurisdiction-dependent conclusions.
+    - Explain selected approaches, alternatives, rejection reasons, business impact, risks, trade-offs, and uncertainty.
+validation:
+  - Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.
+  - Validate legal decisions against legal-business/schemas/legal-business-decision.json.
+  - Validate fact provenance, unresolved placeholders, cross-document consistency, review markers, versions, and approval state.
+  - Validate Shared Context writes, specialist handoffs, and the standardized report.
+  - Validate registry freshness and run the full repository test suite.
+reporting:
+  report_type: legal-business-run
+extension_points:
+  - jurisdiction-guidance
+  - document-types
+  - clause-libraries
+  - consistency-checkers
+  - approval-workflows
+  - versioning-adapters
+  - report-sections

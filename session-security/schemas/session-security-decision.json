@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.local/schemas/session-security-decision.json",
+  "title": "Session Security decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "decision_id", "created_at", "authoring_skill",
+    "policy", "upstream_inputs", "selected_approach", "alternatives",
+    "domains", "risks", "trade_offs", "remaining_uncertainties",
+    "validation", "context_changes", "handoffs"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "decision_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "authoring_skill": {"const": "session-security"},
+    "project_revision": {"type": ["string", "null"]},
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["idle_seconds", "absolute_seconds", "warning_seconds", "server_authority"],
+      "properties": {
+        "idle_seconds": {"type": "integer", "minimum": 1},
+        "absolute_seconds": {"type": "integer", "minimum": 1},
+        "warning_seconds": {"const": 60},
+        "server_authority": {"type": "string", "minLength": 1}
+      }
+    },
+    "upstream_inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["security_decisions", "design_decisions", "unresolved_conflicts"],
+      "properties": {
+        "security_decisions": {"$ref": "#/$defs/stringList"},
+        "design_decisions": {"$ref": "#/$defs/stringList"},
+        "unresolved_conflicts": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "selected_approach": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "rationale", "existing_capabilities_reused", "new_dependencies"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "rationale": {"type": "string", "minLength": 1},
+        "existing_capabilities_reused": {"$ref": "#/$defs/stringList"},
+        "new_dependencies": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "alternatives": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "rejection_reasons", "trade_offs"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "rejection_reasons": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "trade_offs": {"$ref": "#/$defs/stringList"}
+        }
+      }
+    },
+    "domains": {
+      "type": "object", "additionalProperties": false,
+      "required": ["server_expiry", "meaningful_activity", "sustained_focus", "warning_extension", "cross_instance", "reauthentication", "restoration", "accessibility_privacy"],
+      "properties": {
+        "server_expiry": {"$ref": "#/$defs/assessment"},
+        "meaningful_activity": {"$ref": "#/$defs/assessment"},
+        "sustained_focus": {"$ref": "#/$defs/assessment"},
+        "warning_extension": {"$ref": "#/$defs/assessment"},
+        "cross_instance": {"$ref": "#/$defs/assessment"},
+        "reauthentication": {"$ref": "#/$defs/assessment"},
+        "restoration": {"$ref": "#/$defs/assessment"},
+        "accessibility_privacy": {"$ref": "#/$defs/assessment"}
+      }
+    },
+    "risks": {"type": "array", "items": {"$ref": "#/$defs/risk"}},
+    "trade_offs": {"$ref": "#/$defs/stringList"},
+    "remaining_uncertainties": {"$ref": "#/$defs/stringList"},
+    "validation": {"type": "array", "items": {"$ref": "#/$defs/validation"}},
+    "context_changes": {"$ref": "#/$defs/stringList"},
+    "handoffs": {"$ref": "#/$defs/stringList"}
+  },
+  "$defs": {
+    "stringList": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["pass", "fail", "partial", "not_applicable", "not_verified"]},
+    "assessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "evidence", "actions", "risks"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "evidence": {"$ref": "#/$defs/stringList"},
+        "actions": {"$ref": "#/$defs/stringList"},
+        "risks": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "risk": {
+      "type": "object", "additionalProperties": false,
+      "required": ["description", "severity", "mitigation"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1},
+        "severity": {"enum": ["low", "medium", "high", "critical"]},
+        "mitigation": {"type": "string", "minLength": 1}
+      }
+    },
+    "validation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "status", "evidence", "environment"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "status": {"$ref": "#/$defs/status"},
+        "evidence": {"$ref": "#/$defs/stringList"},
+        "environment": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -5,24 +5,84 @@ description: Design, implement, or audit secure authenticated-session timeout be
 
 # Session Security
 
-Treat the server as the authority for expiry and the client as a UX layer. Reuse the project's authentication provider and session primitives; do not invent custom authentication.
+## Purpose and boundaries
+
+Design, implement, or audit server-enforced session timeout behavior with a
+clear client state machine and safe restoration. Reuse the project's
+authentication provider and session primitives.
+
+- Session Security owns meaningful activity, idle and absolute expiry, warning
+  timing, explicit extension, sustained-focus exceptions, cross-tab
+  coordination, reauthentication return, and restoration envelopes.
+- `$security` owns authentication architecture, token and cookie controls,
+  authorization, threat assessment, and general API security. Consume its
+  constraints; do not invent a new auth system.
+- `$design-toolkit` owns modal, focus, responsive, and interaction design.
+  Supply required states and accessibility behavior rather than duplicating
+  interface reasoning.
+- `$incident-response` owns operational response to session abuse or auth
+  outages; hand off monitoring and incident findings.
+
+## References
+
+- Read [session-controls.md](references/session-controls.md) for activity,
+  sustained-focus, warning, restoration, and verification details.
+- Read [session-reasoning.md](references/session-reasoning.md) for state-machine,
+  Shared Context, evidence, reporting, and handoff rules.
 
 ## Workflow
 
-1. Identify token lifetime, refresh behavior, idle timeout, absolute maximum lifetime, sensitive routes, and provider constraints.
-2. Define meaningful activity: successful form submissions, intentional button actions, authenticated API calls, and page navigation. Do not count mouse movement, timer ticks, passive polling, tab visibility alone, or a background tab.
-3. Add a sustained-focus exception for legitimate reading or review work using visible-tab focus plus content engagement signals. Bound and rate-limit this exception; it must not create an unlimited session.
-4. Persist the server-confirmed last-activity time and coordinate warning/expiry state across tabs.
-5. Show an accessible modal exactly 60 seconds before idle expiry with countdown, “Stay logged in,” and sign-out actions.
-6. Extend only after an explicit click and a successful server refresh. Do not close the modal optimistically if extension fails.
-7. Before redirecting to re-authentication, capture a safe restoration envelope containing route, parameters, workflow step, scroll/focus context, and permitted unsaved fields.
-8. After successful re-authentication, validate the envelope, return to the exact prior state, and clear it after restoration.
-9. Apply the checklist and patterns in [references/session-controls.md](references/session-controls.md).
+1. Validate supplied Shared Context or create an in-memory envelope. Record the
+   auth provider, token lifetimes, server session semantics, sensitive routes,
+   client platforms, workflow state, data sensitivity, and uncertainty.
+2. Consume applicable Security and Design Toolkit decisions. Record conflicts
+   rather than silently replacing them.
+3. Define a state machine for active, warning, extending, expired,
+   reauthenticating, restoring, signed-out, and failure states.
+4. Define meaningful activity. Count intentional, relevant actions; do not count
+   pointer movement, timer ticks, passive polling, tab visibility alone, or
+   background activity.
+5. Define bounded sustained-focus evidence for legitimate reading or review.
+   Retain an absolute maximum lifetime and avoid invasive surveillance.
+6. Persist server-confirmed activity and expiry. Coordinate warnings, refresh,
+   expiry, and sign-out across tabs or application instances.
+7. Show an accessible warning exactly 60 seconds before idle expiry. Extend only
+   after an explicit action and successful server refresh; never close the
+   warning optimistically.
+8. Capture an allowlisted, user-bound, integrity-protected, short-lived
+   restoration envelope before reauthentication. Exclude prohibited data.
+9. Validate the return target and user, restore the exact permitted workflow
+   state, then clear or invalidate the envelope.
+10. Test server rejection, clock skew, multiple tabs, refresh races, offline and
+    sleeping devices, absolute expiry, failed refresh, expired or cross-user
+    restoration, back navigation, screen readers, keyboard access, and reduced
+    motion.
+11. Record the decision, update Shared Context, produce the standardized report,
+    and hand off security, design, or operational follow-up.
+
+## Decision and reporting contract
+
+For every material decision, explain:
+
+- selected policy and implementation, plus why;
+- credible alternatives, rejection reasons, and trade-offs;
+- Security and Design Toolkit constraints consumed;
+- state transitions, server authority, restoration data, and privacy limits;
+- risks, failure behavior, validation evidence, owner actions, and uncertainty;
+- Shared Context changes and handoffs.
+
+Validate structured decisions against `schemas/session-security-decision.json`.
+Use the common report and Shared Context schemas for run output.
 
 ## Guardrails
 
-- Never persist passwords, payment-card data, authentication secrets, one-time codes, or other prohibited sensitive fields in restoration state.
-- Encrypt or server-store sensitive drafts; use short expiry, user binding, schema versioning, and integrity checks.
-- Enforce idle and absolute expiry server-side even if client JavaScript is disabled or modified.
-- Prevent refresh races and replay with one coordinated refresh operation and token rotation where supported.
-- Test multiple tabs, offline/online transitions, sleeping devices, clock skew, failed refresh, expired restoration state, back-button behavior, and reduced-motion/screen-reader access.
+- Never persist passwords, payment-card data, authentication secrets, one-time
+  codes, or other prohibited fields in restoration state.
+- Encrypt or server-store sensitive drafts; bind them to the user, expire them,
+  version their schema, and protect integrity.
+- Enforce idle and absolute expiry server-side even when client code is disabled
+  or modified.
+- Coordinate one refresh operation and use provider-supported token rotation to
+  prevent refresh races and replay.
+- Do not claim exact restoration, cross-tab consistency, or server enforcement
+  without exercising the relevant path.

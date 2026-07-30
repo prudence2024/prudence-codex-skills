@@ -1,0 +1,59 @@
+schema_version: 1
+decision_id: incident-response-fixture
+created_at: "2026-07-30T21:30:00Z"
+authoring_skill: incident-response
+project_revision: abc123
+incident:
+  id: inc-2026-001
+  title: Checkout API errors
+  severity: SEV-2
+  status: monitoring
+  affected_services: [checkout API]
+  logged_at: "2026-07-30T20:00:00Z"
+  review_due_at: "2026-08-01T20:00:00Z"
+  incident_lead: on-call-engineer
+  impact: Some customers could not complete checkout.
+selected_approach:
+  summary: Roll back the checkout release and monitor recovery.
+  rationale: The release timing correlates with errors and rollback is bounded and reversible.
+  abort_conditions: [Rollback increases error rate or threatens data integrity.]
+alternatives:
+  - name: Keep the release and retry failed requests.
+    rejection_reasons: [Retries could duplicate writes without proven idempotency.]
+    trade_offs: [Avoiding rollback would retain new behavior but increase customer risk.]
+domains:
+  observability: {status: pass, evidence: [Error-rate alert reached the on-call owner.], actions: [], risks: []}
+  triage_command: {status: pass, evidence: [Lead, severity, impact, and cadence are recorded.], actions: [], risks: []}
+  mitigation_recovery: {status: partial, evidence: [Error rate returned to baseline after rollback.], actions: [Verify checkout end to end.], risks: [Full recovery is not yet confirmed.]}
+  status_communications: {status: pass, evidence: [Status page states impact and next update.], actions: [], risks: []}
+  maintenance: {status: not_applicable, evidence: [], actions: [], risks: []}
+  email_delivery: {status: not_applicable, evidence: [], actions: [], risks: []}
+  postmortem: {status: partial, evidence: [Review is scheduled within 48 hours.], actions: [Complete the five-field review.], risks: []}
+  remediation_learning: {status: partial, evidence: [A prior deployment incident was surfaced.], actions: [Confirm relevance and create prevention actions.], risks: [Similarity is not proof.]}
+timeline:
+  - timestamp: "2026-07-30T20:00:00Z"
+    type: fact
+    entry: Checkout 5xx rate exceeded the alert threshold.
+  - timestamp: "2026-07-30T20:10:00Z"
+    type: decision
+    entry: The incident lead approved rollback.
+actions:
+  - action: Add a checkout canary gate.
+    owner: release-engineering
+    priority: high
+    due_at: "2026-08-07T12:00:00Z"
+    verification: A failed canary blocks rollout in staging.
+    status: open
+risks:
+  - description: Checkout recovery is not fully verified.
+    severity: high
+    mitigation: Exercise a real checkout and monitor errors before resolution.
+trade_offs: [Rollback delayed the release but reduced customer impact.]
+remaining_uncertainties: [The exact triggering code path is not yet confirmed.]
+validation:
+  - name: rollback-recovery
+    status: partial
+    evidence: [Error rate returned to baseline.]
+    environment: production
+context_changes: [Added incident timeline, recovery evidence, and review deadline.]
+handoffs: [Security should review idempotency and deployment controls.]

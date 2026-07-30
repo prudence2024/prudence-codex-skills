@@ -1,0 +1,55 @@
+schema_version: 1
+decision_id: support-triage-fixture
+created_at: "2026-07-30T22:00:00Z"
+authoring_skill: support-triage
+ticket:
+  id: ticket-100
+  channel: email
+  summary: Customer reports a duplicate subscription charge.
+  request: Refund the duplicate charge.
+  impact: Customer may have been charged twice.
+  urgency: high
+  risk_level: high
+classification:
+  tier: human_required
+  reason: Refund and duplicate-charge decisions require billing review.
+  known_path: null
+  authorization: The agent may gather evidence but cannot issue refunds.
+alternatives:
+  - tier: automated_resolution
+    rejection_reasons: [No approved automated refund path applies.]
+    trade_offs: [Automation would be faster but could move money without authority.]
+context_package:
+  timeline: [Customer reported the duplicate charge at 21:00 UTC.]
+  identifiers: [invoice IDs were linked in restricted evidence]
+  environment: [production billing]
+  evidence: [Two provider transaction references require billing verification.]
+  attempted_fixes: []
+  ruled_out: [No known service incident matches the report.]
+  redactions: [Payment details and customer address omitted.]
+action:
+  taken: [Prepared a restricted billing handoff.]
+  result_state: succeeded
+  verification: [The billing queue accepted the handoff.]
+  failure_handling: [Escalate to the billing lead if unaccepted.]
+customer_communication:
+  status: prepared
+  message_summary: Acknowledge the concern and state that billing will review it.
+  promises_made: []
+routing:
+  next_owner: billing-team
+  next_step: Verify provider transactions and decide the refund.
+  acceptance_state: accepted
+  closure_state: waiting_owner
+risks:
+  - description: An unauthorized refund could create financial loss.
+    severity: high
+    mitigation: Keep the case human-required and route to billing.
+trade_offs: [Human review is slower but preserves financial authority.]
+remaining_uncertainties: [Whether both provider references settled.]
+validation:
+  - name: context-completeness
+    status: pass
+    evidence: [Impact, identifiers, evidence, uncertainty, and owner are present.]
+context_changes: [Added the human-required classification and billing handoff.]
+handoffs: [Billing owns the refund decision.]

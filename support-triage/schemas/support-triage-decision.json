@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.local/schemas/support-triage-decision.json",
+  "title": "Support Triage decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "decision_id", "created_at", "authoring_skill",
+    "ticket", "classification", "alternatives", "context_package", "action",
+    "customer_communication", "routing", "risks", "trade_offs",
+    "remaining_uncertainties", "validation", "context_changes", "handoffs"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "decision_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "authoring_skill": {"const": "support-triage"},
+    "ticket": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "channel", "summary", "request", "impact", "urgency", "risk_level"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "channel": {"type": "string", "minLength": 1},
+        "summary": {"type": "string", "minLength": 1},
+        "request": {"type": "string", "minLength": 1},
+        "impact": {"type": "string", "minLength": 1},
+        "urgency": {"enum": ["low", "normal", "high", "urgent"]},
+        "risk_level": {"enum": ["low", "medium", "high", "critical"]}
+      }
+    },
+    "classification": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tier", "reason", "known_path", "authorization"],
+      "properties": {
+        "tier": {"enum": ["automated_resolution", "assisted_triage", "human_required"]},
+        "reason": {"type": "string", "minLength": 1},
+        "known_path": {"type": ["string", "null"]},
+        "authorization": {"type": "string", "minLength": 1}
+      }
+    },
+    "alternatives": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["tier", "rejection_reasons", "trade_offs"],
+        "properties": {
+          "tier": {"enum": ["automated_resolution", "assisted_triage", "human_required"]},
+          "rejection_reasons": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "trade_offs": {"$ref": "#/$defs/stringList"}
+        }
+      }
+    },
+    "context_package": {
+      "type": "object", "additionalProperties": false,
+      "required": ["timeline", "identifiers", "environment", "evidence", "attempted_fixes", "ruled_out", "redactions"],
+      "properties": {
+        "timeline": {"$ref": "#/$defs/stringList"},
+        "identifiers": {"$ref": "#/$defs/stringList"},
+        "environment": {"$ref": "#/$defs/stringList"},
+        "evidence": {"$ref": "#/$defs/stringList"},
+        "attempted_fixes": {"$ref": "#/$defs/stringList"},
+        "ruled_out": {"$ref": "#/$defs/stringList"},
+        "redactions": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "action": {
+      "type": "object", "additionalProperties": false,
+      "required": ["taken", "result_state", "verification", "failure_handling"],
+      "properties": {
+        "taken": {"$ref": "#/$defs/stringList"},
+        "result_state": {"enum": ["not_attempted", "attempted", "succeeded", "failed", "not_verified"]},
+        "verification": {"$ref": "#/$defs/stringList"},
+        "failure_handling": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "customer_communication": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "message_summary", "promises_made"],
+      "properties": {
+        "status": {"enum": ["not_sent", "prepared", "sent", "received", "not_verified"]},
+        "message_summary": {"type": "string", "minLength": 1},
+        "promises_made": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "routing": {
+      "type": "object", "additionalProperties": false,
+      "required": ["next_owner", "next_step", "acceptance_state", "closure_state"],
+      "properties": {
+        "next_owner": {"type": "string", "minLength": 1},
+        "next_step": {"type": "string", "minLength": 1},
+        "acceptance_state": {"enum": ["not_required", "pending", "accepted", "declined", "not_verified"]},
+        "closure_state": {"enum": ["open", "waiting_customer", "waiting_owner", "resolved", "verified", "closed"]}
+      }
+    },
+    "risks": {"type": "array", "items": {"$ref": "#/$defs/risk"}},
+    "trade_offs": {"$ref": "#/$defs/stringList"},
+    "remaining_uncertainties": {"$ref": "#/$defs/stringList"},
+    "validation": {"type": "array", "items": {"$ref": "#/$defs/validation"}},
+    "context_changes": {"$ref": "#/$defs/stringList"},
+    "handoffs": {"$ref": "#/$defs/stringList"}
+  },
+  "$defs": {
+    "stringList": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["pass", "fail", "partial", "not_applicable", "not_verified"]},
+    "risk": {
+      "type": "object", "additionalProperties": false,
+      "required": ["description", "severity", "mitigation"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1},
+        "severity": {"enum": ["low", "medium", "high", "critical"]},
+        "mitigation": {"type": "string", "minLength": 1}
+      }
+    },
+    "validation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "status", "evidence"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "status": {"$ref": "#/$defs/status"},
+        "evidence": {"$ref": "#/$defs/stringList"}
+      }
+    }
+  }
+}

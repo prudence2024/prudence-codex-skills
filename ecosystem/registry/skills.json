@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30T18:15:05.914909+00:00",
+  "generated_at": "2026-07-30T18:46:24.730562+00:00",
   "schema_version": 1,
   "skills": [
     {
@@ -131,58 +131,759 @@
       "version": "1.0.0"
     },
     {
+      "category": "operations",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "security",
+          "support-triage",
+          "legal-business",
+          "design-toolkit",
+          "visibility"
+        ],
+        "required": []
+      },
       "description": "Establish, implement, or audit production observability, incident handling, recovery, public status communication, scheduled-maintenance notices, and email-delivery health across software projects. Use when Codex needs error tracking, structured logs, severity-based alerts, uptime and health checks, independent status pages, subscriber and in-app incident notices, SPF/DKIM/DMARC guidance, deliverability monitoring, recovery runbooks or drills, incident ownership, automatic 48-hour post-mortem scheduling, blameless reviews, remediation tracking, or recurring-failure detection.",
+      "extension_points": [
+        "observability-providers",
+        "alert-routing-adapters",
+        "status-page-providers",
+        "notification-providers",
+        "email-delivery-providers",
+        "recovery-orchestrators",
+        "incident-knowledge-indexes",
+        "report-sections"
+      ],
       "id": "incident-response",
-      "name": "incident-response",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "Readiness, active incident, recovery, communication, deliverability, review, or audit request.",
+          "id": "incident-request"
+        },
+        {
+          "description": "Logs, alerts, traces, health checks, dashboards, deployments, backups, status, delivery events, and runbooks.",
+          "id": "operational-evidence"
+        },
+        {
+          "description": "Applicable Security, Support Triage, Legal Business, Design Toolkit, or Visibility decisions.",
+          "id": "specialist-evidence"
+        }
+      ],
+      "name": "Incident Response",
+      "outputs": [
+        {
+          "description": "Lifecycle strategy or incident record with alternatives, evidence, actions, risks, uncertainty, and handoffs.",
+          "id": "incident-response-decision",
+          "schema": "incident-response/schemas/incident-response-decision.json"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Establish and operate evidence-backed observability, incident command, recovery, communication, review, remediation, and recurring-failure learning.",
       "read_only": false,
+      "reporting": {
+        "report_type": "incident-response-run"
+      },
+      "responsibilities": [
+        "Establish services, workflows, owners, evidence sources, communication channels, recovery objectives, and uncertainty.",
+        "Build or audit the detection-to-recovery and review lifecycle.",
+        "Operate severity, command, factual timelines, mitigation, recovery verification, and status transitions.",
+        "Coordinate truthful public, subscriber, maintenance, and email-delivery communication.",
+        "Schedule reviews within 48 hours, conduct blameless analysis, and track prevention actions.",
+        "Search prior reviews and surface reasoned matches without treating similarity as proof.",
+        "Consume Security, Support Triage, and Legal Business constraints without duplicating ownership.",
+        "Update Shared Context and produce standardized reports and handoffs."
+      ],
+      "scope": {
+        "excludes": [
+          "Preventive application-security control ownership and vulnerability-remediation prioritization.",
+          "Customer-ticket classification and support-queue operations.",
+          "Legal notification interpretation, contract drafting, and compliance conclusions.",
+          "Interface design, component selection, and search-visibility strategy."
+        ],
+        "includes": [
+          "Error tracking, structured logs, user-impact alerts, uptime, health checks, and detection-path validation.",
+          "Severity, incident ownership, append-only timelines, mitigation, recovery, verification, and closure.",
+          "Independent status pages, incident updates, scheduled maintenance, subscriber notices, and in-app communication.",
+          "Transactional email authentication, reputation, deliverability events, inbox placement, and alerting.",
+          "Recovery objectives, backups, restores, rollback, runbooks, and safe drills.",
+          "Automatic 48-hour post-mortem scheduling, blameless reviews, remediation tracking, and prior-pattern matching."
+        ]
+      },
       "source_path": "incident-response",
-      "status": "unmigrated",
-      "upstream": false
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate incident decisions against incident-response/schemas/incident-response-decision.json.",
+        "Validate detection, alert, timeline, scheduling, retry, status, communication, recovery, review, access, and pattern-matching paths.",
+        "Validate Shared Context writes, specialist handoffs, and the standardized report.",
+        "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
     },
     {
+      "category": "legal-business",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "security",
+          "incident-response",
+          "support-triage"
+        ],
+        "required": []
+      },
       "description": "Prepare, adapt, or audit pre-launch legal and business protection documents for SaaS products and client applications. Use when Codex needs Terms of Service, a data-accurate Privacy Policy, B2B Data Processing Agreement, Refund Policy, Master Service Agreement with service levels, or a cyber-liability insurance readiness checklist, especially for Nigeria-based or cross-border operations involving NDPA/NDPR, GDPR, clients, subscriptions, or personal data.",
+      "extension_points": [
+        "jurisdiction-guidance",
+        "document-types",
+        "clause-libraries",
+        "consistency-checkers",
+        "approval-workflows",
+        "versioning-adapters",
+        "report-sections"
+      ],
       "id": "legal-business",
-      "name": "legal-business",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "Requested document, audit, issue-spotting, consistency, or readiness outcome.",
+          "id": "legal-request"
+        },
+        {
+          "description": "Entity, product, customer, pricing, refund, support, jurisdiction, data, vendor, and operational facts.",
+          "id": "business-fact-sheet"
+        },
+        {
+          "description": "Applicable Security, Incident Response, Support Triage, and owner decisions or reports.",
+          "id": "specialist-evidence"
+        }
+      ],
+      "name": "Legal & Business Protection",
+      "outputs": [
+        {
+          "description": "Document strategy, facts, alternatives, review markers, consistency, approvals, risks, and handoffs.",
+          "id": "legal-business-decision",
+          "schema": "legal-business/schemas/legal-business-decision.json"
+        },
+        {
+          "description": "Selected, versioned, explicitly non-final draft documents.",
+          "id": "document-drafts"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Prepare evidence-grounded legal and business drafts, consistency reviews, approval packages, and counsel handoffs without overstating compliance.",
       "read_only": false,
+      "reporting": {
+        "report_type": "legal-business-run"
+      },
+      "responsibilities": [
+        "Establish verified facts, owner decisions, assumptions, unresolved questions, jurisdictions, and counsel dependencies.",
+        "Consume Security, Incident Response, Support Triage, and project-owner evidence without inventing operational facts.",
+        "Select the needed document set and keep consumer and negotiated B2B obligations distinct.",
+        "Compare drafting approaches and explain selections, alternatives, rejection reasons, risks, trade-offs, and uncertainty.",
+        "Draft accurate documents and cross-check definitions, roles, commitments, dates, contacts, and obligations.",
+        "Mark counsel-dependent language and require business-owner and qualified-legal review.",
+        "Maintain document versions, approval evidence, Shared Context, standardized reports, and handoffs."
+      ],
+      "scope": {
+        "excludes": [
+          "Final legal advice, compliance certification, regulator filing, contract execution, and unauthorized publication.",
+          "Security-control design or verification, incident operations, and support-queue operations.",
+          "Interface design, accessibility implementation, metadata, indexing, and search strategy."
+        ],
+        "includes": [
+          "Terms of Service, Privacy Policy, B2B DPA, Refund Policy, MSA/SLA, and cyber-liability readiness drafting.",
+          "Product, entity, jurisdiction, data, vendor, pricing, refund, support, service-level, and insurance fact sheets.",
+          "Cross-document definition, obligation, contact, role, timeline, and commitment consistency.",
+          "Legal and business issue spotting, lawyer-review markers, owner decisions, versioning, and approval readiness."
+        ]
+      },
       "source_path": "legal-business",
-      "status": "unmigrated",
-      "upstream": false
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate legal decisions against legal-business/schemas/legal-business-decision.json.",
+        "Validate fact provenance, unresolved placeholders, cross-document consistency, review markers, versions, and approval state.",
+        "Validate Shared Context writes, specialist handoffs, and the standardized report.",
+        "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
     },
     {
+      "category": "orchestration",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "design-toolkit",
+          "visibility",
+          "security",
+          "session-security",
+          "legal-business",
+          "incident-response",
+          "support-triage"
+        ],
+        "required": []
+      },
       "description": "Coordinate a complete evidence-based post-production audit and hardening pass for websites and web applications across SEO, AI discoverability, accessibility, performance, Core Web Vitals, security, metadata, structured data, analytics, monitoring, deployment, progressive enhancement, mobile behavior, crawlability, indexability, and code quality. Use before launch, after a major release, when reviewing Lighthouse/PageSpeed/Search Console/Bing findings, when comparing a live deployment with a repository revision, or when the user requests a production-readiness score and prioritized remediation report.",
+      "extension_points": [
+        "specialist-skills",
+        "audit-domains",
+        "deployment-identity-adapters",
+        "evidence-collectors",
+        "readiness-models",
+        "conflict-resolvers",
+        "report-sections"
+      ],
       "id": "post-production",
-      "name": "post-production",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "Launch, release, live-vs-repository, tool-result, or production-readiness request.",
+          "id": "audit-request"
+        },
+        {
+          "description": "Repository, instructions, configuration, deployments, provider evidence, measurements, and supplied reports.",
+          "id": "project-artifacts"
+        },
+        {
+          "description": "Versioned decisions and reports from the seven first-party specialist skills.",
+          "id": "specialist-results"
+        }
+      ],
+      "name": "Post Production",
+      "outputs": [
+        {
+          "description": "Scope, deployment identity, specialist plan, results, conflicts, readiness, priorities, and handoffs.",
+          "id": "post-production-decision",
+          "schema": "post-production/schemas/post-production-decision.json"
+        },
+        {
+          "description": "Consolidated standardized evidence-backed audit and remediation report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Coordinate specialist-owned production-readiness audits, safe remediation, deployment verification, aggregate prioritization, and consolidated reporting.",
       "read_only": false,
+      "reporting": {
+        "report_type": "post-production-run"
+      },
+      "responsibilities": [
+        "Establish project scope, worktree state, environments, deployed revision, audit applicability, constraints, and uncertainty.",
+        "Produce the evidence-backed baseline before changes.",
+        "Route controls to Design Toolkit, Visibility, Security, Session Security, Legal Business, Incident Response, and Support Triage.",
+        "Preserve each specialist result's identity, version, evidence, environment, limitations, risks, and checks not run.",
+        "Sequence dependencies, resolve cross-domain conflicts with owners, and coordinate authorized reversible fixes.",
+        "Re-run affected checks and distinguish local, build, preview, deployed, live, provider, field, and owner evidence.",
+        "Calculate readiness transparently or report insufficient evidence.",
+        "Update Shared Context and produce the consolidated standardized report and handoffs."
+      ],
+      "scope": {
+        "excludes": [
+          "Primary design, visibility, security, session, legal, incident, or support domain reasoning.",
+          "Fabricated scores, provider evidence, deployment state, legal approval, recovery, indexing, or customer resolution.",
+          "Unauthorized production deployment, intrusive testing, destructive recovery, fault injection, external publication, or communication."
+        ],
+        "includes": [
+          "Repository, revision, build, preview, deployment, and live-environment identity.",
+          "Cross-discipline audit coverage, specialist routing, dependency sequencing, conflict handling, and evidence provenance.",
+          "Baseline and final five-state audit matrices with severity-ranked findings.",
+          "Safe remediation coordination, affected-check reruns, production-build verification, and live verification separation.",
+          "Evidence-based readiness formulas, category aggregation, owner actions, and consolidated reports."
+        ]
+      },
       "source_path": "post-production",
-      "status": "unmigrated",
-      "upstream": false
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate coordination decisions against post-production/schemas/post-production-decision.json.",
+        "Validate specialist provenance, coverage, single ownership, environment identity, scoring formula, conflicts, and handoffs.",
+        "Validate baseline and final matrices, changed artifacts, affected-check reruns, Shared Context writes, and standardized reporting.",
+        "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
     },
     {
+      "category": "security",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "session-security",
+          "incident-response",
+          "legal-business",
+          "design-toolkit",
+          "visibility"
+        ],
+        "required": []
+      },
       "description": "Production security, architecture, and launch-readiness workflow for web apps, APIs, forms, auth, databases, payments, uploads, dependencies, secrets, deployment, cloud cost, caching, scaling, observability, backups, and CI/CD. Use when Codex needs to review or implement security controls, harden form/API handling, verify environment hygiene, add rate limiting or headers, audit dependencies, or assess whether an AI-built application is safe and operationally ready for production.",
+      "extension_points": [
+        "threat-model-adapters",
+        "framework-security-guidance",
+        "dependency-audit-adapters",
+        "cloud-security-adapters",
+        "secret-scanners",
+        "active-test-providers",
+        "control-validators",
+        "report-sections"
+      ],
       "id": "security",
-      "name": "security",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The requested security review, implementation, hardening, or launch-readiness outcome.",
+          "id": "security-request"
+        },
+        {
+          "description": "Source, configuration, infrastructure definitions, dependency manifests, logs, and authorized runtime evidence.",
+          "id": "implementation-artifacts"
+        },
+        {
+          "description": "Applicable Design Toolkit, Visibility, Session Security, Incident Response, or Legal Business decisions.",
+          "id": "specialist-decisions"
+        }
+      ],
+      "name": "Security",
+      "outputs": [
+        {
+          "description": "Selected controls, alternatives, threat evidence, residual risks, trade-offs, uncertainty, and handoffs.",
+          "id": "security-decision",
+          "schema": "security/schemas/security-decision.json"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "Scoped follow-up for Session Security, Incident Response, Legal Business, Design Toolkit, Visibility, or an owner.",
+          "id": "specialist-handoff"
+        }
+      ],
+      "purpose": "Identify, prioritize, implement, and validate evidence-backed application, API, data, infrastructure, supply-chain, and production security controls.",
       "read_only": false,
+      "reporting": {
+        "report_type": "security-run"
+      },
+      "responsibilities": [
+        "Establish assets, actors, trust boundaries, data classes, environments, threat scenarios, constraints, and uncertainty.",
+        "Inspect repository and authorized runtime evidence without exposing secrets.",
+        "Prioritize findings using likelihood, impact, reachability, existing controls, and evidence strength.",
+        "Evaluate alternatives and explain selected controls, rejection reasons, risks, trade-offs, and residual uncertainty.",
+        "Implement only authorized, narrowly scoped controls using existing platform capabilities where practical.",
+        "Validate implemented, built, deployed, exercised, and monitored states separately.",
+        "Supply constraints and handoffs to Session Security, Incident Response, Legal Business, Design Toolkit, and Visibility.",
+        "Update Shared Context and produce standardized security reports."
+      ],
+      "scope": {
+        "excludes": [
+          "Session timeout UX, meaningful-activity policy, cross-tab coordination, and workflow restoration.",
+          "Active incident command, public status communication, post-mortems, and remediation-program ownership.",
+          "Legal document drafting and jurisdiction-specific legal interpretation.",
+          "Interface design, visual hierarchy, component selection, and search-visibility strategy."
+        ],
+        "includes": [
+          "Threat, asset, trust-boundary, and launch-risk assessment.",
+          "Secrets, environment isolation, input handling, output encoding, and injection prevention.",
+          "Authentication, authorization, tenant isolation, least privilege, cookies, CSRF, and login-abuse controls.",
+          "API, database, storage, file-upload, payment, webhook, and idempotency security.",
+          "CORS, CSP, HTTP headers, TLS, deployment, rollback, caching, resilience, cloud-cost abuse, and capacity safeguards.",
+          "Dependency provenance, vulnerability management, CI/CD security gates, backups, restore evidence, and security observability."
+        ]
+      },
       "source_path": "security",
-      "status": "unmigrated",
-      "upstream": false
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate security decisions against security/schemas/security-decision.json.",
+        "Validate applicable controls with repository, build, runtime, provider, and exercised evidence kept distinct.",
+        "Validate Shared Context writes, specialist handoffs, and the standardized report.",
+        "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
     },
     {
+      "category": "security",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "security",
+          "design-toolkit",
+          "incident-response"
+        ],
+        "required": []
+      },
       "description": "Design, implement, or audit secure authenticated-session timeout behavior for web and mobile applications. Use when Codex needs meaningful activity tracking, idle and absolute expiry, a 60-second expiration warning with one-click extension, sustained-focus exceptions, cross-tab coordination, server-side enforcement, or exact workflow and unsaved-state restoration after re-authentication.",
+      "extension_points": [
+        "auth-provider-adapters",
+        "client-platform-adapters",
+        "activity-classifiers",
+        "coordination-transports",
+        "restoration-stores",
+        "session-test-harnesses",
+        "report-sections"
+      ],
       "id": "session-security",
-      "name": "session-security",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The requested timeout, warning, extension, coordination, reauthentication, restoration, implementation, or audit outcome.",
+          "id": "session-request"
+        },
+        {
+          "description": "Authentication, token, cookie, authorization, threat, and server-enforcement constraints supplied by Security.",
+          "id": "security-decision",
+          "schema": "security/schemas/security-decision.json"
+        },
+        {
+          "description": "Applicable warning, focus, responsive, motion, and interaction decisions supplied by Design Toolkit.",
+          "id": "design-decision",
+          "schema": "design-toolkit/schemas/design-decision.json"
+        }
+      ],
+      "name": "Session Security",
+      "outputs": [
+        {
+          "description": "Selected policy, state machine, alternatives, evidence, risks, trade-offs, uncertainty, and handoffs.",
+          "id": "session-security-decision",
+          "schema": "session-security/schemas/session-security-decision.json"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Provide secure, accessible, server-authoritative authenticated-session timeout, extension, coordination, reauthentication, and workflow-restoration behavior.",
       "read_only": false,
+      "reporting": {
+        "report_type": "session-security-run"
+      },
+      "responsibilities": [
+        "Establish provider semantics, lifetimes, sensitive routes, platforms, workflows, data sensitivity, constraints, and uncertainty.",
+        "Consume applicable Security and Design Toolkit decisions without duplicating their reasoning.",
+        "Define a server-authoritative session state machine and meaningful-activity policy.",
+        "Design bounded sustained-focus, cross-tab coordination, explicit extension, expiry, reauthentication, and restoration behavior.",
+        "Compare alternatives and explain rationale, rejection reasons, privacy impacts, risks, trade-offs, and uncertainty.",
+        "Validate server, client, multi-tab, offline, clock-skew, accessibility, and restoration behavior.",
+        "Update Shared Context and produce standardized reports and specialist handoffs."
+      ],
+      "scope": {
+        "excludes": [
+          "Authentication-provider selection, token cryptography, general authorization, and application-wide threat ownership.",
+          "General interface, component, visual, responsive, motion, and brand design.",
+          "Active incident command, alert ownership, public communications, and post-mortems."
+        ],
+        "includes": [
+          "Meaningful-activity classification and bounded sustained-focus evidence.",
+          "Idle and absolute session expiry policy and state transitions.",
+          "Exact 60-second warning, explicit extension, and failure behavior.",
+          "Cross-tab or cross-instance refresh, warning, expiry, and sign-out coordination.",
+          "Safe, user-bound, short-lived workflow and draft restoration after reauthentication.",
+          "Session timeout accessibility, privacy, offline, clock-skew, race, and recovery validation."
+        ]
+      },
       "source_path": "session-security",
-      "status": "unmigrated",
-      "upstream": false
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate session decisions against session-security/schemas/session-security-decision.json.",
+        "Validate server expiry, warning timing, extension, races, coordination, restoration, privacy, accessibility, and failure behavior.",
+        "Validate Shared Context writes, specialist handoffs, and the standardized report.",
+        "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
     },
     {
+      "category": "support",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "incident-response",
+          "security",
+          "legal-business"
+        ],
+        "required": []
+      },
       "description": "Classify and route customer support tickets, form failures, booking or payment issues, complaints, bug reports, and sensitive escalations. Use when Codex needs to resolve a known support issue automatically, gather an assisted-triage context package, identify human-required legal/privacy/security or policy cases, or produce a structured support handoff.",
+      "extension_points": [
+        "intake-channel-adapters",
+        "resolution-catalogs",
+        "classification-rules",
+        "redaction-providers",
+        "routing-providers",
+        "customer-communication-templates",
+        "closure-validators",
+        "report-sections"
+      ],
       "id": "support-triage",
-      "name": "support-triage",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "Customer message, channel, history, identifiers, attachments, and supplied evidence.",
+          "id": "support-ticket"
+        },
+        {
+          "description": "Current approved known issues, deterministic steps, authorization, rollback, and closure criteria.",
+          "id": "resolution-catalog"
+        },
+        {
+          "description": "Approved Incident Response, Security, Legal Business, billing, product, or engineering information.",
+          "id": "specialist-status"
+        }
+      ],
+      "name": "Support Triage",
+      "outputs": [
+        {
+          "description": "Classification, rationale, context, actions, communication, routing, risks, uncertainty, and handoffs.",
+          "id": "support-triage-decision",
+          "schema": "support-triage/schemas/support-triage-decision.json"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Classify, safely resolve, enrich, communicate, and route customer-support issues using risk-first evidence and explicit automation authority.",
       "read_only": false,
+      "reporting": {
+        "report_type": "support-triage-run"
+      },
+      "responsibilities": [
+        "Establish ticket facts, customer impact, urgency, risk signals, current incidents, authorization, and uncertainty.",
+        "Apply the highest-risk tier among automated resolution, assisted triage, and human required.",
+        "Verify known-path preconditions before any automated action and validate the outcome.",
+        "Gather a complete, minimized, access-appropriate escalation context package.",
+        "Communicate calmly without blame, internal detail exposure, or unauthorized promises.",
+        "Consume approved Incident Response status and hand off security, legal, billing, policy, product, or engineering work.",
+        "Track owner acceptance, follow-up, resolution, closure evidence, Shared Context, and standardized reports."
+      ],
+      "scope": {
+        "excludes": [
+          "Active incident command, recovery, public status, and incident-communication ownership.",
+          "Security or privacy investigation and remediation ownership.",
+          "Legal conclusions, refund decisions, policy exceptions, compensation, and unauthorized business commitments.",
+          "Product-roadmap decisions and engineering implementation ownership."
+        ],
+        "includes": [
+          "Automated resolution for current, known, deterministic, authorized support paths.",
+          "Assisted triage for incomplete, unknown, ambiguous, or mixed support issues.",
+          "Human-required classification for billing, refund, policy, legal, privacy, security, safety, abuse, identity, and emotional escalation.",
+          "Context gathering, data minimization, customer acknowledgement, routing, handoff quality, follow-up, and closure evidence.",
+          "Form, booking, payment, email, account, complaint, and bug-report intake."
+        ]
+      },
       "source_path": "support-triage",
-      "status": "unmigrated",
-      "upstream": false
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate triage decisions against support-triage/schemas/support-triage-decision.json.",
+        "Validate known-path version and authorization, context completeness, redaction, routing, communication, and closure evidence.",
+        "Validate Shared Context writes, specialist handoffs, and the standardized report.",
+        "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
     },
     {
       "category": "visibility",

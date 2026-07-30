@@ -1,4 +1,4 @@
 interface:
   display_name: "Session Security"
   short_description: "Build secure, user-friendly session expiry"
-  default_prompt: "Use $session-security to design or audit authenticated session timeout behavior."
+  default_prompt: "Use $session-security to design or audit server-authoritative timeout, warning, extension, coordination, and workflow-restoration behavior."
