@@ -1,0 +1,29 @@
+schema_version: 1
+revision: 0
+project:
+  id: fixture-project
+  repository: null
+  revision: null
+run:
+  id: fixture-run
+  started_at: "2026-01-01T00:00:00Z"
+goals:
+  - id: goal-1
+    value: Validate shared context.
+    authoring_skill: sample-skill
+    timestamp: "2026-01-01T00:00:00Z"
+    provenance:
+      - user-request
+constraints: []
+state:
+  facts: []
+  assumptions: []
+  uncertainties: []
+decisions: []
+artifacts: []
+risks: []
+skill_runs: []
+handoff:
+  next_skills: []
+  reason: null
+

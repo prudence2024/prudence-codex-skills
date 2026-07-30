@@ -1,0 +1,127 @@
+schema_version: 1
+id: visibility
+name: Visibility
+version: 1.0.0
+category: visibility
+status: stable
+purpose: >-
+  Make public web content accurately discoverable, crawlable, indexable,
+  interpretable, and shareable through evidence-backed SEO, metadata,
+  structured data, indexing, social-preview, and search-performance work.
+scope:
+  includes:
+    - Technical and content SEO.
+    - Search and AI discoverability.
+    - Crawlability, rendering, canonicalization, and internal-link evidence.
+    - Indexing directives, sitemaps, robots, IndexNow, and search-platform readiness.
+    - Truthful structured data and metadata.
+    - Social previews, including Open Graph, Twitter, and link-preview metadata.
+    - Local search and business-listing readiness.
+    - Search-performance measurement, analytics verification, and visibility monitoring.
+  excludes:
+    - Design reasoning, component selection, visual hierarchy, interaction design, and brand-system decisions.
+    - Accessibility implementation and general frontend-performance or maintainability planning.
+    - Application, API, infrastructure, authorization, privacy, and security-policy ownership.
+    - Fabrication of business facts, ratings, reviews, prices, availability, ranking outcomes, or provider evidence.
+responsibilities:
+  - Establish visibility objectives, target markets, search intent, public-content scope, constraints, and uncertainty.
+  - Inspect rendering, routes, content sources, deployment, metadata, schema, crawling, indexing, analytics, and current search evidence.
+  - Consume applicable Design Toolkit decisions without reimplementing design reasoning.
+  - Evaluate visibility strategies and explain alternatives, rejection reasons, risks, trade-offs, and uncertainty.
+  - Implement truthful framework-native visibility controls.
+  - Validate crawlability, metadata, structured data, indexing directives, social previews, analytics delivery, and search-performance evidence.
+  - Separate code readiness from deployment, registration, indexing, provider receipt, and measured outcomes.
+  - Update Shared Context and produce structured reports and specialist or owner handoffs.
+inputs:
+  - id: project-context
+    description: Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.
+    schema: ecosystem/schemas/shared-context.json
+  - id: visibility-request
+    description: The requested SEO, discoverability, indexing, metadata, schema, social-preview, crawlability, or search-performance outcome.
+  - id: implementation-artifacts
+    description: Routes, rendered HTML, content sources, configuration, deployment evidence, analytics, and search-platform artifacts.
+  - id: design-decision
+    description: Applicable Design Toolkit output whose hierarchy, content presentation, accessibility, or performance constraints must be preserved.
+    schema: design-toolkit/schemas/design-decision.json
+outputs:
+  - id: visibility-decision
+    description: Selected visibility strategy, alternatives, evidence, risks, trade-offs, uncertainties, and handoffs.
+    schema: visibility/schemas/visibility-decision.json
+  - id: validation-report
+    description: Standardized evidence-backed skill-run report.
+    schema: ecosystem/schemas/report.json
+  - id: context-update
+    description: Attributable Shared Context additions and handoff.
+    schema: ecosystem/schemas/shared-context.json
+  - id: specialist-handoff
+    description: Scoped follow-up for Design Toolkit, Security, or an account owner.
+dependencies:
+  required: []
+  optional:
+    - design-toolkit
+    - security
+configuration:
+  - name: production_url
+    description: Canonical production property used only when supplied or verified.
+    required: false
+    default: null
+  - name: target_markets
+    description: Approved countries, languages, regions, or audience markets.
+    required: false
+    default: []
+context:
+  reads:
+    - project
+    - goals
+    - constraints
+    - state.facts
+    - state.assumptions
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+  writes:
+    - state.facts
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+    - handoff
+pipeline:
+  processing:
+    - Validate or create the Shared Context envelope.
+    - Inspect the stack, routes, content, rendering, deployment, visibility assets, and provider evidence.
+    - Consume applicable Design Toolkit decisions and record unresolved design dependencies.
+    - Establish visibility objectives, public-content scope, search intent, markets, constraints, and evidence gaps.
+    - Compare strategies, implement authorized controls, and validate local and deployed outcomes separately.
+    - Update Shared Context, produce the report, and hand off design, security, or owner work.
+  reasoning:
+    - Evaluate truthful business facts, audience search intent, target markets, public content, and visibility objectives.
+    - Evaluate crawlability, indexing, structured data, metadata, social previews, discoverability, and search-performance evidence.
+    - Preserve Design Toolkit decisions and avoid duplicating design, accessibility, or general frontend-performance reasoning.
+    - Prefer framework-native and existing project patterns before new packages or providers.
+    - Explain the selected strategy, alternatives, rejection reasons, risks, trade-offs, owner actions, and remaining uncertainty.
+    - Distinguish implementation, deployment, registration, indexing, provider receipt, and measured outcomes.
+validation:
+  - Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.
+  - Validate visibility decisions against visibility/schemas/visibility-decision.json.
+  - Validate representative rendered HTML, metadata, canonical URLs, links, robots, sitemaps, schema, status codes, and social previews.
+  - Validate analytics or search-provider evidence without exposing secrets.
+  - Validate Shared Context writes, Design Toolkit handoffs, and the standardized report.
+  - Validate registry freshness and run the full repository test suite.
+reporting:
+  report_type: visibility-run
+extension_points:
+  - search-engine-adapters
+  - crawler-validators
+  - framework-metadata-adapters
+  - schema-type-rules
+  - indexing-providers
+  - analytics-adapters
+  - local-search-providers
+  - social-preview-validators
+  - search-performance-metrics
+  - report-sections
+

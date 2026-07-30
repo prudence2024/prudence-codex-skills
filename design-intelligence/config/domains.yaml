@@ -1,0 +1,22 @@
+schema_version: 1
+domains:
+  - layouts
+  - components
+  - navigation
+  - typography
+  - color
+  - spacing
+  - grids
+  - motion
+  - interaction
+  - responsive
+  - accessibility
+  - performance
+  - conversion
+  - visual-hierarchy
+  - information-architecture
+  - user-flows
+  - ux
+  - industries
+extension_policy: add-domain-through-reviewed-configuration
+

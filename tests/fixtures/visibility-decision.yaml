@@ -1,0 +1,121 @@
+schema_version: 1
+decision_id: visibility-decision-fixture
+created_at: "2026-07-30T19:00:00Z"
+authoring_skill: visibility
+project_revision: abc123
+objectives:
+  discoverability:
+    - Make public product pages discoverable from initial HTML.
+  indexing:
+    - Keep account routes excluded while allowing canonical public routes.
+  audiences_and_markets:
+    - English-speaking SaaS evaluators.
+  search_outcomes:
+    - Verify readiness without promising rankings or indexing dates.
+design_inputs:
+  decision_ids:
+    - design-decision-fixture
+  constraints_consumed:
+    - Preserve the approved content hierarchy and existing media.
+  unresolved_dependencies: []
+selected_strategy:
+  summary: Use the framework metadata API and generate visibility assets from route data.
+  rationale: This reuses the current rendering model and prevents metadata drift.
+  existing_capabilities_reused:
+    - Existing server rendering
+    - Existing route data
+  new_dependencies: []
+alternatives:
+  - name: Replace the application with a new rendering framework.
+    rejection_reasons:
+      - Initial HTML is already server rendered, so a rebuild is disproportionate.
+    trade_offs:
+      - Retains current framework constraints in exchange for lower migration risk.
+domains:
+  seo:
+    status: pass
+    evidence:
+      - Public routes contain unique titles and descriptive headings.
+    actions: []
+    risks: []
+  discoverability:
+    status: pass
+    evidence:
+      - Public pages are reachable through crawlable internal links.
+    actions: []
+    risks: []
+  indexing:
+    status: partial
+    evidence:
+      - Index directives are correct in local output.
+    actions:
+      - Verify the deployed property in Search Console.
+    risks:
+      - Provider registration is not verified.
+  structured_data:
+    status: pass
+    evidence:
+      - Organization fields are derived from maintained business data.
+    actions: []
+    risks: []
+  metadata:
+    status: pass
+    evidence:
+      - Server-rendered route metadata is distinct.
+    actions: []
+    risks: []
+  social_previews:
+    status: not_verified
+    evidence:
+      - Open Graph tags exist in local server HTML.
+    actions:
+      - Test the deployed URL in platform preview tools.
+    risks:
+      - Provider rendering has not been observed.
+  crawlability:
+    status: pass
+    evidence:
+      - Googlebot-style requests return contentful HTML.
+    actions: []
+    risks: []
+  search_performance:
+    status: not_verified
+    evidence:
+      - No production field data is available.
+    actions:
+      - Review production Core Web Vitals after deployment.
+    risks:
+      - Local laboratory results cannot establish field performance.
+  web_visibility:
+    status: partial
+    evidence:
+      - Sitemap, robots, and llms files are internally consistent.
+    actions:
+      - Confirm deployed reachability.
+    risks:
+      - Deployment is not verified.
+truth_sources:
+  - fact: Canonical production hostname
+    source: Approved deployment configuration
+    drift_control: Validate it during every production build.
+owner_actions:
+  - Verify the production property in Google Search Console.
+risks:
+  - description: Canonical metadata could drift after a domain change.
+    severity: medium
+    mitigation: Derive the hostname from validated deployment configuration.
+trade_offs:
+  - Dynamic route generation adds build validation work but reduces manual drift.
+remaining_uncertainties:
+  - Production indexing and social-preview provider behavior are unknown.
+validation:
+  - name: initial-html
+    status: pass
+    evidence:
+      - Representative public routes returned distinct content.
+    environment: local-production-build
+context_changes:
+  - Added the approved visibility strategy and unverified provider states.
+handoffs:
+  - Design Toolkit should review any visual changes required by field performance evidence.
+

@@ -1,0 +1,376 @@
+{
+  "generated_at": "2026-07-30T18:15:05.914909+00:00",
+  "schema_version": 1,
+  "skills": [
+    {
+      "category": "design",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "visibility",
+          "security"
+        ],
+        "required": []
+      },
+      "description": "Frontend design, implementation, and animation toolkit for polished web apps, landing pages, dashboards, and interactive UI. Use when Codex needs to choose component libraries or design references, plan responsive and accessible components, improve forms and frontend performance, select animation techniques, or run post-build UI quality checks.",
+      "extension_points": [
+        "reasoning-modules",
+        "knowledge-domains",
+        "pattern-query-filters",
+        "source-adapters",
+        "frontend-validators",
+        "framework-guidance",
+        "report-sections",
+        "design-qa-providers"
+      ],
+      "id": "design-toolkit",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The requested design, implementation, audit, or interaction outcome.",
+          "id": "design-request"
+        },
+        {
+          "description": "Existing source, components, tokens, screenshots, content, and runtime evidence.",
+          "id": "implementation-artifacts"
+        },
+        {
+          "description": "User-supplied references, originality requirements, licenses, and tool constraints.",
+          "id": "reference-constraints"
+        }
+      ],
+      "name": "Design Toolkit",
+      "outputs": [
+        {
+          "description": "Selected solution, alternatives, rationale, quality evaluation, risks, trade-offs, and uncertainty.",
+          "id": "design-decision",
+          "schema": "design-toolkit/schemas/design-decision.json"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "Scoped follow-up for Visibility or Security when their ownership boundary is reached.",
+          "id": "specialist-handoff"
+        }
+      ],
+      "purpose": "Convert business, user, brand, product, conversion, quality, and technical context into original, evidence-backed frontend design decisions, implementation guidance, and verified interface outcomes.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "design-toolkit-run"
+      },
+      "responsibilities": [
+        "Establish design context, objectives, constraints, evidence, and uncertainty.",
+        "Inspect and prefer existing project components and design systems.",
+        "Query and interpret applicable Design Intelligence knowledge.",
+        "Evaluate alternatives and make original design decisions.",
+        "Explain selection rationale, rejection reasons, risks, trade-offs, and uncertainty.",
+        "Support authorized frontend implementation without unnecessary dependencies.",
+        "Validate accessibility, performance, responsiveness, maintainability, consistency, forms, failure states, browser behavior, and motion.",
+        "Update Shared Context and produce structured reports and specialist handoffs."
+      ],
+      "scope": {
+        "excludes": [
+          "Website archive ingestion and execution.",
+          "Pattern extraction, normalization, evidence collection, confidence scoring, recommendation scoring, promotion, and knowledge storage.",
+          "Search indexing, crawlability, metadata, and SEO ownership.",
+          "Application, API, infrastructure, authentication, and data-security ownership.",
+          "Reproduction or cloning of reference websites."
+        ],
+        "includes": [
+          "Frontend design reasoning and design-system-aware planning.",
+          "Component, pattern, reference, and animation selection.",
+          "Original interface implementation guidance and implementation.",
+          "Responsive, accessibility, form, progressive-enhancement, browser, motion, maintainability, consistency, and frontend-performance validation.",
+          "Consumption of validated Design Intelligence knowledge records."
+        ]
+      },
+      "source_path": "design-toolkit",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate design decisions against design-toolkit/schemas/design-decision.json.",
+        "Validate relevant responsive, accessibility, form, failure-state, progressive-enhancement, browser, motion, performance, maintainability, and consistency checks.",
+        "Validate Shared Context writes and the standardized report.",
+        "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "description": "Establish, implement, or audit production observability, incident handling, recovery, public status communication, scheduled-maintenance notices, and email-delivery health across software projects. Use when Codex needs error tracking, structured logs, severity-based alerts, uptime and health checks, independent status pages, subscriber and in-app incident notices, SPF/DKIM/DMARC guidance, deliverability monitoring, recovery runbooks or drills, incident ownership, automatic 48-hour post-mortem scheduling, blameless reviews, remediation tracking, or recurring-failure detection.",
+      "id": "incident-response",
+      "name": "incident-response",
+      "read_only": false,
+      "source_path": "incident-response",
+      "status": "unmigrated",
+      "upstream": false
+    },
+    {
+      "description": "Prepare, adapt, or audit pre-launch legal and business protection documents for SaaS products and client applications. Use when Codex needs Terms of Service, a data-accurate Privacy Policy, B2B Data Processing Agreement, Refund Policy, Master Service Agreement with service levels, or a cyber-liability insurance readiness checklist, especially for Nigeria-based or cross-border operations involving NDPA/NDPR, GDPR, clients, subscriptions, or personal data.",
+      "id": "legal-business",
+      "name": "legal-business",
+      "read_only": false,
+      "source_path": "legal-business",
+      "status": "unmigrated",
+      "upstream": false
+    },
+    {
+      "description": "Coordinate a complete evidence-based post-production audit and hardening pass for websites and web applications across SEO, AI discoverability, accessibility, performance, Core Web Vitals, security, metadata, structured data, analytics, monitoring, deployment, progressive enhancement, mobile behavior, crawlability, indexability, and code quality. Use before launch, after a major release, when reviewing Lighthouse/PageSpeed/Search Console/Bing findings, when comparing a live deployment with a repository revision, or when the user requests a production-readiness score and prioritized remediation report.",
+      "id": "post-production",
+      "name": "post-production",
+      "read_only": false,
+      "source_path": "post-production",
+      "status": "unmigrated",
+      "upstream": false
+    },
+    {
+      "description": "Production security, architecture, and launch-readiness workflow for web apps, APIs, forms, auth, databases, payments, uploads, dependencies, secrets, deployment, cloud cost, caching, scaling, observability, backups, and CI/CD. Use when Codex needs to review or implement security controls, harden form/API handling, verify environment hygiene, add rate limiting or headers, audit dependencies, or assess whether an AI-built application is safe and operationally ready for production.",
+      "id": "security",
+      "name": "security",
+      "read_only": false,
+      "source_path": "security",
+      "status": "unmigrated",
+      "upstream": false
+    },
+    {
+      "description": "Design, implement, or audit secure authenticated-session timeout behavior for web and mobile applications. Use when Codex needs meaningful activity tracking, idle and absolute expiry, a 60-second expiration warning with one-click extension, sustained-focus exceptions, cross-tab coordination, server-side enforcement, or exact workflow and unsaved-state restoration after re-authentication.",
+      "id": "session-security",
+      "name": "session-security",
+      "read_only": false,
+      "source_path": "session-security",
+      "status": "unmigrated",
+      "upstream": false
+    },
+    {
+      "description": "Classify and route customer support tickets, form failures, booking or payment issues, complaints, bug reports, and sensitive escalations. Use when Codex needs to resolve a known support issue automatically, gather an assisted-triage context package, identify human-required legal/privacy/security or policy cases, or produce a structured support handoff.",
+      "id": "support-triage",
+      "name": "support-triage",
+      "read_only": false,
+      "source_path": "support-triage",
+      "status": "unmigrated",
+      "upstream": false
+    },
+    {
+      "category": "visibility",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "design-toolkit",
+          "security"
+        ],
+        "required": []
+      },
+      "description": "SEO, local SEO, AI-crawlability, structured data, sitemap/robots/llms.txt, social preview, analytics, and indexing workflow for websites. Use when Codex needs to audit or implement website visibility improvements, optimize hotels/restaurants/physical businesses for local search and Google Business Profile readiness, fix client-rendered SPA crawlability issues, add schema code, generate or verify sitemap.xml/robots.txt/llms.txt, improve Open Graph/Twitter metadata, validate SSR/prerendered HTML, configure GA4/search-console workflows, or prepare a site for Google Search Console, Bing Webmaster Tools, AI assistants, and link previews.",
+      "extension_points": [
+        "search-engine-adapters",
+        "crawler-validators",
+        "framework-metadata-adapters",
+        "schema-type-rules",
+        "indexing-providers",
+        "analytics-adapters",
+        "local-search-providers",
+        "social-preview-validators",
+        "search-performance-metrics",
+        "report-sections"
+      ],
+      "id": "visibility",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The requested SEO, discoverability, indexing, metadata, schema, social-preview, crawlability, or search-performance outcome.",
+          "id": "visibility-request"
+        },
+        {
+          "description": "Routes, rendered HTML, content sources, configuration, deployment evidence, analytics, and search-platform artifacts.",
+          "id": "implementation-artifacts"
+        },
+        {
+          "description": "Applicable Design Toolkit output whose hierarchy, content presentation, accessibility, or performance constraints must be preserved.",
+          "id": "design-decision",
+          "schema": "design-toolkit/schemas/design-decision.json"
+        }
+      ],
+      "name": "Visibility",
+      "outputs": [
+        {
+          "description": "Selected visibility strategy, alternatives, evidence, risks, trade-offs, uncertainties, and handoffs.",
+          "id": "visibility-decision",
+          "schema": "visibility/schemas/visibility-decision.json"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "Scoped follow-up for Design Toolkit, Security, or an account owner.",
+          "id": "specialist-handoff"
+        }
+      ],
+      "purpose": "Make public web content accurately discoverable, crawlable, indexable, interpretable, and shareable through evidence-backed SEO, metadata, structured data, indexing, social-preview, and search-performance work.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "visibility-run"
+      },
+      "responsibilities": [
+        "Establish visibility objectives, target markets, search intent, public-content scope, constraints, and uncertainty.",
+        "Inspect rendering, routes, content sources, deployment, metadata, schema, crawling, indexing, analytics, and current search evidence.",
+        "Consume applicable Design Toolkit decisions without reimplementing design reasoning.",
+        "Evaluate visibility strategies and explain alternatives, rejection reasons, risks, trade-offs, and uncertainty.",
+        "Implement truthful framework-native visibility controls.",
+        "Validate crawlability, metadata, structured data, indexing directives, social previews, analytics delivery, and search-performance evidence.",
+        "Separate code readiness from deployment, registration, indexing, provider receipt, and measured outcomes.",
+        "Update Shared Context and produce structured reports and specialist or owner handoffs."
+      ],
+      "scope": {
+        "excludes": [
+          "Design reasoning, component selection, visual hierarchy, interaction design, and brand-system decisions.",
+          "Accessibility implementation and general frontend-performance or maintainability planning.",
+          "Application, API, infrastructure, authorization, privacy, and security-policy ownership.",
+          "Fabrication of business facts, ratings, reviews, prices, availability, ranking outcomes, or provider evidence."
+        ],
+        "includes": [
+          "Technical and content SEO.",
+          "Search and AI discoverability.",
+          "Crawlability, rendering, canonicalization, and internal-link evidence.",
+          "Indexing directives, sitemaps, robots, IndexNow, and search-platform readiness.",
+          "Truthful structured data and metadata.",
+          "Social previews, including Open Graph, Twitter, and link-preview metadata.",
+          "Local search and business-listing readiness.",
+          "Search-performance measurement, analytics verification, and visibility monitoring."
+        ]
+      },
+      "source_path": "visibility",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate visibility decisions against visibility/schemas/visibility-decision.json.",
+        "Validate representative rendered HTML, metadata, canonical URLs, links, robots, sitemaps, schema, status codes, and social previews.",
+        "Validate analytics or search-provider evidence without exposing secrets.",
+        "Validate Shared Context writes, Design Toolkit handoffs, and the standardized report.",
+        "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "description": "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas.",
+      "id": "imagegen",
+      "name": "imagegen",
+      "read_only": true,
+      "source_path": ".system/imagegen",
+      "status": "upstream",
+      "upstream": true
+    },
+    {
+      "description": "Use when the user asks how to build with OpenAI products or APIs, asks about Codex itself or choosing Codex surfaces, needs up-to-date official documentation with citations, help choosing the latest model for a use case, latest/current/default-model prompting guidance, or model upgrade and prompt-upgrade guidance; use OpenAI docs MCP tools for non-Codex docs questions, use the Codex manual helper first for broad Codex self-knowledge, and restrict fallback browsing to official OpenAI domains.",
+      "id": "openai-docs",
+      "name": "openai-docs",
+      "read_only": true,
+      "source_path": ".system/openai-docs",
+      "status": "upstream",
+      "upstream": true
+    },
+    {
+      "description": "Create and scaffold plugin directories for Codex with a required `.codex-plugin/plugin.json`, optional plugin folders/files, valid manifest defaults, and personal-marketplace entries by default. Use when Codex needs to create a new personal plugin, add optional plugin structure, generate or update marketplace entries for plugin ordering and availability metadata, or update an existing local plugin during development with the CLI-driven cachebuster and reinstall flow.",
+      "id": "plugin-creator",
+      "name": "plugin-creator",
+      "read_only": true,
+      "source_path": ".system/plugin-creator",
+      "status": "upstream",
+      "upstream": true
+    },
+    {
+      "description": "Perform a read-only, defect-first review of a specified code change and return every actionable finding. Use when another agent delegates review of uncommitted changes, a base-branch diff, a commit, or custom review instructions.",
+      "id": "review-agent",
+      "name": "review-agent",
+      "read_only": true,
+      "source_path": ".system/review-agent",
+      "status": "upstream",
+      "upstream": true
+    },
+    {
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations.",
+      "id": "skill-creator",
+      "name": "skill-creator",
+      "read_only": true,
+      "source_path": ".system/skill-creator",
+      "status": "upstream",
+      "upstream": true
+    },
+    {
+      "description": "Install Codex skills into $CODEX_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos).",
+      "id": "skill-installer",
+      "name": "skill-installer",
+      "read_only": true,
+      "source_path": ".system/skill-installer",
+      "status": "upstream",
+      "upstream": true
+    }
+  ]
+}

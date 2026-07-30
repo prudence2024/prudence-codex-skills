@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.local/schemas/registry.json",
+  "title": "Generated skill registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "skills"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "generated_at": {"type": "string", "minLength": 1},
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "source_path",
+          "status",
+          "upstream",
+          "read_only"
+        ],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+          "name": {"type": "string", "minLength": 1},
+          "description": {"type": "string"},
+          "source_path": {"type": "string", "minLength": 1},
+          "category": {"type": "string"},
+          "version": {"type": "string"},
+          "status": {
+            "enum": [
+              "experimental",
+              "active",
+              "stable",
+              "deprecated",
+              "unmigrated",
+              "upstream"
+            ]
+          },
+          "upstream": {"type": "boolean"},
+          "read_only": {"type": "boolean"},
+          "purpose": {"type": "string"},
+          "scope": {"type": "object"},
+          "responsibilities": {"type": "array"},
+          "inputs": {"type": "array"},
+          "outputs": {"type": "array"},
+          "dependencies": {"type": "object"},
+          "context": {"type": "object"},
+          "validation": {"type": "array"},
+          "reporting": {"type": "object"},
+          "extension_points": {"type": "array"}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"upstream": {"const": true}}, "required": ["upstream"]},
+            "then": {
+              "properties": {
+                "read_only": {"const": true},
+                "status": {"const": "upstream"}
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "upstream": {"const": false},
+                "status": {"not": {"const": "unmigrated"}}
+              },
+              "required": ["upstream", "status"]
+            },
+            "then": {
+              "required": [
+                "category",
+                "version",
+                "purpose",
+                "scope",
+                "responsibilities",
+                "inputs",
+                "outputs",
+                "dependencies",
+                "context",
+                "validation",
+                "reporting",
+                "extension_points"
+              ]
+            }
+          }
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}
+

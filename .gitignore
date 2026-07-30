@@ -1,0 +1,13 @@
+# Curated website archives are local, potentially large, and may contain
+# third-party code, assets, tracking data, or sensitive material.
+/design-intelligence/references/raw/
+
+# Python development artifacts
+/.venv/
+/.pytest_cache/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+/build/
+/dist/
+

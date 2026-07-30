@@ -1,0 +1,83 @@
+schema_version: 1
+decision_id: design-decision-fixture
+created_at: "2026-07-30T12:00:00Z"
+authoring_skill: design-toolkit
+project_revision: abc123
+objectives:
+  business:
+    - Increase qualified trial starts.
+  user:
+    - Understand the product before choosing a plan.
+  conversion:
+    - Reach the trial action without obscuring pricing context.
+context:
+  brand_identity:
+    - Calm, precise, and trustworthy.
+  product_context:
+    - SaaS marketing site.
+  target_audience:
+    - Operations leaders using desktop and mobile devices.
+  technical_constraints:
+    - Reuse the existing React component system.
+selected_solution:
+  summary: Reuse the existing hero and proof components with a clearer decision sequence.
+  rationale: The sequence supports comprehension and conversion without a new dependency.
+  reusable_principles:
+    - Progressive disclosure
+    - Visible trust evidence
+  existing_components_reused:
+    - Hero
+    - TestimonialCard
+  new_dependencies: []
+alternatives:
+  - name: Full-screen cinematic preloader
+    rejection_reasons:
+      - It delays access to product and pricing information.
+    trade_offs:
+      - Rejects spectacle in favor of faster comprehension.
+quality:
+  accessibility:
+    status: pass
+    evidence:
+      - Keyboard order follows the visible content order.
+    risks: []
+  performance:
+    status: pass
+    evidence:
+      - No new runtime dependency is introduced.
+    risks: []
+  maintainability:
+    status: pass
+    evidence:
+      - Existing shared components are reused.
+    risks: []
+  design_consistency:
+    status: pass
+    evidence:
+      - Existing tokens and control styles are retained.
+    risks: []
+design_intelligence:
+  queries:
+    - domain=layouts,industry=saas,ux_goal=comprehension
+  selected_patterns: []
+  rejected_patterns: []
+  knowledge_gaps:
+    - No approved conversion pattern matched the current content model.
+risks:
+  - description: Proof content may become stale.
+    severity: medium
+    mitigation: Assign content ownership and a review date.
+trade_offs:
+  - The restrained composition provides less visual spectacle.
+remaining_uncertainties:
+  - Production conversion evidence is not yet available.
+validation:
+  - name: keyboard-navigation
+    status: pass
+    evidence:
+      - Critical actions were traversed in logical order.
+context_changes:
+  - Added the approved hero-sequence decision.
+handoffs:
+  - Visibility should review final metadata after content stabilizes.
+

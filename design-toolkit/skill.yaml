@@ -1,0 +1,122 @@
+schema_version: 1
+id: design-toolkit
+name: Design Toolkit
+version: 1.0.0
+category: design
+status: stable
+purpose: >-
+  Convert business, user, brand, product, conversion, quality, and technical
+  context into original, evidence-backed frontend design decisions,
+  implementation guidance, and verified interface outcomes.
+scope:
+  includes:
+    - Frontend design reasoning and design-system-aware planning.
+    - Component, pattern, reference, and animation selection.
+    - Original interface implementation guidance and implementation.
+    - Responsive, accessibility, form, progressive-enhancement, browser, motion, maintainability, consistency, and frontend-performance validation.
+    - Consumption of validated Design Intelligence knowledge records.
+  excludes:
+    - Website archive ingestion and execution.
+    - Pattern extraction, normalization, evidence collection, confidence scoring, recommendation scoring, promotion, and knowledge storage.
+    - Search indexing, crawlability, metadata, and SEO ownership.
+    - Application, API, infrastructure, authentication, and data-security ownership.
+    - Reproduction or cloning of reference websites.
+responsibilities:
+  - Establish design context, objectives, constraints, evidence, and uncertainty.
+  - Inspect and prefer existing project components and design systems.
+  - Query and interpret applicable Design Intelligence knowledge.
+  - Evaluate alternatives and make original design decisions.
+  - Explain selection rationale, rejection reasons, risks, trade-offs, and uncertainty.
+  - Support authorized frontend implementation without unnecessary dependencies.
+  - Validate accessibility, performance, responsiveness, maintainability, consistency, forms, failure states, browser behavior, and motion.
+  - Update Shared Context and produce structured reports and specialist handoffs.
+inputs:
+  - id: project-context
+    description: Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.
+    schema: ecosystem/schemas/shared-context.json
+  - id: design-request
+    description: The requested design, implementation, audit, or interaction outcome.
+  - id: implementation-artifacts
+    description: Existing source, components, tokens, screenshots, content, and runtime evidence.
+  - id: reference-constraints
+    description: User-supplied references, originality requirements, licenses, and tool constraints.
+outputs:
+  - id: design-decision
+    description: Selected solution, alternatives, rationale, quality evaluation, risks, trade-offs, and uncertainty.
+    schema: design-toolkit/schemas/design-decision.json
+  - id: validation-report
+    description: Standardized evidence-backed skill-run report.
+    schema: ecosystem/schemas/report.json
+  - id: context-update
+    description: Attributable Shared Context additions and handoff.
+    schema: ecosystem/schemas/shared-context.json
+  - id: specialist-handoff
+    description: Scoped follow-up for Visibility or Security when their ownership boundary is reached.
+dependencies:
+  required: []
+  optional:
+    - visibility
+    - security
+configuration:
+  - name: design_knowledge_root
+    description: Repository-relative path to validated Design Intelligence domain records.
+    required: false
+    default: design-intelligence/knowledge
+  - name: confidence_configuration
+    description: Repository-relative path to Design Intelligence confidence-tier configuration.
+    required: false
+    default: design-intelligence/config/confidence.yaml
+context:
+  reads:
+    - project
+    - goals
+    - constraints
+    - state.facts
+    - state.assumptions
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+  writes:
+    - state.facts
+    - state.uncertainties
+    - decisions
+    - artifacts
+    - risks
+    - skill_runs
+    - handoff
+pipeline:
+  processing:
+    - Validate or create the Shared Context envelope.
+    - Inspect the existing project, implementation, and design system.
+    - Load only applicable references and validated knowledge records.
+    - Compare alternatives and create the design decision.
+    - Implement only authorized work.
+    - Validate relevant frontend quality requirements.
+    - Update Shared Context, report results, and hand off specialist work.
+  reasoning:
+    - Evaluate business objectives, user goals, brand identity, product context, target audience, and conversion objectives.
+    - Evaluate accessibility, performance, maintainability, design consistency, and technical constraints.
+    - Prefer existing components and design systems before new patterns or dependencies.
+    - Interpret confidence and recommendation scores in the current context instead of treating them as commands.
+    - Explain the selected solution, alternatives, rejection reasons, risks, trade-offs, and remaining uncertainty.
+    - Generate an original solution from reusable principles without reproducing reference websites.
+validation:
+  - Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.
+  - Validate design decisions against design-toolkit/schemas/design-decision.json.
+  - Validate relevant responsive, accessibility, form, failure-state, progressive-enhancement, browser, motion, performance, maintainability, and consistency checks.
+  - Validate Shared Context writes and the standardized report.
+  - Validate registry freshness and run the full repository test suite.
+reporting:
+  report_type: design-toolkit-run
+extension_points:
+  - reasoning-modules
+  - knowledge-domains
+  - pattern-query-filters
+  - source-adapters
+  - frontend-validators
+  - framework-guidance
+  - report-sections
+  - design-qa-providers
+

@@ -1,0 +1,43 @@
+schema_version: 1
+id: sample-skill
+name: Sample Skill
+version: 1.0.0
+category: testing
+status: stable
+purpose: Validate representative ecosystem behavior.
+scope:
+  includes:
+    - fixture validation
+  excludes:
+    - production work
+responsibilities:
+  - Validate the supplied fixture.
+inputs:
+  - id: fixture
+    description: Fixture input.
+outputs:
+  - id: validation-report
+    description: Structured validation result.
+dependencies:
+  required: []
+  optional: []
+configuration: []
+context:
+  reads:
+    - project.id
+  writes:
+    - skill_runs
+pipeline:
+  processing:
+    - Load the fixture.
+    - Validate the result.
+  reasoning:
+    - Establish applicable constraints.
+    - Explain the validation decision.
+validation:
+  - Validate the output schema.
+reporting:
+  report_type: skill-run
+extension_points:
+  - validators
+

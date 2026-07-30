@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.local/schemas/report.json",
+  "title": "Structured ecosystem report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_type",
+    "title",
+    "generated_at",
+    "scope",
+    "summary",
+    "decisions",
+    "validation_results",
+    "risks",
+    "warnings",
+    "errors",
+    "recommendations",
+    "context_changes",
+    "artifacts_changed",
+    "checks_not_run",
+    "handoff",
+    "approval_required"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "report_type": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "string", "minLength": 1},
+    "scope": {"type": "string", "minLength": 1},
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "checks", "failed", "partial"],
+      "properties": {
+        "status": {"enum": ["pass", "fail", "partial", "not_applicable", "not_verified"]},
+        "checks": {"type": "integer", "minimum": 0},
+        "failed": {"type": "integer", "minimum": 0},
+        "partial": {"type": "integer", "minimum": 0}
+      }
+    },
+    "decisions": {"type": "array"},
+    "validation_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "status", "issues", "evidence"],
+        "properties": {
+          "name": {"type": "string"},
+          "status": {"enum": ["pass", "fail", "partial", "not_applicable", "not_verified"]},
+          "issues": {"type": "array"},
+          "evidence": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "risks": {"type": "array"},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "recommendations": {"type": "array"},
+    "context_changes": {"type": "array"},
+    "artifacts_changed": {"type": "array"},
+    "checks_not_run": {"type": "array", "items": {"type": "string"}},
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["next_owner", "reason"],
+      "properties": {
+        "next_owner": {"type": ["string", "null"]},
+        "reason": {"type": ["string", "null"]}
+      }
+    },
+    "approval_required": {"type": "boolean"}
+  }
+}
+

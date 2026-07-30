@@ -1,0 +1,51 @@
+schema_version: 1
+id: ambient-orbit
+domain: motion
+name: Ambient orbit
+summary: Orbit decorative elements around a portfolio focal point.
+status: reviewed
+problem: Experimental portfolios may need a distinctive ambient signature.
+mechanism: Animate decorative elements on a bounded transform loop.
+industries:
+  - portfolio
+ux_goals:
+  - visual-distinction
+contexts:
+  - marketing
+tags:
+  - ambient-motion
+accessibility:
+  rating: risk
+  tags:
+    - reduced-motion
+  notes:
+    - Disable the loop when reduced motion is requested.
+performance:
+  rating: risk
+  tags:
+    - continuous-animation
+  notes:
+    - Continuous compositing may consume battery.
+contraindications:
+  - Avoid behind dense application workflows.
+evidence:
+  observation_ids:
+    - observation-002
+  independent_source_groups: 1
+  positive:
+    - Visually distinctive in one curated portfolio.
+  negative: []
+  contradictory: []
+scores:
+  formula_version: weighted-independent-evidence-v1
+  evidence_confidence: 0.24
+  recommendation_score: 0.31
+  confidence_level: experimental
+  novelty: 0.92
+  explanation: Singular evidence preserves inspiration value but cannot support a default.
+first_seen: "2026-01-02"
+last_observed: "2026-01-02"
+last_evaluated: "2026-01-15"
+reviewers:
+  - fixture-reviewer
+

@@ -1,0 +1,20 @@
+schema_version: 1
+dimensions:
+  curation:
+    weight: 0.20
+  production_maturity:
+    weight: 0.20
+  accessibility_execution:
+    weight: 0.15
+  performance_execution:
+    weight: 0.15
+  contextual_relevance:
+    weight: 0.20
+  freshness:
+    weight: 0.10
+rules:
+  count_independent_websites_not_pages: true
+  group_shared_templates_and_design_systems: true
+  record_conflicting_evidence: true
+  prevalence_is_not_effectiveness: true
+

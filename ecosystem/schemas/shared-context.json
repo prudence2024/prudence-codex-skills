@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prudence.local/schemas/shared-context.json",
+  "title": "Shared Context Protocol envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "revision",
+    "project",
+    "run",
+    "goals",
+    "constraints",
+    "state",
+    "decisions",
+    "artifacts",
+    "risks",
+    "skill_runs",
+    "handoff"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "revision": {"type": "integer", "minimum": 0},
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "repository": {"type": ["string", "null"]},
+        "revision": {"type": ["string", "null"]}
+      }
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "started_at"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "started_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "goals": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+    "constraints": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["facts", "assumptions", "uncertainties"],
+      "properties": {
+        "facts": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+        "assumptions": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+        "uncertainties": {"type": "array", "items": {"$ref": "#/$defs/record"}}
+      }
+    },
+    "decisions": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+    "artifacts": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+    "risks": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+    "skill_runs": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["next_skills", "reason"],
+      "properties": {
+        "next_skills": {"type": "array", "items": {"type": "string"}},
+        "reason": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "$defs": {
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "value", "authoring_skill", "timestamp", "provenance"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "value": {},
+        "authoring_skill": {"type": "string", "minLength": 1},
+        "timestamp": {"type": "string", "format": "date-time"},
+        "provenance": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "supersedes": {"type": ["string", "null"]}
+      }
+    }
+  }
+}
+

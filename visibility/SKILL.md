@@ -5,98 +5,116 @@ description: SEO, local SEO, AI-crawlability, structured data, sitemap/robots/ll
 
 # Visibility
 
-## Overview
+Own SEO, discoverability, indexing, structured data, metadata, social previews,
+crawlability, search performance, and web visibility. Start from truthful project
+facts and deployment evidence, then implement only the visibility controls the
+project needs.
 
-Use this skill to make a website findable and accurately represented by search engines, AI crawlers/assistants, and social/link-preview bots. Start with the current stack and crawlability evidence, then implement only the visibility pieces the project actually needs.
+Consume applicable `$design-toolkit` decisions and validation results. Do not
+repeat design reasoning, component selection, visual hierarchy, interaction,
+accessibility implementation, or general frontend-performance planning.
 
-## Reference Routing
+## Reference routing
 
-- Read `references/visibility-skill-source.md` for the scoped execution checklist and project workflow.
-- Read `references/reference-seo-crawlability-playbook.md` when diagnosing SSR/prerendering, empty-shell SPAs, route HTML, or per-route metadata visibility.
-- Read `references/reference-seo-how-to.md` when implementing concrete SEO assets: meta tags, Schema.org JSON-LD, robots.txt, sitemap.xml, GA4/CSP notes, llms.txt, content guidance, and monitoring workflows.
+- Read
+  [references/visibility-reasoning.md](references/visibility-reasoning.md) for
+  responsibility boundaries, Shared Context use, evidence levels, alternatives,
+  decisions, and Design Toolkit consumption.
+- Read
+  [references/visibility-skill-source.md](references/visibility-skill-source.md)
+  for the scoped execution checklist and stack-aware workflow.
+- Read
+  [references/reference-seo-crawlability-playbook.md](references/reference-seo-crawlability-playbook.md)
+  when diagnosing SSR, prerendering, empty-shell SPAs, route HTML, or per-route
+  metadata visibility.
+- Read
+  [references/reference-seo-how-to.md](references/reference-seo-how-to.md) when
+  implementing metadata, structured data, robots, sitemaps, analytics,
+  `llms.txt`, content guidance, or monitoring workflows.
+
+Treat overlapping accessibility and performance material in legacy references as
+visibility requirements or measurements. Use Design Toolkit for design decisions
+and frontend implementation strategy.
 
 ## Workflow
 
-1. Identify the stack before editing.
-   - SSR-by-default frameworks such as TanStack Start, Next.js App Router, Remix, SvelteKit, and Nuxt usually need a hygiene check, not a rendering rebuild.
-   - Plain client-rendered Vite/React/Vue SPAs need empty-shell diagnostics and usually prerendering or SSR.
-   - Static site generators usually go directly to metadata, schema, sitemap, robots, and content checks.
+1. Read and validate Shared Context. If none exists, create an in-memory envelope
+   and report that it was not persisted.
+2. Inspect project instructions, stack, routes, rendering, content sources,
+   deployment, locales, public/private boundaries, analytics, search
+   configuration, and current visibility assets.
+3. Consume relevant Design Toolkit decisions and artifacts. Preserve approved
+   design intent; record unresolved design dependencies instead of redesigning.
+4. Establish business facts, target markets, audience search intent, public
+   content, visibility objectives, current indexing state, and evidence gaps.
+5. Verify crawlability like a bot using initial response HTML, status codes,
+   canonical URLs, internal links, robots directives, and representative routes.
+6. Evaluate metadata, structured data, sitemap, robots, `llms.txt`, social
+   previews, local visibility, analytics, indexing workflows, and search
+   performance only where applicable.
+7. Compare credible implementation alternatives and record why the selected
+   approach fits the real stack, content model, deployment, and maintenance
+   constraints.
+8. Before implementation, record the selected strategy, alternatives, rejection
+   reasons, risks, trade-offs, truthfulness constraints, and remaining
+   uncertainty.
+9. Implement only authorized, framework-native changes. Derive visibility data
+   from real content and routes; never invent business facts, ratings, reviews,
+   prices, availability, or working search behavior.
+10. Validate local or preview output, then validate the deployed environment
+    separately when available. Distinguish configuration, readiness,
+    registration, indexing, and measured search performance.
+11. Update only declared Shared Context fields and produce the standardized
+    report.
+12. Handoff design/accessibility/frontend-performance work to `$design-toolkit`,
+    security-policy decisions to `$security`, and account-owner actions to the
+    user or named operator.
 
-2. Verify crawlability like a bot.
-   - Use curl with a Googlebot user agent against home and at least one inner route.
-   - Confirm the returned HTML has real content, distinct titles, canonical URLs, and per-route metadata.
-   - Do not claim SSR/prerendering is fixed based only on browser appearance.
+## Required decision record
 
-3. Implement core technical visibility.
-   - Unique page title, description, canonical, Open Graph, and Twitter card per public route.
-   - One meaningful H1 per page and sensible heading hierarchy.
-   - Crawlable anchor links for internal navigation.
-   - Structured data rendered server-side where possible.
-   - `robots.txt` and `sitemap.xml` generated from real route/content data.
-   - `llms.txt` with factual business summary, key pages, key facts, contact, and AI crawler guidance aligned with robots.txt.
-   - Crawl the internal link graph to find broken links, orphan pages, excessive crawl depth, redirect chains or loops, soft 404s, duplicate URL variants, and canonical conflicts.
-   - Validate useful 404 behavior, pagination and breadcrumbs where applicable, the web app manifest and icon set, and RSS/Atom for sites with regularly published content.
+For every material visibility decision, explain:
 
-4. Choose schema by page and business type.
-   - Local physical business: `LocalBusiness` or a specific subtype with real address and contact fields.
-   - Hotel/lodging: include `Hotel`, `LodgingBusiness`, `Offer`, and room/service data where appropriate.
-   - Product pages: `Product` with image, description, offers, price/currency/availability when real data exists.
-   - Blog/content: `Article` or `BlogPosting`.
-   - Add `Restaurant`, `Event`, `Course`, `FAQPage`, `BreadcrumbList`, `SearchAction`, `Review`, `AggregateRating`, `VideoObject`, or `ImageObject` only when the visible content and working feature genuinely support that type.
-   - Avoid fake ratings, fake reviews, stale prices, or hardcoded facts that can drift from source data.
+- why the selected strategy was chosen;
+- which alternatives were considered and why they were rejected;
+- which Design Toolkit decisions or constraints were consumed;
+- truthfulness and content-source requirements;
+- crawlability, indexing, metadata, schema, social, and search-performance
+  implications;
+- risks and trade-offs;
+- remaining uncertainties;
+- validation evidence and checks not run;
+- owner-only actions and specialist handoffs.
 
-5. Handle local SEO for hotels, restaurants, and physical businesses.
-   - Recommend creating and verifying a Google Business Profile as an owner action.
-   - Keep NAP data (Name, Address, Phone) consistent across the website, schema, Google Business Profile, social profiles, and directories.
-   - Encourage genuine customer reviews; never fabricate ratings, reviews, or review schema.
-   - Add high-quality, current photos regularly, especially rooms, food, exterior, interior, amenities, team, and guest spaces.
-   - Choose accurate primary and secondary Google Business Profile categories for the actual business type.
-   - Add all real services, amenities, booking options, business hours, and special hours.
-   - Keep business hours, phone numbers, address, website URL, and booking/contact links current.
-   - List the business on trusted local and industry directories such as Google Maps, Bing Places, Apple Business Connect, TripAdvisor, hotel/travel directories, local chambers, and relevant regional listings.
-   - Treat Google Business Profile setup, directory accounts, review collection, and live listing verification as owner-side tasks unless credentials/account access are explicitly provided.
+Use `schemas/visibility-decision.json` for machine-readable decision artifacts.
 
-6. Support AI and social previews.
-   - Add or update `llms.txt`.
-   - Consider markdown mirrors for important pages when useful.
-   - Verify social previews with actual share/debug tools or by inspecting server-rendered OG tags.
-   - Treat `humans.txt` as optional attribution, `/.well-known/security.txt` as a maintained security-contact convention, and `browserconfig.xml` as platform-specific metadata rather than universal SEO requirements.
+## Evidence rules
 
-7. Optimize speed and mobile usability.
-   - Compress local images into modern formats such as WebP/AVIF while preserving original fallbacks.
-   - Serve responsive image sizes with explicit `sizes`, `loading`, `decoding`, and high priority only for above-the-fold LCP media.
-   - Compress videos into mobile-friendly variants, use `preload="none"` or on-demand loading for non-critical videos, and keep poster images lightweight.
-   - Avoid autoplaying heavy video on mobile unless it is muted, inline, and clearly beneficial to the first viewport.
-   - Add lightweight loading, skeleton, or preloader states for slow networks without blocking usable content longer than necessary.
-   - Check mobile tap targets, horizontal overflow, layout shift, and reduced-motion behavior before calling the experience seamless.
-   - Re-run build and, when live, verify Core Web Vitals/PageSpeed on the homepage and at least one media-heavy inner page.
+- Treat source code as implementation evidence, not proof of deployment,
+  indexing, analytics receipt, rich-result eligibility, or ranking.
+- Record exact URL, environment, revision, timestamp, tool, mode, and limitation
+  for live or laboratory measurements.
+- Mark provider dashboards, ownership, registrations, and external results
+  `not_verified` until direct evidence exists.
+- Treat Search Console, Bing, analytics, PageSpeed, and social-debugger results as
+  provider evidence tied to the inspected property and time.
+- Do not promise rankings, indexing dates, rich results, traffic, or Core Web
+  Vitals outcomes.
 
-8. Validate before calling done.
-   - Build passes.
-   - Home and inner route curl outputs are distinct and contentful.
-   - `robots.txt`, `sitemap.xml`, and `llms.txt` are reachable at root paths.
-   - JSON-LD is valid for the page type.
-   - No placeholders remain in visibility assets.
-   - If live, use Google Search Console URL Inspection and Bing Webmaster Tools/IndexNow where relevant.
-   - Verify configured analytics providers in the browser Network panel, including duplicate events, consent behavior, and CSP-blocked collection endpoints; do not claim dashboard receipt from script presence alone.
-   - Separate readiness from verified registration/indexing for Google, Bing/Yahoo, DuckDuckGo, Brave, Yandex, and Baidu, and recommend only engines relevant to the site's audience.
+## Guardrails
 
-9. Validate agent accessibility and ARIA.
-   - Run standard accessibility checks and inspect the rendered browser accessibility tree. Review PageSpeed Agentic Browsing findings separately when available; this evolving audit category is not a direct SEO ranking factor.
-   - Prefer native HTML semantics. Search rendered markup for invalid or misleading role overrides, confirm roles are permitted and appropriate, and verify every `aria-labelledby` and `aria-describedby` reference resolves to a real, unique ID.
-   - Use `aria-modal` only with a genuine `dialog`, `alertdialog`, or correct native modal implementation. Treat consent and preference banners as non-modal unless they block background interaction and implement focus entry, containment, dismissal, and restoration.
-   - Do not add unnecessary ARIA to chase a score. Verify Preview or Production output, then rerun Lighthouse/PageSpeed after deployment; a local source change does not prove the live result is fixed.
-
-   Final verification:
-
-   - [ ] No inappropriate role overrides on semantic HTML elements.
-   - [ ] All ARIA references resolve to real, unique elements.
-   - [ ] Non-modal banners do not claim dialog/modal semantics.
-   - [ ] Real modal dialogs implement focus entry, focus containment, dismissal, and focus restoration.
-   - [ ] PageSpeed Agentic Browsing findings reviewed when available.
-   - [ ] Accessibility tree inspected in browser developer tools.
-   - [ ] Fix verified on the deployed Preview or live URL.
-
-## Output Expectations
-
-When auditing, report findings by severity with file/line references where local code is available. When implementing, keep changes aligned to the framework's official head/meta APIs and existing route/data patterns. Mention which checks were run, which could not be run, and any owner-only tasks such as Search Console verification.
+- Preserve the original meaning and information architecture of approved Design
+  Toolkit decisions unless a visibility defect requires a documented handoff.
+- Do not add schema types unsupported by visible, truthful content and working
+  features.
+- Do not let `robots.txt`, `llms.txt`, meta tags, or schema contradict actual
+  access rules or business practices.
+- Keep private, preview, staging, account, admin, and sensitive routes out of
+  public indexes.
+- Do not expose secrets, analytics credentials, verification tokens, or private
+  URLs in Shared Context or reports.
+- Do not treat `llms.txt`, `humans.txt`, agentic audits, or other emerging
+  conventions as guaranteed ranking signals.
+- Do not change CSP or broader security policy without `$security`; state the
+  required visibility endpoint and hand off the policy decision.
+- Do not redesign interfaces, choose components, or duplicate Design Toolkit
+  validation.

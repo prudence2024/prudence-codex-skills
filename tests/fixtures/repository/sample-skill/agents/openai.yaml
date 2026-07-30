@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sample Skill"
+  short_description: "Validate representative skill infrastructure"
+  default_prompt: "Use $sample-skill to validate this fixture."
+

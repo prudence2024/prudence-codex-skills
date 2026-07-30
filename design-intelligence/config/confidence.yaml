@@ -1,0 +1,24 @@
+schema_version: 1
+formula_version: weighted-independent-evidence-v1
+scores:
+  - source_quality
+  - extraction_confidence
+  - independence_weight
+  - freshness
+  - contextual_relevance
+tiers:
+  established:
+    minimum_evidence_confidence: 0.80
+    minimum_independent_source_groups: 12
+    requires_human_approval: true
+  contextual:
+    minimum_evidence_confidence: 0.65
+    requires_context_match: true
+  promising:
+    minimum_evidence_confidence: 0.45
+  experimental:
+    inspiration_only: true
+  discouraged:
+    recommendation_default: false
+calibration_required: true
+

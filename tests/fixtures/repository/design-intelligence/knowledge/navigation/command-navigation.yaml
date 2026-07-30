@@ -1,0 +1,56 @@
+schema_version: 1
+id: command-navigation
+domain: navigation
+name: Command navigation
+summary: Provide a searchable command surface for expert product navigation.
+status: reviewed
+problem: Dense products make destination discovery slow.
+mechanism: Index permitted actions and destinations behind a keyboard-accessible command surface.
+industries:
+  - saas
+  - developer-tools
+ux_goals:
+  - efficient-navigation
+  - discoverability
+contexts:
+  - authenticated-product
+  - desktop
+tags:
+  - command-palette
+  - keyboard
+accessibility:
+  rating: supports
+  tags:
+    - keyboard-navigation
+    - focus-management
+  notes:
+    - Requires a labeled dialog and predictable focus restoration.
+performance:
+  rating: neutral
+  tags:
+    - lazy-index
+  notes:
+    - Load large indexes on demand.
+contraindications:
+  - Do not make it the only navigation path.
+evidence:
+  observation_ids:
+    - observation-001
+  independent_source_groups: 14
+  positive:
+    - Repeated in mature productivity products.
+  negative: []
+  contradictory: []
+scores:
+  formula_version: weighted-independent-evidence-v1
+  evidence_confidence: 0.86
+  recommendation_score: 0.82
+  confidence_level: established
+  novelty: 0.20
+  explanation: Diverse independent evidence with bounded accessibility requirements.
+first_seen: "2024-01-01"
+last_observed: "2026-01-01"
+last_evaluated: "2026-01-15"
+reviewers:
+  - fixture-reviewer
+
