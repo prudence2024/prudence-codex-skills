@@ -1,0 +1,208 @@
+--- PDF PAGE 1 ---
+LAYER 3 OF 13
+DATABASE
+STORAGE
+Where Your Data Lives
+TIER 1 — SOLOPRENEUR
+MATT MURPHY .AI
+mattmurphy.ai
+Part of the Builder Certification Series
+
+--- PDF PAGE 2 ---
+Layer 3: Database & Storage  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 2
+What This Kit Covers
+What This Kit Covers
+This kit covers Layer 3: Database & Storage—where your data lives. Every app needs to 
+remember things. User accounts, orders, messages, uploaded photos, settings, transaction 
+history—all of that has to be saved somewhere so it's still there when someone comes back 
+tomorrow. That somewhere is your database and storage system.
+You're not going to set up databases by hand. You're going to describe what your app needs to 
+remember—"I need to store customers, their orders, and photos of their completed work"—and 
+let your AI coding tool build the data layer for you. Your job is to understand how data is 
+organized, check that things are being saved correctly, and make sure nothing important gets 
+lost. That's what this certification proves you can do.
+This kit walks you through three levels of mastery. Tier 1 is for someone building their first app 
+who needs data to save and load reliably. Tier 2 is for someone whose app is growing and 
+needs to keep data organized, fast, and backed up. Tier 3 is for someone running a platform at 
+scale where data loss or downtime is unacceptable. Start at Tier 1. You can always come back 
+for the rest.
+Why It Matters
+If your frontend is the face and your backend is the brain, your database is the memory. Without 
+it, your app forgets everything the moment someone closes it. Imagine a to-do app that loses all 
+your tasks overnight, or an e-commerce store that forgets what you ordered. A broken or 
+disorganized database doesn't just cause bugs—it destroys trust.
+Here's the thing about AI coding tools: they'll happily set up a database for you, but they often 
+make choices you didn't think about—like storing data in a way that gets slow as your app 
+grows, not setting up backups, or creating duplicate records because there's no rule preventing 
+it. AI builds the structure you describe. If you don't know what good data organization looks like, 
+you get a mess that's painful to untangle later. This kit teaches you what good looks like.
+Certification Tier Map
+There are three certification tiers. Each one builds on the one before it. Here’s a quick look at 
+who each tier is for and what you’ll prove you can do.
+Tier
+Who It’s For
+What You Prove
+Tier 1
+Solo builders shipping their first app
+You understand how data is stored, can describe your data structure to AI, and can verify that 
+data saves and loads correctly.
+Tier 2
+Growing teams with more data and users
+You can manage database changes safely, optimize for speed, handle file storage, and keep 
+your data backed up and recoverable.
+Tier 3
+Platforms with high volume and compliance needs
+
+--- PDF PAGE 3 ---
+Layer 3: Database & Storage  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 3
+You can oversee database scaling, replication, data warehousing, and compliance-grade data 
+governance at enterprise scale.
+TIER 1 CERTIFICATION GOAL
+You can describe what data your app needs to store, use an AI coding tool to set up the 
+database, verify that data saves and loads correctly, and ship an app where nothing important 
+gets lost.
+What You Need to Know
+You don't need to write database queries by hand. You need to understand a handful of 
+concepts so you can describe your data clearly and catch problems in what AI gives you back.
+What a database actually is: A database is a structured place to store information—like a 
+spreadsheet, but built for apps. Instead of opening a file and scrolling through rows, your app 
+sends requests to the database to save, find, update, or delete information. The most common 
+type you'll see is a relational database (like PostgreSQL), which stores data in tables with rows 
+and columns—just like a spreadsheet with strict rules about what goes where.
+What a schema is (your data's blueprint): A schema defines the structure of your data—what 
+tables exist, what columns each table has, and what type of data each column holds. For 
+example, a "users" table might have columns for name (text), email (text), and created_date 
+(date). Think of it as the blueprint your database follows. If you don't define a clear schema, AI 
+will make one up—and it might not match what your app actually needs.
+SQL vs. NoSQL (two styles of database): SQL databases (like PostgreSQL, MySQL) organize 
+data in structured tables with defined relationships—great for apps where data is predictable, 
+like orders linked to customers. NoSQL databases (like MongoDB, Firebase) are more flexible 
+and store data as documents—like filing folders that can hold anything. For most apps you'll 
+build with AI, SQL is the default and the right choice.
+How tables relate to each other: In most apps, data is connected. A customer has many 
+orders. An order has many items. These relationships are defined in your schema. If AI doesn't 
+set up relationships correctly, you'll end up with orphaned data—orders that don't connect to 
+any customer, or items floating without an order.
+The vibecoder workflow for databases: Describe what your app needs to remember → AI 
+sets up the database and schema → you check that data saves correctly by creating test 
+records → you verify that loading data returns the right results → you fix any gaps → ship it. 
+Same loop as the other layers, but you're checking that data goes in right and comes out right.
+Your Toolkit
+Your AI coding tool sets up the database. These tools help you inspect and verify it.
+AI coding tool (pick one): Cursor, Lovable, Bolt, Claude Code, Windsurf, or whatever AI-
+assisted builder you prefer. This is where you'll describe your data structure and let AI build the 
+database layer.
+
+--- PDF PAGE 4 ---
+Layer 3: Database & Storage  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 4
+A database with a visual interface: Supabase or PlanetScale give you a web dashboard 
+where you can see your tables, browse rows, and run queries without touching code. Think of it 
+as looking at your spreadsheet directly instead of trusting that it's correct.
+A database viewer: Tools like TablePlus or the Supabase dashboard let you browse your data 
+visually—see what's actually stored, check for duplicates, and verify relationships between 
+tables.
+Certification Exam Topics
+Every exam question is scenario-based. You'll see a situation and need to identify what's right, 
+what's wrong, or what to do next. Here's what gets tested:
+Schema design: Can you evaluate whether AI created the right tables and columns for your 
+app's data—or missed something important?
+Data types: Can you identify when AI used the wrong type for a column—like storing a price as 
+text instead of a number, or a date as a plain string?
+Relationships: Can you spot when tables that should be connected aren't—like orders that 
+don't link back to the customer who placed them?
+Required vs. optional fields: Can you tell when a column should require a value (like an email 
+for a user account) vs. when it should allow empty values?
+Duplicate prevention: Can you identify when your database allows duplicate records that 
+shouldn't exist—like two accounts with the same email address?
+Basic queries: Can you describe what data you need and verify that the results are correct—
+even if you're not writing the query yourself?
+Data integrity: Can you check that deleting a record doesn't leave orphaned data behind—like 
+deleting a customer but leaving their orders in the system?
+Your AI workflow: Can you describe a data structure clearly, inspect the result in a database 
+viewer, give AI useful feedback when something is wrong, and iterate to a correct schema?
+
+--- PDF PAGE 5 ---
+Layer 3: Database & Storage  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 5
+Common Pitfalls
+These are the mistakes vibecoders make most often at this layer. No judgment—they're easy to 
+make. But if you recognize any of them in your own workflow, fix them before sitting for the 
+exam.
+Never looking at your actual data. You trust that AI set up the database correctly, but you've 
+never opened a database viewer to check. There could be duplicate records, missing 
+relationships, or columns with the wrong data types—and you'd never know until something 
+breaks in production.
+No backups. Or worse—you have backups but you've never tested restoring one. A backup 
+you've never restored is just a file that makes you feel better. Test it before you need it.
+Storing files directly in the database instead of a file storage service. AI will do this if you don't 
+specify otherwise. Your database will get huge and slow. Photos, PDFs, and uploads belong in 
+file storage (like Supabase Storage or S3), with just a link stored in the database.
+Not thinking about what happens when your data grows. Your app works great with 50 test 
+records. But with 50,000 real records and no indexes, that search query takes 30 seconds. Ask 
+AI to add indexes on any column you'll search or filter by.
+Letting AI create tables without unique constraints. If there's no rule saying "each email can only 
+exist once," your users table will eventually have duplicate accounts, and you'll spend days 
+untangling the mess.
+Making schema changes directly on the production database. One wrong move and you lose 
+real user data. Always use migrations—planned, tested changes that can be rolled back if 
+something goes wrong.
+Tier 1 Self-Assessment Checklist
+Before you take the exam, run through these questions. Every "no" is something to work on.
+Can you describe your app's data structure to AI clearly enough that it creates the right tables 
+and relationships?
+Have you actually opened a database viewer and looked at the data AI created—checking for 
+correct types, relationships, and constraints?
+Does your database prevent duplicate records where they shouldn't exist (like two accounts with 
+the same email)?
+If you deleted your database right now, could you restore it from a backup?
+Are uploaded files (photos, documents) stored in a file storage service—not directly in the 
+database?
+Can you describe what happens to related data when a record is deleted (like what happens to 
+orders when a customer is removed)?
+Do you know how to check whether your database queries are fast enough—and what to do if 
+they're not?
+
+--- PDF PAGE 6 ---
+Layer 3: Database & Storage  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 6
+AI Audit Prompt Template
+Copy this prompt into your AI coding tool to get a quick health check on your 
+database. It checks the same things the certification exam covers.
+Review my app's database and storage setup and check the following. For each 
+one, tell me pass or fail with a specific example:
+Schema design: Are my tables logically organized with appropriate data types, 
+required fields, and clear naming conventions?
+Relationships: Are related tables properly connected with foreign keys—and 
+are there rules for what happens when a parent record is deleted?
+Unique constraints: Are there constraints preventing duplicate records where 
+duplicates shouldn't exist (like duplicate email addresses or duplicate order 
+numbers)?
+Indexes: Are commonly searched and filtered columns indexed for fast lookups—
+especially as data grows?
+File storage: Are uploaded files (images, documents, videos) stored in a 
+proper file storage service instead of directly in the database?
+Backups: Is there an automated backup system in place, and has a restore been 
+tested successfully?
+Give me an overall score out of 6 and list the top 3 things to fix first.
+What’s Next
+Once you've gone through this kit and can answer "yes" to the self-assessment 
+checklist, you're ready for the Layer 3 certification exam at your target 
+tier.
+The best way to prepare: build something real. Pick a project that needs to 
+store data—even a simple one like a task tracker or a customer directory—and 
+go through the full loop. Describe your data to AI. Check the schema it 
+creates. Look at the actual data in a viewer. Test what happens when you 
+delete records. Fix the gaps. Ship it. Every mistake you catch during 
+building is exactly what the exam tests.
+CERTIFICATION PATHWAY
+Associate Builder: Pass all 13 layers at Tier 1
+Certified Builder: Pass all 13 layers at Tier 1 + Tier 2
+MADE Certified: Pass all 39 tier exams + capstone project
+Each exam requires 80% to pass. You can retake after a 24-hour cooldown. No rush—take the 
+time to build something real first.
+MATT MURPHY .AI
+mattmurphy.ai
+© 2026 Matt Murphy .AI. All rights reserved.

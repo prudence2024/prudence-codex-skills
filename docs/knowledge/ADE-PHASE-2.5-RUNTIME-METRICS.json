@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "runtime": "phase_2_5_non_production_provider_neutral",
+  "queries": [
+    {
+      "query_id": "Q1",
+      "result_count": 10,
+      "term_recall": 0.667,
+      "matched_terms": [
+        "prompt",
+        "instruction"
+      ],
+      "elapsed_ms": 4164.58
+    },
+    {
+      "query_id": "Q2",
+      "result_count": 10,
+      "term_recall": 1.0,
+      "matched_terms": [
+        "backup",
+        "version",
+        "control"
+      ],
+      "elapsed_ms": 2684.997
+    },
+    {
+      "query_id": "Q3",
+      "result_count": 10,
+      "term_recall": 0.667,
+      "matched_terms": [
+        "security",
+        "rls"
+      ],
+      "elapsed_ms": 2502.033
+    },
+    {
+      "query_id": "Q4",
+      "result_count": 10,
+      "term_recall": 1.0,
+      "matched_terms": [
+        "robots",
+        "sitemap",
+        "llms",
+        "aeo"
+      ],
+      "elapsed_ms": 1949.789
+    },
+    {
+      "query_id": "Q5",
+      "result_count": 10,
+      "term_recall": 1.0,
+      "matched_terms": [
+        "rate",
+        "limiting",
+        "abuse"
+      ],
+      "elapsed_ms": 2383.794
+    },
+    {
+      "query_id": "Q6",
+      "result_count": 10,
+      "term_recall": 1.0,
+      "matched_terms": [
+        "ai",
+        "agents",
+        "production"
+      ],
+      "elapsed_ms": 1472.876
+    },
+    {
+      "query_id": "Q7",
+      "result_count": 10,
+      "term_recall": 1.0,
+      "matched_terms": [
+        "supabase",
+        "authentication",
+        "database"
+      ],
+      "elapsed_ms": 1842.491
+    },
+    {
+      "query_id": "Q8",
+      "result_count": 10,
+      "term_recall": 0.667,
+      "matched_terms": [
+        "evidence",
+        "source"
+      ],
+      "elapsed_ms": 1149.079
+    }
+  ],
+  "avg_term_recall": 0.875
+}

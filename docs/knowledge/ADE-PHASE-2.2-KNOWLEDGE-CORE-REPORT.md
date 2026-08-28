@@ -199,3 +199,10 @@ The integration validator reports the same missing historical documents already 
 READY_FOR_PHASE_2.3
 
 Rationale: the Phase 2.2 implementation is working and tested in focused coverage, repository skill validation passes, docs links are intact, corpus import is verified, and the only full-suite failure is the known pre-existing missing historical-document integration check outside the requested Phase 2.2 scope.
+
+
+## Additional Source Import Update
+
+Generated: 2026-08-28T10:30:33.106913+00:00
+
+The later user-supplied files were added as knowledge-base source material, not as immediate skill rewrites. Expanded corpus totals: 40 sources and 932 extracted items. Expanded importer validation: 932 processed, 932 accepted, 0 rejected, 505 research candidates. Focused tests after the update: `11 passed`. Full pytest after the update: `95 passed, 1 failed`, with the same known pre-existing missing-document integration failure.

@@ -1,0 +1,408 @@
+--- PDF PAGE 1 ---
+The Lazy Developer
+07
+MODULE
+External Integrations with 
+Automation Workflows
+Using a workflow automation tool like Make.com to build automatic workflows as a part of 
+your app or for a specific purpose.  We will build a workflow out for a beta sign up as an 
+example.  
+Table of Contents
+01.  What workflow tools are out there?  (8 min)
+02.  The power of what you can do with workflows.  (10 min)
+03.  Simple workflow example for beta testing  (10 min)
+04.  100 workflow suggestions to get you started.  (5 min)
+
+--- PDF PAGE 2 ---
+01.  What workflow tools are out there? 8 min
+Section 1: What Workflow Tools Are Out There?
+Building an app isn’t just about what happens inside the app but it’s also about connecting it to the 
+outside world. Workflow automation tools let you link your app with other services and tools, so things 
+can happen automatically in the background. For example, when someone signs up on your site, a 
+workflow could send them an email or text message with a special offer availble for a short term to 
+get the user to convert to a customer very quickly.
+Think of these workflows as a series of connected steps: something happens (like a form is 
+submitted), and then one or more actions take place across the apps and platforms you use. These 
+automations help keep your data organized, save you time, and open up new possibilities for how 
+your app works with the rest of your tech stack.
+We’ll go into specific examples and the power of these automations in the next section. But first, let’s 
+get familiar with the main tools that make these workflows possible.
+At the time of this writing, AI agents are starting to do some of this work themselves but they're still a 
+bit more complex.  We discuss them in a later module you can go read.
+The Main Workflow Automation Tools
+There are a handful of workflow automation platforms that have become industry standards. Each 
+one has its own strengths, style, and sweet spot. Here are the three most popular options you’ll see 
+non-coders and developers alike using:
+The Big Three Workflow Automation Platforms: Deeper Dive
+1. Zapier
+Overview:
+Zapier is the most recognized name in workflow automation. It’s built for simplicity and works with 
+thousands of apps right out of the box.
+Strengths:
+• Extremely easy to use: Great for beginners, with a clean and friendly interface.
+• Huge integration library: Over 5,000 apps supported, including almost all major SaaS products.
+• Reliability: Known for uptime and consistent execution.
+• Lots of templates: Quickly get started with pre-made “Zaps” for common use cases.
+• Great documentation and help articles.
+Weaknesses:
+
+--- PDF PAGE 3 ---
+• Limited customization: Some advanced logic (like complex branching or looping) is only 
+available on higher plans, or not possible at all.
+• Pricing: Can get expensive as you scale up your automations and require more “tasks” per 
+month.
+• Data handling: Not as robust for complex data transformations or multi-step workflows.
+• No on-premise/self-hosting option.
+Pricing:
+• Free tier: Up to 100 tasks/month, single-step Zaps only.
+• Starter: ~$20/month, up to 750 tasks/month, multi-step Zaps.
+• Professional: ~$50/month, up to 2,000 tasks/month, more features like paths (conditional logic).
+• Team & Company: Higher tiers for teams, with advanced permissions and higher usage limits.
+• Zapier Pricing
+Support:
+• Email support, fast responses on paid plans.
+• Extensive help center, user community, and how-to guides.
+Review Scores (2025):
+• G2: 4.5/5 (based on thousands of reviews)
+• Capterra: 4.7/5
+2. Make
+Overview:
+Make offers more control and flexibility than Zapier, with a beautiful visual editor and powerful data 
+handling tools. It’s a favorite for users who want to go beyond the basics.
+Strengths:
+• Visual workflow builder: Drag-and-drop interface for mapping out complex processes.
+• Advanced logic: Filters, routers (branching), iterators, and more for handling real-world 
+workflows.
+• Great value: More features at a lower price point than many competitors.
+• Detailed data manipulation: Map, filter, and transform data as it moves between apps.
+Weaknesses:
+• Learning curve: Can feel overwhelming for total beginners.
+
+--- PDF PAGE 4 ---
+• App library is smaller than Zapier: Still covers most popular apps, but sometimes new 
+integrations take longer to appear.
+• Support can be slow: Especially on lower-priced or free plans.
+• No self-hosting option.
+Pricing (2025):
+• Free tier: Up to 1,000 operations/month, limited features.
+• Core: ~$10/month, up to 10,000 operations/month.
+• Pro: ~$16/month, up to 10,000 operations/month, priority support.
+• Teams & Enterprise: Higher limits and features for larger orgs.
+• Make Pricing
+Support:
+• Email support (faster on Pro plans).
+• Help docs, forum, and a growing knowledge base.
+Review Scores (2025):
+• G2: 4.8/5
+• Capterra: 4.7/5
+3. N8N
+Overview:
+N8N is an open-source workflow automation tool that gives you the option to host it yourself for 
+maximum control, privacy, and customizability. It’s ideal for technical users and teams who want 
+flexibility.
+Strengths:
+• Open source: No vendor lock-in, modify the code if you want.
+• Self-hosting: Run on your own servers or cloud (great for privacy, compliance, or custom setups).
+• Advanced workflows: Branching, loops, custom code nodes, and error handling.
+• Extensible: Build your own connectors or use community-created nodes.
+• Free to use if self-hosted.
+Weaknesses:
+• Requires setup: Self-hosting means you (or your tech team) manage installation and updates.
+• User interface: Has improved a lot, but can still feel less polished than Zapier or Make.
+
+--- PDF PAGE 5 ---
+• Fewer plug-and-play integrations: Fewer official integrations, though the library is growing fast.
+• Support: Limited on the free, self-hosted plan; paid cloud plans get more support.
+Pricing (2025):
+• Self-hosted: Free (open source).
+• Cloud: Starts at ~$20/month (includes hosting, updates, and basic support).
+• Enterprise: Custom plans for large teams.
+• N8N Pricing
+Support:
+• Community support (forums, Discord) for self-hosted users.
+• Email and premium support on paid plans.
+Review Scores (2025):
+• G2: 4.7/5
+• Capterra: 4.6/5
+Don't forget, you can use it for free if you want to run is locally or on your deployed server.
+Summary Table
+Platform Strengths Weaknesses Pricing Support Review Score
+Zapier Easy, huge app 
+library, 
+templates
+Limited logic, 
+expensive at 
+scale
+Free–$50+/mo Email, docs, 
+community
+G2: 4.5, 
+Capterra: 4.7
+Make Visual, flexible, 
+affordable
+Learning curve, 
+fewer apps
+Free–$18+/mo Email, docs, 
+forum
+G2: 4.8, 
+Capterra: 4.7
+N8N Open source, 
+self-host, flexible
+Setup required, 
+fewer 
+integrations
+Free–$20+/mo Community, paid G2: 4.7, 
+Capterra: 4.6
+Prompt Example for AI:
+"I'm looking to create this type of activity (explain the activity) with workflow automation.  Explain 
+which platform would be best to implement this and why."
+
+--- PDF PAGE 6 ---
+02.  The power of what you can do with workflows. 10 min
+Section 2: The Power of Automation Workflows
+Automating workflows is about making your app and your tools work together, seamlessly. When you 
+connect services with automation, you stop spending time on repetitive tasks and let technology 
+handle routine operations for you. Not only does this save you time, but it also helps you keep your 
+data consistent, respond faster to your users, and build smarter systems that scale easily.
+Let’s go deeper on how this works in practice, using three detailed, real-world examples withone 
+each for Zapier, Make, and N8N.
+Example 1: Automatically Create a Support Ticket from App User Requests
+(Using Zapier)
+Scenario:
+Imagine a user submits a support or bug report from your app (maybe through a contact form or 
+feedback button). Y ou want every submission to instantly create a ticket in your helpdesk tool (like 
+Zendesk, Freshdesk, or Jira), so nothing ever gets lost in your inbox.
+How to Build It in Zapier:
+Step 1: Set Up the Trigger
+• In Zapier, create a new Zap.
+• Choose “Webhooks by Zapier” as your trigger app.
+• Select the “Catch Hook” event. Zapier will generate a unique webhook URL.
+• In your app, configure the support/feedback form to send submissions (via POST) to this Zapier 
+webhook URL.
+(So with AI, prompt:“Generate a feedback form that POSTs to this webhook URL: [paste URL 
+here]. Include fields for user email, subject, and message.”)
+Step 2: Connect to Y our Helpdesk Tool
+• Add an Action step to your Zap and choose your support platform (Zendesk, Freshdesk, Jira, 
+etc.).
+• Select the “Create Ticket” or equivalent action.
+Step 3: Map the Form Data
+• Map the fields from your webhook (user email, subject, message) to the correct fields in your 
+support tool.
+Step 4: Test Y our Zap
+
+--- PDF PAGE 7 ---
+• Use a test submission from your app to make sure the data flows through and a support ticket 
+appears in your system.
+Step 5: Turn On Y our Zap
+• Once everything works, turn the Zap on.
+• Now, every user issue is automatically tracked and assigned so no more digging through emails!
+Extra Tips:
+• Add a Slack notification or email to your team as a second Action step if you want real-time 
+alerts.
+Example 2: Get Notifications in Slack When a Payment is Received
+(Using Make.com)
+Scenario:
+Y ou want your team to get a Slack message every time a user pays through Stripe. That way, you 
+never miss a sale, and your customer service can react right away.
+How to Build It in Make:
+Step 1: Start a New Scenario
+• In Make, click “Create a new scenario.”
+• Add a Stripe module as the first step, using the “Watch Events” or “Watch Payments” trigger.
+• Connect your Stripe account.
+Step 2: Add a Slack Module
+• After the payment trigger, add a Slack “Send a Message” module.
+• Connect your Slack account and select the desired channel.
+Step 3: Map the Data
+• Drag and drop fields from Stripe (payer’s name, amount, time, etc.) into your Slack message.
+Step 4: Test the Scenario
+• Trigger a test payment to ensure the Slack message appears as expected.
+Step 5: Schedule and Activate
+
+--- PDF PAGE 8 ---
+• Set the scenario to run automatically.
+• Now, you get instant Slack updates for every successful payment.
+Extra Tips:
+• Use filters to only notify for payments over a certain amount, or add more steps to update a 
+database or send a customer email.
+Example 3: Sync Data Between Your App and a Google Sheet for Reporting
+(Using N8N)
+Scenario:
+Y ou want your app’s data (like new user signups, bug reports, or feature requests) to be synced to a 
+Google Sheet, so it’s easy to analyze or share with team members.
+How to Build It in N8N:
+Step 1: Create the Trigger
+• Start a new workflow in N8N.
+• Add a webhook node or another trigger node (like a database poll).
+Step 2: Add Google Sheets Node
+• Add a Google Sheets “Add Row” node.
+• Authenticate your Google account.
+Step 3: Map Data
+• Map fields from your trigger (user data, timestamp, etc.) to the columns in your Google Sheet.
+Step 4: Test and Activate
+• Run a test to ensure data lands in your Sheet as expected.
+• Activate the workflow.
+Extra Tips:
+• Add additional logic—like data validation or branching—before sending to Google Sheets.
+• N8N’s visual editor lets you see the entire workflow at a glance.
+
+--- PDF PAGE 9 ---
+Why Automation Matters
+Each of these examples shows how workflow automation:
+• Saves time and reduces errors by taking manual steps out of your process.
+• Improves responsiveness so users and your team always get the right info, instantly.
+• Scales effortlessly as your user base grows—no extra work required.
+Prompt Example for AI
+“List five real-world use cases for workflow automation in app development. Focus on 
+onboarding users, sending notifications, and keeping data in sync across tools. For each, 
+explain the steps and recommend which platform to use.”
+
+--- PDF PAGE 10 ---
+03.  Simple workflow example for beta testing 10 min
+Section 3: Simple Workflow Example – Beta Signup Flow
+Automating your beta signup process is one of the most powerful and practical ways to see workflow 
+automation in action. This example not only reduces your manual workload, but also keeps your early-
+access users organized and makes it easy to move them through your approval process. Let’s walk 
+through how you can set this up using Make.com with just a few building blocks.
+Overview: How the Beta Signup Workflow Works
+Here’s what you’ll accomplish:
+1. A user signs up for beta access on your site.
+Their info (like email and name) gets sent to a webhook endpoint.
+2. That info is saved as a new row in a Google Sheet.
+This sheet becomes your master list for everyone interested in the beta.
+3. When you’re ready, you add users to your Supabase whitelist.
+This lets you invite users manually and control who gets access.
+This workflow keeps everything organized, avoids unnecessary noise for users you’re not ready to 
+onboard, and makes it easy to audit and communicate with your beta testers.
+Preparation: What You Need to Set Up First
+Before you build the automation in Make.com (or Zapier/N8N), it helps to have your tools and 
+accounts ready:
+1. Create Your Google Sheet
+• Make a new Google Sheet, such as “Beta Signups.”
+• Add columns you’ll want to track—at minimum, something like:
+Email, Name, Signup Date, Status.
+• Leave the sheet empty; the workflow will fill it in as users sign up.
+2. Create Your Supabase Whitelist Table
+• In your Supabase dashboard, set up a table for beta users so name it something like 
+beta_whitelist.  (Hint! Ask AI to give you the SQL code to create this)
+• Add columns matching your Google Sheet (for easy mapping), such as:
+email, name, invited_at, status.
+• This table controls which users are allowed to access your app in beta.
+3. Authenticate Your Accounts in Make.com
+
+--- PDF PAGE 11 ---
+• In Make.com, connect your Google account (so you can read/write to Sheets).
+• Connect your Supabase project by creating a Supabase connection where this will typically ask 
+for your project URL and API key.
+• These connections let Make.com talk to your spreadsheet and your database.
+4. (Optional but Helpful) Prepare Your Beta Signup Form
+• Use Cursor to quickly generate a signup form that will POST data to a webhook URL (you’ll get 
+this from Make.com in the next step).
+Building the Workflow: Step by Step in Make.com
+Step 1: Create a Webhook in Make.com
+• In Make.com, start a new Scenario and add the “Webhooks” module.
+• Choose “Custom Webhook” and create a new webhook and Make.com will give you a unique 
+URL.
+• This URL is where your beta signup form should POST the user’s data.
+• With AI:
+Use a prompt like:“Generate a signup form that sends email and name to this webhook URL: 
+[paste your Make.com webhook URL here].”
+Step 2: Add Google Sheets to Capture Signups
+• After the webhook module, add the “Google Sheets > Add a Row” module.
+• Select the Google Sheet you prepared earlier (“Beta Signups”).
+• Map each form field (email, name, signup date) from the webhook to the correct columns in your 
+spreadsheet.
+• This way, every signup submission instantly becomes a new row in your sheet.
+Step 3: Add Supabase to Handle Your Whitelist
+• Add the “Supabase > Create a Row” module to your Scenario.
+• Select your beta_whitelist table.
+• Map the relevant fields (email, name, etc.) from the webhook data or Google Sheet row.
+• Y ou can choose to automate this for every signup, or set a filter so only approved users get 
+whitelisted.
+Testing & Verification
+1. Connect all the modules in your scenario—Webhook !’ Google Sheets !’ Supabase.
+2. Authenticate all connections:
+3. Check your results:
+
+--- PDF PAGE 12 ---
+4. (Optional) Take Screenshots:
+5. Adjust and Go Live:
+Bonus!  Have AI create an admin page allowing you to activate or deactivate beta users.  Just ask!
+Why This Approach Works
+• Control: Y ou can keep public signups closed and only onboard users you select from your list.
+• Organization: All your signups are tracked in one place, making it easy to review, sort, or export 
+as needed.
+• Scalability: Y ou can trigger email notifications, invitations, or even user creation in Supabase all 
+from your beta list, and all without manual entry.
+• Auditability: Y ou always know who signed up, who was approved, and when.
+Prompt Example for AI
+“Write a detailed step-by-step guide for automating a beta signup process using Make (or Zapier/
+N8N) that receives web form data, adds it to Google Sheets, and then creates a new row in a 
+Supabase beta whitelist table. Explain each step simply.”
+
+--- PDF PAGE 13 ---
+04.  100 workflow suggestions to get you started. 5 min
+Section 4: 100 Workflow Examples to Explore
+Introduction
+One of the best ways to understand what’s possible with workflow automation is to see it in action. 
+Instead of starting from scratch, you can draw inspiration from real automations that other people 
+(and companies) use every day to make their apps, websites, and businesses run smoother. Below, 
+you’ll find a list of 100 workflow examples. They’re organized by category, so you can quickly find 
+ideas that match your project or interests.
+Each example also includes hints about which platform(s) it works best on—Zapier, Make, or N8N—
+as well as a note about its difficulty (Simple, Intermediate, or Advanced). Use these as starting 
+points, adapt them to your needs, and don’t be afraid to combine several workflows to build 
+something unique!
+Tip: Don’t be afraid to modify these examples! For every workflow here, you can swap out the apps or 
+add/remove steps to better fit your situation. Many of the most creative automations come from 
+combining ideas from several categories.
+Prompt Examples for AI
+“List 20 simple workflow automation ideas for user onboarding using Make.com, Zapier, or N8N. 
+For each, briefly describe what it does, which platform is best, and what apps are connected.”
+“Show me 10 advanced automation workflows for data analytics, with at least one using 
+Supabase and Google Sheets.”
+100 Workflow Examples to Explore
+# Category Example Workflow Platforms Use Case/Function
+1 User Onboarding & 
+Signup Flows
+Auto-send welcome 
+emails to new users
+Zapier, Make Customer 
+Engagement
+2 User Onboarding & 
+Signup Flows
+Add signups from a 
+web form to Google 
+Sheets
+Zapier, Make, N8N Data Collection
+3 User Onboarding & 
+Signup Flows
+Assign a role to 
+new users in 
+Supabase
+Make, N8N Access 
+Management
+4 User Onboarding & 
+Signup Flows
+Create a calendar 
+event when a user 
+signs up for a 
+webinar
+Zapier, Make Scheduling
+5 User Onboarding & 
+Signup Flows
+Enroll new users 
+into a course 
+platform
+Zapier, Make E-learning
+6 User Onboarding & 
+Signup Flows
+Send an SMS 
+confirmation after a 
+beta signup
+Make, N8N Notifications
+7 User Onboarding & 
+Signup Flows
+Add a new user to 
+your Slack 
+community after 
+signup
+Zapier, Make Community

@@ -1,0 +1,1737 @@
+# SEO How-To Guide
+*Comprehensive SEO implementation guide based on Google's official documentation and best practices*
+
+## Table of Contents
+1. [SEO Fundamentals](#seo-fundamentals)
+2. [Technical SEO Implementation](#technical-seo-implementation)
+3. [Content Optimization](#content-optimization)
+4. [Indexing and Crawling](#indexing-and-crawling)
+5. [Performance and User Experience](#performance-and-user-experience)
+6. [Monitoring and Tools](#monitoring-and-tools)
+7. [Implementation Checklist](#implementation-checklist)
+
+## SEO Fundamentals
+
+### Core Principles
+- **People-first content**: Create helpful, reliable content for users, not search engines
+- **Technical accessibility**: Ensure Google can crawl, index, and understand your content
+- **User experience priority**: Focus on providing value to real users
+- **Quality over quantity**: Better to have fewer high-quality pages than many low-quality ones
+
+### Google's Search Process
+1. **Crawling**: Google discovers pages through links and sitemaps
+2. **Indexing**: Google analyzes and stores page content
+3. **Serving**: Google returns relevant results based on hundreds of ranking factors
+
+## Technical SEO Implementation
+
+### 1. Meta Tags and HTML Structure
+
+```html
+<!-- Essential Meta Tags -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Page Title - Brand Name</title>
+<meta name="description" content="Compelling 150-160 character description" />
+<meta name="keywords" content="relevant, keywords, separated, by, commas" />
+
+<!-- Canonical URLs -->
+<link rel="canonical" href="https://yoursite.com/page" />
+
+<!-- Open Graph (Social Media) -->
+<meta property="og:title" content="Page Title" />
+<meta property="og:description" content="Page description" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://yoursite.com/page" />
+<meta property="og:image" content="https://yoursite.com/image.jpg" />
+<meta property="og:site_name" content="Site Name" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Page Title" />
+<meta name="twitter:description" content="Page description" />
+<meta name="twitter:image" content="https://yoursite.com/image.jpg" />
+
+<!-- Robots Meta -->
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+```
+
+### 2. Structured Data (Schema.org)
+
+```html
+<!-- Organization Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Your Organization",
+  "url": "https://yoursite.com",
+  "logo": "https://yoursite.com/logo.png",
+  "description": "Organization description",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main St",
+    "addressLocality": "City",
+    "addressRegion": "State",
+    "postalCode": "12345",
+    "addressCountry": "US"
+  },
+  "telephone": "+1-555-123-4567",
+  "email": "contact@yoursite.com"
+}
+</script>
+
+<!-- Article Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Article Title",
+  "description": "Article description",
+  "author": {
+    "@type": "Person",
+    "name": "Author Name"
+  },
+  "datePublished": "2025-01-15",
+  "dateModified": "2025-01-15",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Publisher Name",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yoursite.com/logo.png"
+    }
+  }
+}
+</script>
+```
+
+### 3. Dynamic SEO Component (React/Next.js)
+
+```tsx
+import { Helmet } from 'react-helmet-async';
+
+interface SEOProps {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  structuredData?: object;
+  noIndex?: boolean;
+}
+
+export const SEO = ({
+  title = "Default Title",
+  description = "Default description",
+  keywords = "default, keywords",
+  canonicalUrl,
+  ogImage,
+  structuredData,
+  noIndex = false
+}: SEOProps) => {
+  const baseUrl = "https://yoursite.com";
+  const fullCanonicalUrl = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
+  const fullOgImage = ogImage ? `${baseUrl}${ogImage}` : `${baseUrl}/og-image.jpg`;
+
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
+      <link rel="canonical" href={fullCanonicalUrl} />
+
+      <meta
+        name="robots"
+        content={noIndex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"}
+      />
+
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:url" content={fullCanonicalUrl} />
+      <meta property="og:image" content={fullOgImage} />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={fullOgImage} />
+
+      {structuredData && (
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      )}
+    </Helmet>
+  );
+};
+```
+
+### 4. Robots.txt
+
+```txt
+User-agent: *
+Allow: /
+
+# Essential pages
+Allow: /
+Allow: /about
+Allow: /services
+Allow: /contact
+Allow: /blog
+
+# Block admin and development paths
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /*.json$
+Disallow: /*.ts$
+Disallow: /*.tsx$
+
+# Specific bot permissions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://yoursite.com/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+```
+
+### 5. Sitemap.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://yoursite.com/</loc>
+    <lastmod>2025-01-15T12:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://yoursite.com/about</loc>
+    <lastmod>2025-01-15T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Add more URLs following this pattern -->
+</urlset>
+```
+
+### 6. Google Analytics 4 Setup
+
+```html
+<!-- GA4 Global Tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GA_MEASUREMENT_ID', {
+    page_title: document.title,
+    page_location: window.location.href,
+    send_page_view: true
+  });
+</script>
+```
+
+```typescript
+// Analytics utility functions
+export const pageview = (url: string, title?: string) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('config', 'GA_MEASUREMENT_ID', {
+      page_location: url,
+      page_title: title,
+    });
+  }
+};
+
+export const event = (action: string, category: string, label?: string) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', action, {
+      event_category: category,
+      event_label: label,
+    });
+  }
+};
+```
+
+### 7. Content Security Policy (CSP) for GA4 / GTM
+
+GA4 and Google Tag Manager require specific CSP directives to function.
+Per [Google's CSP guide](https://developers.google.com/tag-platform/security/guides/csp),
+use **wildcard subdomains** rather than specific hostnames. Google may change the exact
+domains their scripts call, and wildcards are future-proof.
+
+```
+Content-Security-Policy:
+  script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://va.vercel-scripts.com;
+  connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+  img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com;
+```
+
+**Key points:**
+- **`script-src`**: `https://*.googletagmanager.com` covers both `www.googletagmanager.com` and any future subdomains. `'unsafe-inline'` is required for GTM's inline `<script>` snippet.
+- **`connect-src`**: GA4 sends beacons to `*.google-analytics.com` and `*.analytics.google.com`. Both are needed.
+- **`img-src`**: GTM may load tracking pixels from Google domains. If you already allow `https:` broadly for images, this is covered.
+- **`unsafe-eval`**: Only needed if you use GTM **Custom JavaScript Variables**. Most setups do not, so omit it unless GTM breaks without it.
+- **`unsafe-inline` in `style-src`**: Low risk, needed if GTM injects inline styles. Nonce-based CSP is the ideal long-term replacement but requires per-request nonce generation in middleware.
+
+**Next.js example** (`next.config.ts`):
+```typescript
+{
+  key: 'Content-Security-Policy',
+  value: [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://va.vercel-scripts.com",
+    "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://vitals.vercel-insights.com",
+    "img-src 'self' data: https: blob:",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' data: https://fonts.gstatic.com",
+    "upgrade-insecure-requests"
+  ].join('; ')
+}
+```
+
+**Vercel / SPA example** (`vercel.json`):
+```json
+{
+  "headers": [{
+    "source": "/(.*)",
+    "headers": [{
+      "key": "Content-Security-Policy",
+      "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests"
+    }]
+  }]
+}
+```
+
+**Testing after changes:**
+1. Deploy to a preview environment
+2. Open a page with GA4 enabled
+3. Check DevTools Console for CSP violation errors
+4. Check Network tab: confirm `gtag/js` loads and analytics beacons fire
+5. Verify real-time reports in GA4 dashboard show the page view
+
+### 8. llms.txt (AI Crawler Guidance)
+
+`llms.txt` is a plain-text file at your site root (`/public/llms.txt` → served at
+`https://yoursite.com/llms.txt`) that states your policy for AI crawlers and gives them a concise,
+authoritative summary of who you are and what you offer. It is the AI-era companion to `robots.txt`:
+`robots.txt` controls *search* crawlers, `llms.txt` guides *AI/LLM* crawlers (OpenAI, Google-Extended,
+Claude-Web, etc.) and feeds them clean context so they represent your brand accurately in answers.
+
+It is an emerging convention (see [llmstxt.org](https://llmstxt.org/)), not yet an official standard,
+so treat it as low-cost, high-upside hygiene rather than a ranking factor.
+
+```txt
+# llms.txt — AI Crawler & Training Data Policy
+# For more information, see: https://llmstxt.org/
+# Last updated: 2025-01-01
+
+# Allow / disallow AI user-agents (mirror robots.txt for consistency)
+User-agent: *
+Allow: /
+
+User-agent: OpenAI-GPT
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# ── ORGANISATION ─────────────────────────────
+# Name: Your Organisation
+# Website: https://yoursite.com
+# What we do: One-line description of your product/service
+# Coverage / audience: Who you serve
+# Contact: contact@yoursite.com
+
+# ── CORE OFFERINGS ───────────────────────────
+# - Offering one — short benefit
+# - Offering two — short benefit
+# - Offering three — short benefit
+
+# ── KEY FACTS (help models answer accurately) ─
+# - Differentiator or metric #1
+# - Differentiator or metric #2
+
+# ── ATTRIBUTION ──────────────────────────────
+# When using our content, attribute to "Your Organisation" and link https://yoursite.com
+
+# ── PROHIBITED USES ──────────────────────────
+# - Misrepresenting our credentials or claims
+# - Generating misleading advice attributed to us
+```
+
+**Guidelines:**
+- Keep it factual and concise: it is context for a model, not marketing copy.
+- Mirror the allow/disallow intent of `robots.txt` so the two files don't contradict each other.
+- Reference it in `robots.txt` is optional; AI crawlers look for `/llms.txt` by convention.
+- Update the "Last updated" date when facts change.
+
+## Content Optimization
+
+### 1. Page Titles
+- **Length**: 50-60 characters (Google displays ~600 pixels)
+- **Format**: `Primary Keyword - Brand Name`
+- **Unique**: Every page should have a unique title
+- **Descriptive**: Accurately describe page content
+
+### 2. Meta Descriptions
+- **Length**: 150-160 characters
+- **Compelling**: Write for users, not just search engines
+- **Include keywords**: But naturally, not stuffed
+- **Call-to-action**: Encourage clicks when appropriate
+
+### 3. Header Structure
+```html
+<h1>Primary page topic (only one per page)</h1>
+<h2>Main section headers</h2>
+<h3>Subsection headers</h3>
+<h4>Supporting details</h4>
+```
+
+### 4. Content Guidelines
+- **Expertise**: Demonstrate subject matter knowledge
+- **Authority**: Build credibility through quality content
+- **Trustworthiness**: Provide accurate, reliable information
+- **Originality**: Create unique, valuable content
+- **User-focused**: Answer user questions and needs
+
+### 5. Internal Linking
+- Link to related content within your site
+- Use descriptive anchor text
+- Create logical site hierarchy
+- Help users navigate easily
+
+## Indexing and Crawling
+
+### 1. Crawlability Requirements
+- Use crawlable `<a>` links (not JavaScript-only navigation)
+- Ensure content is in the DOM, not generated only by CSS
+- Make pages accessible without login
+- Use semantic HTML markup
+
+### 2. JavaScript Considerations
+- Ensure critical content renders without JavaScript
+- Use server-side rendering (SSR) or static generation when possible
+- Test pages with JavaScript disabled
+- Provide fallbacks for dynamic content
+
+### 3. Managing Indexing
+```html
+<!-- Prevent indexing -->
+<meta name="robots" content="noindex, nofollow" />
+
+<!-- Allow indexing but don't follow links -->
+<meta name="robots" content="index, nofollow" />
+
+<!-- X-Robots-Tag HTTP header alternative -->
+X-Robots-Tag: noindex, nofollow
+```
+
+### 4. Canonical URLs
+```html
+<!-- Self-referencing canonical -->
+<link rel="canonical" href="https://yoursite.com/page" />
+
+<!-- Cross-domain canonical -->
+<link rel="canonical" href="https://originalsite.com/original-page" />
+```
+
+## Performance and User Experience
+
+### 1. Core Web Vitals
+- **Largest Contentful Paint (LCP)**: < 2.5 seconds
+- **Interaction to Next Paint (INP)**: < 200 milliseconds (replaced First Input Delay / FID as a Core Web Vital in March 2024)
+- **Cumulative Layout Shift (CLS)**: < 0.1
+
+### 2. Mobile Optimization
+- Responsive design for all screen sizes
+- Touch-friendly interactive elements
+- Fast loading on mobile networks
+- Avoid mobile-specific penalties
+
+### 3. HTTPS Requirements
+- Migrate entire site to HTTPS
+- Use proper SSL certificates
+- Redirect HTTP to HTTPS
+- Update internal links to HTTPS
+
+### 4. Page Speed Optimization
+- Optimize images (WebP format, proper sizing)
+- Minimize CSS and JavaScript
+- Use content delivery networks (CDN)
+- Enable browser caching
+- Lazy load non-critical resources
+
+## Monitoring and Tools
+
+### 1. Essential Tools
+- **Google Search Console**: Monitor indexing and search performance
+- **Google Analytics 4**: Track user behavior and conversions
+- **PageSpeed Insights**: Measure page performance
+- **Lighthouse**: Comprehensive site auditing
+
+### 2. Google Search Console: Essential Workflow
+
+**One-time setup**
+1. **Add a property.** Choose the type deliberately:
+   - **Domain property** (recommended): covers every subdomain and both http/https, but requires **DNS TXT verification**.
+   - **URL-prefix property**: a single exact origin (e.g. `https://www.yoursite.com`); allows HTML file, HTML meta tag, Google Analytics, or Google Tag Manager verification.
+2. **Verify ownership.** Complete the verification method for your property type. Nothing in Search Console works until the property is verified.
+3. **Submit your sitemap.** Sitemaps → enter the **path** `sitemap.xml` (not a file upload) → Submit. Google refetches it periodically, so you don't need to resubmit every time you add a page. New URLs in the sitemap are discovered automatically.
+
+**When you publish or change a page**
+4. **Inspect / test the URL.** URL Inspection → paste the URL. Use **Test Live URL** to see the current rendered state and confirm Google sees your real content (a fast way to verify prerendering/SSR worked, not an empty shell).
+5. **Request Indexing** for brand-new or significantly changed URLs to nudge the crawl. Note: it is **per-URL and quota-limited**, so use it for a handful of pages, not bulk. For bulk, rely on the sitemap.
+
+**Ongoing monitoring (check regularly)**
+6. **Pages (Indexing) report**: what's indexed vs excluded. Watch for **"Discovered – currently not indexed"** and **"Crawled – currently not indexed"** (common thin/duplicate-content symptoms on client-rendered SPAs).
+7. **Rich results / Enhancements**: validates your JSON-LD structured data; fix errors or you lose rich results.
+8. **Core Web Vitals**: real-world LCP/INP/CLS field data grouped by URL.
+9. **Manual Actions & Security Issues**: rare, but a manual action can deindex you. Check occasionally.
+10. **Removals**: temporarily hide a URL from results when needed.
+
+### 3. Regular Monitoring
+- Check for crawl errors weekly
+- Monitor Core Web Vitals monthly
+- Review search performance quarterly
+- Update content regularly
+- Fix broken links promptly
+
+## Implementation Checklist
+
+### Technical Setup
+- [ ] Install SSL certificate (HTTPS)
+- [ ] Create and submit sitemap.xml
+- [ ] Configure robots.txt
+- [ ] Add llms.txt for AI crawler guidance (optional)
+- [ ] Set up Google Search Console
+- [ ] Install Google Analytics 4
+- [ ] Verify mobile responsiveness
+
+### On-Page SEO
+- [ ] Unique title tags for all pages
+- [ ] Meta descriptions for all pages
+- [ ] Proper heading structure (H1-H6)
+- [ ] Canonical URLs implemented
+- [ ] Structured data markup
+- [ ] Optimized images with alt text
+
+### Content Quality
+- [ ] Original, valuable content
+- [ ] Proper keyword research and targeting
+- [ ] Internal linking strategy
+- [ ] Regular content updates
+- [ ] User-focused writing
+- [ ] E-A-T principles followed
+
+### Performance
+- [ ] Page load speed < 3 seconds
+- [ ] Core Web Vitals passing
+- [ ] Mobile-friendly design
+- [ ] Optimized images
+- [ ] Minified CSS/JavaScript
+
+### Monitoring
+- [ ] Google Search Console configured
+- [ ] Analytics tracking implemented
+- [ ] Regular performance monitoring
+- [ ] Error monitoring and fixing
+- [ ] Search ranking tracking
+
+## Common Mistakes to Avoid
+
+1. **Keyword stuffing**: Don't overuse keywords unnaturally
+2. **Duplicate content**: Ensure unique content across pages
+3. **Missing meta descriptions**: Every page should have one
+4. **Broken links**: Regularly check and fix broken links
+5. **Slow loading pages**: Optimize for speed
+6. **Non-mobile friendly**: Ensure responsive design
+7. **No HTTPS**: Always use secure connections
+8. **Ignoring analytics**: Monitor and act on data
+9. **Over-optimization**: Focus on users, not just search engines
+10. **Neglecting updates**: Keep content fresh and accurate
+
+## Final Notes
+
+- SEO is a long-term strategy requiring patience and consistency
+- Focus on providing value to users above all else
+- Stay updated with Google's algorithm changes and guidelines
+- Quality content and technical excellence are both essential
+- Monitor performance and adjust strategies based on data
+
+Remember: **"Providing a good user experience should be your site's top goal"** - Google
+
+
+# SEO Crawlability Playbook: Fix Client-Rendered SPAs for Google
+
+**Purpose:** A self-contained task list for a single Claude Code session to diagnose and fix the
+"empty shell" crawlability problem in a client-rendered React SPA. Run **one project per session** so
+context stays focused. The reference implementation is inlined below. Copy it into the project you
+are fixing; you do not need any other file to complete this playbook.
+
+**The core problem:** A pure client-side-rendered (CSR) React + Vite SPA serves an empty
+`<div id="root"></div>` shell for *every* URL. All content and per-route meta tags (`<title>`,
+description, canonical, Open Graph, JSON-LD) are injected by JavaScript *after* load. Google can
+render JS in a deferred second wave, but:
+- Indexing is slower and less reliable; failed renders get indexed as the generic shell → duplicate
+  titles/snippets across pages.
+- Non-JS crawlers (Bing is weak; social/link-preview bots such as WhatsApp, LinkedIn, Facebook, X, and
+  Slack run **no** JS) see only the generic shell, so every shared link shows the same title/description/image.
+
+**Next.js projects are usually fine** (they SSR/SSG by default). For those, this is a *hygiene check*,
+not a rebuild. See the Next.js branch below.
+
+**Approach:** This playbook inlines a proven build-time prerendering mechanism (Vite +
+react-helmet-async). Replicate it: do **not** invent a new mechanism.
+
+---
+
+## How to use this file
+
+1. Note whether the project is **Vite** or **Next.js** (check `package.json` /
+   `vite.config.*` vs `next.config.*`).
+2. Work through **Phase 0 (Diagnose)**. If the project already serves real per-route HTML, mark it
+   DONE and stop: no work needed.
+3. If it has the empty-shell problem, follow the **Vite branch** or **Next.js branch**.
+4. Finish with **Phase 3 (Verify)**: evidence before claiming done.
+
+---
+
+## Phase 0: Diagnose
+
+Run these checks. They take ~2 minutes and tell you definitively whether the project has the problem.
+
+```bash
+# Replace with the project's live URL. Use a course/inner page, not just the homepage.
+SITE="https://www.example.com"
+INNER="$SITE/some-inner-page"
+
+# 1. What does Googlebot get on FIRST fetch (pre-JS)?
+curl -s -A "Googlebot/2.1 (+http://www.google.com/bot.html)" "$SITE"  > /tmp/home.html
+curl -s -A "Googlebot/2.1 (+http://www.google.com/bot.html)" "$INNER" > /tmp/inner.html
+
+# 2. Is the root div empty? (empty == problem)
+grep -o '<div id="root">[^<]*</div>' /tmp/home.html
+
+# 3. Do two different routes return IDENTICAL html? (identical == problem)
+[ "$(md5 -q /tmp/home.html)" = "$(md5 -q /tmp/inner.html)" ] \
+  && echo "IDENTICAL SHELL — needs prerendering" || echo "Distinct HTML — likely OK"
+
+# 4. Compare titles across routes (same generic title == problem)
+grep -o '<title>[^<]*</title>' /tmp/home.html /tmp/inner.html
+
+# 5. Visible word count in raw HTML (tiny == problem)
+for f in /tmp/home.html /tmp/inner.html; do
+  echo "$f: $(sed 's/<[^>]*>//g' "$f" | tr -s ' \n' ' ' | wc -w) words"; done
+
+# 6. Is there already a prerender/SSG step?
+grep -iE 'prerender|react-snap|vite-react-ssg|vike|vite-plugin-ssr|renderToString' \
+  package.json client/package.json 2>/dev/null
+```
+
+**Verdict:**
+- Empty `<div id="root">` **and** identical HTML across routes **and** same generic `<title>` →
+  **HAS THE PROBLEM**. Proceed to the relevant branch.
+- Distinct per-route HTML with real content/titles → already fixed (or it's Next.js SSR). Mark DONE.
+
+Also note the current SEO hygiene (covered in Phase 2): `public/robots.txt`, `public/sitemap.xml`,
+`public/llms.txt`, and a per-route SEO component (react-helmet-async or Next metadata).
+
+---
+
+## Phase 1A: Vite branch (add build-time prerendering)
+
+Goal: after `vite build`, render every public route to `dist/<route>/index.html` with real content +
+correct head tags baked in. Replicate the reference implementation inlined below.
+
+### The reference implementation
+
+Four small files plus one build-script change. Genericise the placeholders (provider stack, route
+list, dynamic-data fetch) to match the project.
+
+**`src/prerender/routes.tsx`**: the route manifest and single source of truth. Use **eager** imports
+(NOT `React.lazy`, since `renderToString` cannot resolve Suspense synchronously). Share `staticRoutes.json`
+with the sitemap generator so the two cannot drift. Exclude private/no-index routes (admin, account,
+booking, auth) to match `robots.txt`.
+
+```tsx
+// src/prerender/routes.tsx
+import React from 'react';
+// Eager imports of public page components (NOT React.lazy).
+import { LandingPage } from '../pages/LandingPage';
+import { AboutPage } from '../pages/AboutPage';
+import { CoursePage } from '../pages/CoursePage';
+import staticRoutes from './staticRoutes.json'; // shared with the sitemap generator
+
+export interface PrerenderRoute {
+  /** Route path. ':slug' marks a dynamic template expanded by the build script. */
+  path: string;
+  Component: React.ComponentType<any>;
+  /** Props passed to Component during SSR (e.g. a slug). */
+  props?: Record<string, unknown>;
+  /**
+   * Optional build-time data fetch. For a dynamic template (e.g. '/courses/:slug'),
+   * return an array of { slug, preloaded } so the script expands one file per item.
+   */
+  getData?: () => Promise<Array<{ slug: string; preloaded?: Record<string, unknown> }>>;
+}
+
+// Map each static path from staticRoutes.json to its component.
+const COMPONENT_BY_PATH: Record<string, React.ComponentType<any>> = {
+  '/': LandingPage,
+  '/about': AboutPage,
+};
+
+const staticPrerenderRoutes: PrerenderRoute[] = (staticRoutes as Array<{ path: string }>).map((r) => ({
+  path: r.path,
+  Component: COMPONENT_BY_PATH[r.path],
+}));
+
+// Dynamic template: fetch the list of items so the script can write one file per item.
+// Give the fetch a timeout so a slow/unreachable API can never hang the build.
+async function getCourses(): Promise<Array<{ slug: string; preloaded: Record<string, unknown> }>> {
+  const res = await fetch('https://api.yoursite.com/courses', {
+    headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!res.ok) throw new Error(`courses API ${res.status}`);
+  const items = await res.json();
+  return items.map((c: any) => ({ slug: c.slug, preloaded: { course: c } }));
+}
+
+export const prerenderRoutes: PrerenderRoute[] = [
+  ...staticPrerenderRoutes,
+  { path: '/courses/:slug', Component: CoursePage, getData: getCourses },
+];
+```
+
+**`src/prerender/render.tsx`**: `renderRoute()` (renderToString + helmet) and the pure
+`injectIntoTemplate()`. The `canUseDOM = false` flip is what forces react-helmet-async into SSR mode
+so head tags land in `helmetContext` instead of a (non-existent) `document.head`.
+
+```tsx
+// src/prerender/render.tsx
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+// Add whatever providers your PUBLIC chrome needs (Theme, Auth, etc.). Every provider's
+// network/localStorage access must live in useEffect/callbacks so it never runs during SSR.
+import { ThemeProvider } from '../lib/theme';
+import { AuthProvider } from '../lib/auth';
+
+export interface RenderInput {
+  path: string;                              // concrete URL, e.g. '/courses/intro'
+  Component: React.ComponentType<any>;
+  props?: Record<string, unknown>;
+  preloaded?: Record<string, unknown>;       // server-side data injected as window.__PRELOADED__
+  routePattern?: string;                     // React Router pattern, e.g. '/courses/:slug'
+}
+
+export interface RenderOutput { bodyHtml: string; headHtml: string; }
+
+export async function renderRoute(input: RenderInput): Promise<RenderOutput> {
+  const routePattern = input.routePattern ?? input.path;
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  const helmetContext: { helmet?: any } = {};
+
+  // Force THIS HelmetProvider into SSR mode so it writes to helmetContext rather than
+  // mutating document.head (which is undefined / jsdom during a Node render). Restore after.
+  const prevCanUseDOM = (HelmetProvider as any).canUseDOM;
+  (HelmetProvider as any).canUseDOM = false;
+
+  // react-router's <Link> uses useLayoutEffect, which warns on the server. Across dozens of
+  // routes this floods the build log; filter just this one known-harmless message.
+  const prevConsoleError = console.error;
+  console.error = (...args: unknown[]) => {
+    const first = typeof args[0] === 'string' ? args[0] : '';
+    if (first.includes('useLayoutEffect does nothing on the server')) return;
+    prevConsoleError(...(args as []));
+  };
+
+  try {
+    const bodyHtml = renderToString(
+      <HelmetProvider context={helmetContext}>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <AuthProvider>
+              <MemoryRouter initialEntries={[input.path]}>
+                <Routes>
+                  <Route path={routePattern} element={<input.Component {...(input.props ?? {})} />} />
+                </Routes>
+              </MemoryRouter>
+            </AuthProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </HelmetProvider>
+    );
+
+    const h = helmetContext.helmet;
+    const headHtml = h
+      ? [h.title.toString(), h.meta.toString(), h.link.toString(), h.script.toString()].join('\n')
+      : '';
+    return { bodyHtml, headHtml };
+  } finally {
+    (HelmetProvider as any).canUseDOM = prevCanUseDOM;
+    console.error = prevConsoleError;
+  }
+}
+
+// Strip the shell's default head tags before injecting per-route ones, so the final HTML
+// never has duplicate <title>/description/og/twitter/JSON-LD.
+const DEFAULT_HEAD_PATTERNS: RegExp[] = [
+  /<title>[^<]*<\/title>/i,
+  /<meta\s+name="description"[^>]*>/i,
+  /<meta\s+property="og:[^"]*"[^>]*>/gi,
+  /<meta\s+name="twitter:[^"]*"[^>]*>/gi,
+  /<script\s+type="application\/ld\+json">[\s\S]*?<\/script>/gi,
+];
+
+/** Pure function: inject rendered head/body/preloaded into the built index.html template. */
+export function injectIntoTemplate(
+  template: string,
+  parts: { headHtml: string; bodyHtml: string; preloaded?: Record<string, unknown> }
+): string {
+  let html = template;
+  for (const re of DEFAULT_HEAD_PATTERNS) html = html.replace(re, '');
+  html = html.replace('</head>', `${parts.headHtml}\n</head>`);
+  html = html.replace('<div id="root"></div>', `<div id="root">${parts.bodyHtml}</div>`);
+  if (parts.preloaded) {
+    const json = JSON.stringify(parts.preloaded).replace(/</g, '\\u003c'); // avoid premature tag close
+    html = html.replace(
+      '<script type="module"',
+      `<script>window.__PRELOADED__=${json}</script>\n<script type="module"`
+    );
+  }
+  return html;
+}
+```
+
+**`scripts/prerender.mjs`**: the post-build renderer. Boots Vite in `middlewareMode` purely to
+SSR-load the two TS modules (so the `@` alias, CSS imports, and `import.meta.env` resolve), loops the
+manifest, and writes each route. Wrap each route in try/catch: **never fail the whole build for one
+route** (the SPA fallback still serves it). End with `process.exit(0)` so lingering esbuild handles
+can't hang the build.
+
+```js
+#!/usr/bin/env node
+// scripts/prerender.mjs — run AFTER `vite build` (dist/index.html is the template).
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { createServer } from 'vite';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DIST = path.join(__dirname, '../dist');
+const TEMPLATE_PATH = path.join(DIST, 'index.html');
+
+async function main() {
+  if (!fs.existsSync(TEMPLATE_PATH)) {
+    console.error('✖ dist/index.html not found — run `vite build` first.');
+    process.exit(1);
+  }
+  const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
+
+  // Middleware-mode server only to transform + SSR-load our TS modules.
+  // hmr:false + watch:null kill the file watcher / HMR socket so no handle keeps Node alive.
+  const vite = await createServer({
+    server: { middlewareMode: true, hmr: false, watch: null },
+    optimizeDeps: { noDiscovery: true },
+    appType: 'custom',
+    logLevel: 'warn',
+  });
+
+  try {
+    const { prerenderRoutes } = await vite.ssrLoadModule('/src/prerender/routes.tsx');
+    const { renderRoute, injectIntoTemplate } = await vite.ssrLoadModule('/src/prerender/render.tsx');
+
+    let written = 0;
+    for (const route of prerenderRoutes) {
+      try {
+        if (route.path.includes(':')) {
+          const items = route.getData ? await route.getData() : [];
+          for (const item of items) {
+            const routePath = route.path.replace(':slug', item.slug);
+            const { bodyHtml, headHtml } = await renderRoute({
+              path: routePath, Component: route.Component,
+              routePattern: route.path, preloaded: item.preloaded,
+            });
+            writeRoute(injectIntoTemplate(template, { headHtml, bodyHtml, preloaded: item.preloaded }), routePath);
+            written++;
+          }
+        } else {
+          const { bodyHtml, headHtml } = await renderRoute({
+            path: route.path, Component: route.Component, props: route.props,
+          });
+          writeRoute(injectIntoTemplate(template, { headHtml, bodyHtml }), route.path);
+          written++;
+        }
+      } catch (err) {
+        // Log and continue — the SPA fallback still serves this route client-side.
+        console.warn(`⚠ prerender skipped ${route.path}: ${err.message}`);
+      }
+    }
+    console.log(`✔ prerendered ${written} routes`);
+  } finally {
+    await vite.close();
+  }
+}
+
+function writeRoute(html, routePath) {
+  const rel = routePath === '/' ? 'index.html' : path.join(routePath.replace(/^\//, ''), 'index.html');
+  const outPath = path.join(DIST, rel);
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, html, 'utf8');
+}
+
+main()
+  .then(() => process.exit(0)) // force clean exit; esbuild/worker handles can otherwise hang the build
+  .catch((err) => { console.error('✖ prerender failed:', err); process.exit(1); });
+```
+
+**`src/prerender/staticRoutes.json`**: the shared source of truth consumed by BOTH the manifest above
+and the sitemap generator, so the route list cannot drift:
+
+```json
+[
+  { "path": "/" },
+  { "path": "/about" }
+]
+```
+
+### Task list
+- [ ] Confirm `react-dom/server` is available (it ships with `react-dom`) and add `jsdom` as a
+      devDependency if the render path needs a DOM shim.
+- [ ] Create `src/prerender/routes.tsx`, the manifest with **eager** component imports. Exclude
+      private/no-index routes (admin, account, booking, auth) so they match `robots.txt`.
+- [ ] Create `src/prerender/staticRoutes.json` as the **single source of truth** for the static route
+      list, consumed by both the prerender manifest and the sitemap generator.
+- [ ] Create `src/prerender/render.tsx` with `renderRoute()` and `injectIntoTemplate()` (above). Wrap
+      the render in the app's real provider stack so any public chrome that calls hooks
+      (`useAuth()` etc.) doesn't throw during SSR.
+- [ ] Create `scripts/prerender.mjs` (above, near-verbatim).
+- [ ] Wire the build script (order matters):
+      `"build": "node scripts/copy-robots.js && node scripts/generate-sitemap.js && tsc && vite build && node scripts/prerender.mjs"`
+- [ ] Leave `main.tsx` using `createRoot(...).render(...)`. The reference implementation does NOT use
+      `hydrateRoot`: the client simply re-renders over the prerendered HTML. Crawlers get the static
+      HTML; users get a normal client render. This avoids hydration-mismatch fragility. Only switch to
+      `hydrateRoot` if you specifically need hydration and have verified no mismatch.
+- [ ] Ensure the per-route SEO component (react-helmet-async) sets a UNIQUE title, description,
+      canonical, OG, and JSON-LD for every prerendered route. That is what makes the static HTML
+      distinct.
+- [ ] Add tests (`routes.test.tsx`, `render.test.tsx`): assert each route renders a non-empty body +
+      a unique title, and assert sitemap/manifest parity.
+
+### Vercel config
+- [ ] Output dir stays `dist`. Prerendered `dist/<route>/index.html` files are served as static HTML.
+- [ ] Keep the SPA rewrite as a FALLBACK only (`/((?!api/|.*\..*|assets/).*)` → `/index.html`). Static
+      prerendered files take precedence over the rewrite, so inner routes serve their baked HTML.
+- [ ] Consider `"cleanUrls": true` / `"trailingSlash"` consistency so `/courses/x` and
+      `/courses/x/` don't split signals. Match canonical tags to whichever you pick.
+
+### Gotcha: env-dependent module-load throws fail the build on Vercel (Supabase, etc.)
+
+**Symptom:** the build passes locally but fails on Vercel during the prerender step with something
+like `Supabase URL is not defined ...` thrown from a client/config module
+(`src/lib/supabaseClient.ts` or similar), with a stack through `ssrLoadModule` /
+`SSRCompatModuleRunner`. Expect this on any Vite + Supabase site.
+
+**Why it happens (two compounding causes):**
+1. **Mode.** `prerender.mjs` uses Vite `createServer`, which defaults to **development** mode, so
+   `import.meta.env.PROD` is `false`. Code that picks an instance by that flag
+   (`isProduction ? VITE_SUPABASE_URL_PROD : VITE_SUPABASE_URL_DEV`) selects the DEV var, which
+   often isn't set on Vercel (only PROD is). Fix: pass `mode: 'production'` to `createServer`.
+2. **Env exposure.** Vite's **SSR module runner does not expose custom `VITE_*` vars** to
+   `import.meta.env` the way `vite build` statically inlines them. On Vercel the vars live in
+   `process.env` (no committed `.env`), so they read back `undefined` during SSR even when set. If a
+   module **throws at import** on a missing value (a common Supabase client pattern), the whole
+   prerender, and thus the deploy, fails. (It passes locally only because Vite reads your `.env`
+   file.)
+
+**Fix:** inject the needed vars explicitly via Vite `define` (static replacement reliably reaches SSR
+transforms), sourced from `loadEnv`/`process.env`, with a harmless placeholder fallback so a missing
+value never throws. Placeholders are safe because `renderToString` runs no effects, so no client
+(Supabase/etc.) ever makes a network call during prerender. Pattern:
+
+```js
+import { createServer, loadEnv } from 'vite';
+const fileEnv = loadEnv('production', ROOT, 'VITE_');
+const pick = (k, fb) => fileEnv[k] || process.env[k] || fb;
+const define = {
+  'import.meta.env.VITE_SUPABASE_URL_PROD': JSON.stringify(pick('VITE_SUPABASE_URL_PROD', 'https://placeholder.supabase.co')),
+  'import.meta.env.VITE_SUPABASE_ANON_KEY_PROD': JSON.stringify(pick('VITE_SUPABASE_ANON_KEY_PROD', 'placeholder')),
+  // ...repeat for the _DEV pair and any other VITE_* a module reads at import
+};
+await createServer({ mode: 'production', define, server: { middlewareMode: true, hmr: false, watch: null }, appType: 'custom' });
+```
+
+**Verify the fix locally** by simulating the Vercel case: move `.env` aside and unset the vars, then
+run `npm run build`. It must still prerender all routes. Always restore `.env` afterward (use a
+`trap ... EXIT` so it restores even if the build fails). Add every `VITE_*` var that any
+import-time-throwing module reads to the `define` map, not just Supabase.
+
+---
+
+## Phase 1B: Next.js branch, hygiene check (usually no rebuild)
+
+Next.js App Router SSR/SSGs by default, so the empty-shell problem normally does NOT exist. Verify and
+fix only what's missing:
+- [ ] Phase 0 curl should already show distinct per-route HTML with real content. If so, no
+      rendering work needed.
+- [ ] Each page/route exports `metadata` or `generateMetadata()` with a UNIQUE title + description +
+      canonical (`alternates.canonical`) + `openGraph`. Fix any page using only the root layout's
+      generic metadata.
+- [ ] Dynamic routes use `generateStaticParams()` where the set is known (courses, blog) for SSG.
+- [ ] `app/sitemap.ts` (or a static `public/sitemap.xml`) exists and is current.
+- [ ] `app/robots.ts` (or `public/robots.txt`) exists, references the sitemap, and blocks private
+      paths.
+- [ ] Watch for accidental `"use client"` at the top of a page that should be a server component.
+      It pushes rendering client-side and can strip SSR'd metadata. Keep pages server components;
+      isolate interactivity in child client components.
+- [ ] Structured data (JSON-LD) rendered server-side via a `<script type="application/ld+json">` in
+      the server component.
+
+---
+
+## Phase 2: Shared SEO hygiene (both stacks)
+
+- [ ] `public/robots.txt` (Vite) or `app/robots.ts` (Next): allow public pages, block
+      `/admin`, `/account`, `/booking*`, `/api`, dev paths; reference the absolute sitemap URL.
+- [ ] `sitemap.xml`: lists all public canonical URLs, generated from the same route source as the
+      prerender manifest so they cannot drift. Absolute `https://` URLs, sensible `lastmod`.
+- [ ] `public/llms.txt`: state your AI-crawler policy and give AI/LLM crawlers a concise, accurate
+      summary of the organisation and its offerings. Mirror the allow/disallow intent of `robots.txt`
+      so the two don't contradict. See the llms.txt section of `SEO-how-to.md` for a template. This is
+      emerging-convention hygiene ([llmstxt.org](https://llmstxt.org/)), not a ranking factor.
+- [ ] Canonical tag on every page (absolute URL, self-referencing).
+- [ ] Open Graph + Twitter card per page (title, description, `og:image`). Verify a shared link
+      preview now differs per page.
+- [ ] One `<h1>` per page; meaningful heading hierarchy.
+- [ ] JSON-LD structured data appropriate to the page type (Organization/WebSite on home; Course on
+      course pages; Person for instructors; BreadcrumbList on inner pages).
+
+---
+
+## Phase 3: Verify (evidence before claiming done)
+
+- [ ] `npm run build` succeeds; confirm `dist/<route>/index.html` files exist for inner routes (Vite).
+- [ ] Re-run the Phase 0 curls against the built output (or a preview deploy). Confirm:
+      - `<div id="root">` now contains real markup.
+      - Two different routes return DIFFERENT html with DIFFERENT `<title>`/description.
+      - Visible word count is substantial, not ~20.
+- [ ] Paste an inner URL into a link-preview tool (or WhatsApp/LinkedIn) → preview shows the page's
+      own title/description/image.
+- [ ] (If access) Google Search Console → URL Inspection → "View Crawled Page" shows real content;
+      Coverage has no unexpected "Discovered – not indexed".
+- [ ] No `<title>`/canonical duplicated across distinct pages.
+
+---
+
+## Reference file layout
+
+| Concern | File |
+|---|---|
+| Post-build renderer | `scripts/prerender.mjs` |
+| Route manifest (source of truth) | `src/prerender/routes.tsx` + `src/prerender/staticRoutes.json` |
+| Render + template injection | `src/prerender/render.tsx` |
+| Sitemap generator | `scripts/generate-sitemap.js` |
+| Env-aware robots.txt copy | `scripts/copy-robots.js` |
+| Build wiring | `package.json` → `"build"` script |
+| Tests | `src/prerender/{routes,render}.test.tsx` |
+
+---
+
+## Version History
+
+- **v1.1**: Made the playbook self-contained. Inlined the reference prerender implementation
+  (routes/render/prerender scripts) so it no longer points at a specific project; added `llms.txt` to
+  the shared SEO hygiene checklist and Phase 0 diagnosis.
+- **v1.0**: Initial playbook. Phase 0 diagnosis, Vite prerendering branch, Next.js hygiene branch,
+  shared hygiene, and verification.# Database RLS and Privilege Escalation: The UI Is Not the Security Boundary
+
+**The mistake in one sentence:** the app hides the admin panel from non-admins in the UI, but the database itself will still let any logged-in user write `is_admin = true` on their own row — because nobody locked that column down at the data layer.
+
+---
+
+## What it looks like
+
+A course-portal-style app has an account settings page where users update their own name and email preferences. It uses Supabase (or any Postgres-with-row-level-security setup) with the anon/public key on the client, protected by a row-level security (RLS) policy that says "you can update your own row":
+
+```sql
+-- The policy that ships by default in a lot of scaffolded projects
+CREATE POLICY "Users can update their own profile"
+ON profiles FOR UPDATE
+USING (auth.uid() = id);
+-- Looks safe: users can only touch the row that matches their own ID.
+```
+
+The problem: this policy restricts *which row* you can update, but says nothing about *which columns*. If `profiles.is_admin` (or `role`, or `stripe_customer_id`, or any other sensitive column) lives on that same table, any authenticated user can do this from their browser console, using nothing but the public anon key:
+
+```javascript
+// Runs from any logged-in user's browser — no special access needed
+await supabase.from('profiles').update({ is_admin: true }).eq('id', myOwnUserId);
+```
+
+That succeeds. The row-level check passes (`auth.uid() = id` — it's their own row). Nothing checks *which columns* were in the `UPDATE`. The user is now an admin, and every admin-gated RLS policy on every other table now opens up to them too, because those policies typically just check `is_admin = true` on this same table.
+
+Meanwhile, the app's `<AdminRoute>` React component — which hides the admin nav link and redirects non-admins away from `/admin` — worked perfectly the whole time. It just never mattered, because it isn't the actual security boundary.
+
+## Why AI tools generate this
+
+Client-side route guards are the easy, obvious thing to build when you ask an AI assistant to "make sure only admins see the admin page" — and they're not wrong to exist, they're just not sufficient on their own, and this distinction rarely gets surfaced unless you specifically ask for it. A model asked to "protect the admin route" will confidently produce a `<ProtectedRoute requireAdmin>` wrapper and consider the job done, because from a pure UX standpoint, it is.
+
+The database side compounds this in a specific, subtle way with row-level security systems (Supabase, and RLS in Postgres generally): **RLS policies are row-scoped by default, not column-scoped.** Writing `USING (auth.uid() = id)` is the natural, correct-looking thing to generate for "let users edit their own profile" — and it *is* correct, for the columns that are supposed to be self-editable (name, avatar, preferences). It's silently wrong the moment a privileged column (`is_admin`, `role`, `credit_balance`, `stripe_customer_id`) sits on the same table, because nothing in that one-line policy distinguishes "the fields a user should be able to change about themselves" from "the fields that determine their privileges." An AI assistant generating the policy from "users should be able to update their profile" has no reason to reach for the more advanced, less commonly-known column-level `GRANT`/`REVOKE` syntax needed to close this gap — it isn't part of the "make the feature work" prompt.
+
+There's also a version-control blind spot: RLS policies are frequently authored directly in a cloud dashboard (Supabase Studio, etc.) rather than as migration files in the repo, because it's the fastest way to get something working. That means the actual security rules governing your database often exist *nowhere in your codebase* — not in what you'd hand an AI assistant to review, and not in what a human reviewer would read in a pull request.
+
+## Why it's dangerous
+
+- **Full privilege escalation from a standard account.** Any user who signs up gets a path to becoming an admin — no exploit needed beyond knowing SQL/the client library, which is trivial to find in browser dev tools or by asking an AI assistant "how do I update my Supabase profile."
+- **It cascades.** Once `is_admin` is `true`, every other RLS policy gated on that same flag opens up too — inventory, other users' data, billing details, audit logs. One missing column restriction becomes total compromise.
+- **The client-side guard gives false confidence.** Because the UI correctly hides admin features from non-admins, manual QA and casual code review both look clean. The gap only shows up if someone specifically tries to write to the database directly, bypassing the UI.
+- **It's invisible in the repo.** If the vulnerable policy lives only in a cloud dashboard, `grep`-based review, static analysis, and AI code review of the checked-in code will all miss it — there's nothing in the repo to look at.
+
+## How to check your own app
+
+If you're on Supabase or another RLS-backed Postgres setup:
+
+```sql
+-- 1. List every UPDATE policy on every table, and read what it actually restricts
+SELECT schemaname, tablename, policyname, cmd, qual, with_check
+FROM pg_policies
+WHERE cmd = 'UPDATE'
+ORDER BY tablename;
+
+-- 2. Specifically check column-level grants on any table with a privilege
+--    or role column — does `authenticated` have UPDATE on that column?
+SELECT table_name, column_name, privilege_type, grantee
+FROM information_schema.column_privileges
+WHERE table_schema = 'public'
+  AND column_name IN ('is_admin', 'role', 'is_staff', 'tier', 'credit_balance')
+  AND grantee IN ('authenticated', 'anon');
+-- If `authenticated` shows UPDATE on any of these, that's the bug.
+```
+
+```bash
+# 3. Confirm your repo actually has these policies checked in as SQL files —
+#    if grep finds nothing, your real security rules exist only in a dashboard
+grep -rl "CREATE POLICY" --include="*.sql" .
+# If this is empty or thin relative to your table count, export your live
+# policies (`supabase db dump` or equivalent) and commit them.
+
+# 4. Grep your own client code for any place a "privileged" column is sent in
+#    an update payload from client-side code — even if the column SHOULD be
+#    locked down, this tells you where the risk is highest
+grep -rn "is_admin\|role:\|is_staff" --include="*.tsx" --include="*.ts" src/ client/src/
+```
+
+For any auth system with a second factor (email OTP, TOTP, SMS) sitting in front of sensitive data: check whether that second factor is enforced *only* by your frontend/middleware, or whether it's actually encoded into the session/token the database checks. If your API and your database would both accept a password-only session with no evidence the second factor was ever completed, the second factor is UX, not security.
+
+## The fix
+
+**Treat RLS (or your equivalent server-side authorization layer) as the actual security boundary, and treat the UI guard as a nice-to-have for user experience only.** Concretely:
+
+1. **Lock down privileged columns separately from the row-level policy.** Revoke broad `UPDATE` and re-grant only the columns a user should be able to self-edit:
+
+```sql
+-- Revoke blanket UPDATE, then grant back only the safe, self-editable columns
+REVOKE UPDATE ON profiles FROM authenticated;
+GRANT UPDATE (full_name, avatar_url, email_preferences) ON profiles TO authenticated;
+
+-- is_admin, role, stripe_customer_id, credit_balance etc. now require the
+-- service-role key (server-side only) to change — exactly what you want.
+```
+
+2. **Split privileged fields into a separate table if column-level grants get unwieldy.** A dedicated `user_roles` table that only your backend's service-role key can write to is often simpler to reason about than fine-grained column grants on a wide `profiles` table.
+
+3. **Version-control every policy.** Export live policies to a SQL file in your repo (`supabase db dump --schema public > docs/rls-policies.sql`, or your platform's equivalent) and keep it current. Treat undocumented dashboard-only policies as a standing security debt item until they're captured.
+
+4. **Enforce a second factor at the data layer, not just the UI/middleware layer**, if you have one. If your platform supports encoding assurance level into the session token (e.g. Supabase's AAL/MFA), require the elevated level in both your API middleware *and* your RLS policies — not just a redirect in your frontend router.
+
+```sql
+-- Example: require a second-factor-verified session for sensitive reads,
+-- enforced at the RLS layer, not just checked by a page redirect
+CREATE POLICY "Staff can read cases, second factor required"
+ON cases FOR SELECT
+USING (
+  is_staff(auth.uid())
+  AND (auth.jwt() ->> 'aal') = 'aal2'
+);
+```
+
+## Checklist
+
+- [ ] Every table with a privileged/role/tier column has that column locked down with explicit `REVOKE`/`GRANT`, separate from the row-level `USING` policy.
+- [ ] All RLS policies (or equivalent server-side access rules) are exported and version-controlled in the repo, not left dashboard-only.
+- [ ] Client-side route guards are documented as UX-only, with a comment pointing at the real enforcement layer, so nobody mistakes them for security.
+- [ ] If you have a second factor (OTP/MFA), it's checked at the API and/or database layer using session-encoded assurance level — not only by a frontend redirect.
+- [ ] You've run the column-privilege query above against every table that has a privilege/role/tier/balance column.
+- [ ] New tables get an explicit "who can write which columns" review before shipping, not an assumed-safe default.
+
+## Prompt your AI assistant
+
+```
+Audit this repository's database access-control layer for privilege
+escalation via unrestricted column writes.
+
+If this project uses Supabase or another RLS-backed Postgres setup:
+
+1. List every table that has a privilege/role/tier/balance-style column
+   (e.g. is_admin, role, is_staff, tier, credit_balance, stripe_customer_id).
+   For each one, check whether the table's UPDATE row-level-security policy
+   restricts by ROW ONLY (e.g. `USING (auth.uid() = id)`) with no
+   corresponding column-level GRANT/REVOKE restricting which columns the
+   `authenticated` or `anon` role can actually write. Flag any table where a
+   normal user could plausibly run `UPDATE <table> SET <privileged column> =
+   ... WHERE id = auth.uid()` and have it succeed.
+
+2. Check whether this repository has the live RLS policies checked in as SQL
+   files (search for `CREATE POLICY`). If policies referenced by the app
+   aren't found in the repo, flag that the real security rules may only
+   exist in a cloud dashboard and are unreviewable from the code.
+
+3. If there's a second-factor / MFA / OTP flow, trace whether the elevated
+   session state it produces is checked anywhere other than a frontend route
+   guard or redirect — specifically, is it checked in API middleware and/or
+   in the RLS policies themselves? Flag it if the only enforcement is a
+   client-side redirect, since that's bypassable by calling the API or
+   database directly.
+
+4. Find every client-side "admin-only" or "role-gated" UI component and
+   confirm there is a matching SERVER-SIDE check (API middleware or RLS) for
+   every action that component exposes — not just a route redirect.
+
+For each finding: table/file, the exact escalation an attacker could perform,
+and a fix (column-level GRANT/REVOKE statements, a migration file, or a
+second-factor enforcement point) using this project's existing conventions.
+Do not apply any fixes yet — just report.
+```
+
+# Browser-Aware Web Design
+
+A practical guide to designing modern websites that work *with* the browser's rendering pipeline instead of against it. Adapted from Addy Osmani's writing on modern browser internals.
+
+## Core idea
+
+Modern websites should be visually rich but mechanically boring.
+
+The page can have strong imagery, refined motion, interactive states, dense information, and polished transitions, but the browser should not have to fight the design to render it. The best designs work with the browser pipeline:
+
+1. Fetch the right resources early.
+2. Parse HTML without unnecessary blocking.
+3. Resolve CSS predictably.
+4. Keep layout stable.
+5. Paint only what needs painting.
+6. Let the compositor handle motion where possible.
+7. Keep JavaScript out of the critical visual path.
+
+The goal is not minimalism for its own sake. The goal is confidence: the first screen appears quickly, the main content is prioritised, interaction stays smooth, and the layout does not shift while users are trying to read or act.
+
+## Design principles
+
+### 1. Make the first screen cheap
+
+The first viewport should be easy for the browser to construct.
+
+Good first screens have a clear LCP candidate (hero image, product image, headline block, key content region), minimal font blocking, critical CSS available early, deferred non-critical JavaScript, and stable media dimensions.
+
+Bad first screens have multiple competing hero assets, background video plus custom fonts plus animation libraries plus hydration-heavy UI, layout that depends on JavaScript measurements, and components that render empty until client-side code runs.
+
+Rule of thumb: a page that cannot look mostly correct before hydration is probably too dependent on JavaScript.
+
+### 2. Prioritise the real LCP element
+
+Largest Contentful Paint is usually decided by the thing the design cares about most: the hero image, product render, lead editorial image, or main heading block. Treat that element as a first-class asset, not incidental decoration.
+
+- Use explicit `width`/`height` or aspect-ratio constraints.
+- Use responsive image sources so mobile does not download desktop media.
+- Preload the real LCP image when it is known in advance.
+- Use `fetchpriority="high"` for the main visual asset, not for everything.
+- Avoid lazy-loading the primary above-the-fold image.
+
+```html
+<link
+  rel="preload"
+  as="image"
+  href="/images/product-hero.avif"
+  imagesrcset="/images/product-hero-800.avif 800w, /images/product-hero-1400.avif 1400w"
+  imagesizes="100vw"
+>
+
+<img
+  src="/images/product-hero.avif"
+  srcset="/images/product-hero-800.avif 800w, /images/product-hero-1400.avif 1400w"
+  sizes="100vw"
+  width="1400"
+  height="900"
+  fetchpriority="high"
+  alt="Product dashboard showing campaign performance"
+>
+```
+
+### 3. Do not block HTML parsing without a reason
+
+Classic scripts block HTML parsing by default, delaying the browser from discovering the rest of the page.
+
+- Use `defer` for scripts that need the DOM but are not critical to first paint.
+- Use `async` for independent third-party scripts where order does not matter.
+- Use `type="module"` for modern module-based code.
+- Keep analytics, widgets, chat, heatmaps, and marketing scripts off the critical path.
+
+```html
+<script src="/app.js" defer></script>
+<script type="module" src="/main.js"></script>
+```
+
+### 4. Treat CSS as critical infrastructure
+
+CSS is part of the rendering pipeline, not just styling. The browser needs it to compute styles, layout, and paint.
+
+- Put critical CSS in the head or ensure it is available early.
+- Avoid huge unused CSS bundles and deeply complex selectors in repeated UI.
+- Use design-system primitives rather than page-specific CSS explosions.
+- Design every component state: empty, loading, long-text, error, hover/focus, responsive. Undesigned states leave the browser improvising, usually with layout shifts.
+
+### 5. Prefer compositor-friendly motion
+
+The smoothest animations change properties the compositor can handle without recalculating layout or repainting large areas. Prefer `transform` and `opacity`. Be careful animating `width`, `height`, `top`, `left`, `margin`, `padding`, `box-shadow`, `filter`, and large background changes.
+
+```css
+/* Better — compositor can handle this */
+.panel {
+  transform: translateY(8px);
+  opacity: 0;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+.panel[data-open="true"] {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Riskier — forces layout work */
+.panel {
+  top: 8px;
+  transition: top 180ms ease;
+}
+```
+
+### 6. Use will-change sparingly
+
+`will-change` can help the browser prepare for an upcoming animation, often by promoting an element to its own layer. Use it for a known active element (a drawer about to open, a modal entering, a focused carousel item), not as a blanket rule. Overuse increases memory and can make performance worse.
+
+```css
+.drawer[data-state="opening"],
+.drawer[data-state="open"] {
+  will-change: transform;
+}
+```
+
+### 7. Avoid layout thrashing
+
+Layout thrashing happens when JavaScript repeatedly writes to the DOM then reads layout values, forcing the browser to recalculate geometry over and over. Common culprits: JS-measured masonry, scroll-linked effects that constantly measure, animated accordions with complex nested content, sticky nested panels, auto-resizing dashboards.
+
+- Prefer CSS Grid and Flexbox.
+- Use fixed aspect ratios for repeated cards and tiles.
+- Use container queries for component-level responsiveness.
+- Batch reads and writes in JavaScript.
+- Virtualise very long lists.
+
+### 8. Design stable layouts
+
+Cumulative layout shift is usually a design problem before it is an engineering one. Prevent shifts by designing known media boxes, reserved ad/embed slots, stable toolbar and navigation heights, predictable loading skeletons, buttons that do not resize when labels change, and components that handle long words and empty values.
+
+Good loading states preserve the shape of the final UI. Bad loading states replace a tiny spinner with a large block of content and push everything around.
+
+### 9. Make rich media earn its cost
+
+Large visuals build trust and explain products, but treat them as budgeted assets. For each major asset ask: is this the main thing users need to inspect? Is it sized for the viewport? Compressed as AVIF/WebP? Cropped to the real design? Given stable dimensions? Loaded at the right priority? Is there a lighter mobile version? Avoid decorative media that competes with real content for bandwidth and attention.
+
+### 10. Keep third-party scripts on a leash
+
+Third-party scripts, things like analytics suites, heatmaps, chat widgets, tag managers, A/B testing, social embeds, and ad scripts, can dominate main-thread time and delay interactivity. Do not make the page's primary experience depend on them. An essential widget still needs a reserved area and a graceful fallback.
+
+### 11. Use prefetch and prerender for likely next steps
+
+Modern browsers can prepare likely next navigations, like landing → signup, product → checkout, or search → first result. Use it where the path is predictable; prefetching everything wastes bandwidth and can hurt users on constrained devices.
+
+```html
+<script type="speculationrules">
+{
+  "prefetch": [
+    { "source": "list", "urls": ["/pricing", "/signup"] }
+  ]
+}
+</script>
+```
+
+### 12. Hydration should enhance, not rescue
+
+In React, Next.js, and similar stacks, hydration can become a hidden design dependency. Safer pattern: server-render the meaningful structure, let CSS handle initial layout, use JavaScript to enhance interaction, defer non-critical client components, and avoid blank shells where content should be. Good web design should survive a slow JavaScript path.
+
+## Website design checklist
+
+**First viewport**
+- Is the main above-the-fold content obvious, with one clear LCP candidate?
+- Does the page still look coherent before JavaScript runs?
+- Are custom fonts limited, preloaded, or gracefully swapped?
+- Are hero/media dimensions stable and the primary image loaded eagerly?
+
+**Layout**
+- Are media and card dimensions constrained?
+- Do components handle long text without breaking?
+- Are loading states the same approximate size as loaded states?
+- Are embeds, ads, maps, and videos given reserved space?
+- Does mobile use appropriately cropped assets?
+
+**Motion**
+- Are core animations based on transform and opacity?
+- Are layout-changing animations rare and intentional?
+- Is will-change used only for active animated elements?
+- Does the page remain usable with reduced motion?
+
+**JavaScript**
+- Are non-critical scripts deferred and third-party scripts isolated?
+- Are expensive components lazy-loaded below the fold?
+- Is there unnecessary client-side rendering for static content?
+- Are DOM reads and writes batched where measurement is needed?
+
+**Navigation & assets**
+- Are likely next pages prefetched only when the path is predictable?
+- Are images compressed, correctly sized, and available as AVIF/WebP?
+- Are SVGs used for simple icons and logos?
+- Are videos postered, compressed, and lazy-loaded where appropriate?
+
+## Practical patterns
+
+**Product landing page**: Server-rendered hero content, one optimised product visual, critical CSS early, deferred analytics, motion limited to fades and transforms. Avoid full-screen loading animations, heavy background video, multiple font families, and hero images loaded via JavaScript.
+
+**SaaS dashboard**: Dense but stable layout, skeletons that preserve panel dimensions, virtualised long tables, server-rendered shell, deferred charts below the fold. Avoid panels resizing independently on load, charts blocking the whole dashboard, JS masonry for core layout, and controls that shift when values change.
+
+**Editorial / content site**: Fast text rendering, optimised lead image, minimal blocking scripts, stable ad/embed slots, good typographic fallbacks. Avoid third-party embeds in the article path before content, late font swaps, and ads without reserved dimensions.
+
+**Ecommerce product page**: Prioritise product imagery with responsive sets, keep purchase controls stable, lazy-load reviews and recommendations, prefetch cart/checkout when intent is clear. Avoid loading the gallery after hydration and layout shifts around price, variants, or the buy button.
+
+## Red flags in a design
+
+- The page starts as a blank app shell.
+- The hero depends on a client-side API call.
+- The layout needs JavaScript to know its own size.
+- Every scroll section animates layout properties.
+- The main image is a CSS background with no preload plan.
+- The loading state is a spinner, then everything appears at once.
+- The page has five third-party scripts in the head.
+- All cards have dynamic heights and lazy-loaded media with no aspect ratio.
+- The mobile page downloads the desktop hero.
+
+## Quick rules of thumb
+
+- One clear first-screen priority beats five competing visual ideas.
+- The main image should never be an afterthought.
+- For moving elements, reach for transform first; for fading ones, use opacity.
+- Anything that resizes needs a real reason to animate.
+- Reserve space in advance for anything that loads late.
+- Question JavaScript-dependent behaviour: could HTML and CSS handle most of it instead?
+- Keep non-essential third-party scripts out of the critical path.
+- Prefetch the next click when it's obvious.
+- When a page feels clever but fragile, simplify the mechanics.
+
+## Prompt your AI assistant
+
+> Review this project against browser-aware web design principles. For the main pages, check: is there one clear LCP element and is it preloaded with explicit dimensions and fetchpriority? Are non-critical and third-party scripts deferred/async and off the critical path? Do animations use only transform/opacity? Are media and card dimensions constrained to prevent layout shift, with loading states that match final sizes? Is meaningful content server-rendered rather than fetched after hydration? List concrete issues with file references and the specific fix for each.# Ship Less JavaScript
+
+**The bottleneck in one sentence:** your app downloads its whole codebase before a single pixel renders. Every page, every admin screen, every heavy third-party widget ships in the same bundle, because nothing was ever split into separate chunks.
+
+AI coding assistants are extremely good at making a new page "just work": add a route, import the component at the top of the file, done. What they don't do by default is think about who downloads what. The result is a single JavaScript bundle that keeps growing every time a feature is added, until an anonymous visitor on the landing page is downloading code for the admin dashboard, the booking calendar, and every authenticated screen they'll never see.
+
+## What it looks like
+
+A router file where every page, public or private, light or heavy, is a plain top-level import:
+
+```tsx
+// src/App.tsx (everything loads eagerly, in one bundle)
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import LandingPage from './pages/LandingPage';
+import AboutPage from './pages/AboutPage';
+import PricingPage from './pages/PricingPage';
+import BookingPage from './pages/BookingPage';       // pulls in a full calendar library
+import DashboardPage from './pages/DashboardPage';    // the entire authenticated app
+import VideoDetailPage from './pages/VideoDetailPage'; // heavy tab tree, player, editor
+import SearchResultsPage from './pages/SearchResultsPage';
+import AdminPage from './pages/AdminPage';             // charts, tables, rarely visited
+import AccountSettingsPage from './pages/AccountSettingsPage';
+// ...12 more pages, all imported the same way
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/booking" element={<BookingPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/video/:id" element={<VideoDetailPage />} />
+        <Route path="/search" element={<SearchResultsPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/account" element={<AccountSettingsPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+```
+
+Every one of those imports gets bundled into (or very close to) the same entry chunk. A visitor who only ever looks at / and /pricing still pays the download cost for the calendar widget, the video editor, and the admin charting library.
+
+There's a sneakier version of this same bug: a codebase that does use lazy() for some routes, usually the obvious, low-traffic ones like legal pages, help docs, and admin, but leaves the actual heaviest routes (the main dashboard, a detail view, search) as static imports because they "already worked" before code-splitting was introduced and nobody circled back. Glance at the file and the problem looks fixed, you can see lazy() calls right there, but the biggest chunks never actually got split out.
+
+**Spotting it in a diff or a review:** search the router file for the ratio of plain `import X from` lines to `lazy(() => import(...))` lines. Then cross-check which routes are which. A codebase that lazy-loads five legal and help pages but statically imports the dashboard, the search results page, and anything with a calendar or chart library has fixed the easy 20% and left the expensive 80% untouched. That pattern is common enough to check for by name, not just by counting lazy() calls.
+
+## Why AI tools generate this
+
+**Static imports are the path of least resistance.** import X from './X' always works, compiles cleanly, and needs no extra scaffolding. React.lazy(() => import('./X')) requires wrapping the route in <Suspense>, choosing a fallback, and ideally an error boundary: more moving parts, more chances for the assistant to generate something that doesn't compile on the first try. Given a choice between guaranteed to work and correct but fiddlier, an assistant optimizing for a single request tends to pick the former.
+
+**Bundle size isn't visible in the editor.** An AI assistant sees that the page renders correctly, not that this added 400KB to the entry chunk. There's no feedback loop telling it that a new import made the app slower, so nothing pushes it toward splitting.
+
+**Assistants patch what they're shown, not what's biggest.** Ask an AI tool to add lazy loading and it typically reaches for the routes that are easy to identify as non-critical: admin, legal, marketing pages, because those are uncontroversial. It rarely audits which routes are actually the heaviest by dependency weight, so the biggest offenders, a page pulling in a calendar library, a rich video or tab-heavy detail view, often get skipped simply because nobody asked specifically about them.
+
+**Error boundaries get forgotten as a separate step.** Lazy loading and error boundaries are two different concerns that happen to live in the same place in the code. It's common to see error boundaries wired only around the routes that were lazy()-ed, leaving the eager, usually core, highest-traffic routes with zero crash recovery. A render-time throw in your main dashboard becomes a blank white screen instead of a friendly fallback.
+
+## What it costs
+
+**Time to Interactive and Largest Contentful Paint suffer directly.** Every KB in the entry chunk delays parse and execute before the page becomes interactive: a direct Core Web Vitals hit (LCP, TBT/INP), which Google uses as a ranking signal and which correlates directly with bounce rate.
+
+**Anonymous visitors pay for authenticated code.** A visitor who has never logged in and never will still downloads your dashboard, admin panel, and settings screens when they're statically imported from the same entry point as the landing page.
+
+**Mobile and slow-connection users disproportionately suffer.** A 1.5 to 2MB bundle that's imperceptible on a fast fiber connection can add several seconds of blank-screen time on 3G/4G or a mid-tier phone, exactly the users most likely to bounce before the page ever paints.
+
+**Every unrelated feature makes every page slower.** Because there are no chunk boundaries, adding a heavy dependency for one rarely-used page (a calendar library, a charting library, a rich text editor) inflates the load time of every page, including the ones that never use it.
+
+**Unguarded eager routes turn one bug into a full outage.** Busiest routes with no error boundary mean a single render-time exception anywhere in that tree takes down the whole screen for every user hitting it, instead of degrading gracefully.
+
+## A representative before and after
+
+These numbers are illustrative rather than one specific audited project, but the shape repeats across almost every unsplit React app we come across: a landing page paying full price for code only the authenticated dashboard needs.
+
+| Metric | Before | After |
+| --- | --- | --- |
+| Entry chunk, gzipped | ~480KB | ~150–220KB |
+| Time to Interactive, throttled 4G | ~4.5s | ~1.8s |
+| Routes imported eagerly at the entry point | 12 | 2 (landing + login) |
+| Heavy third-party libraries in the entry chunk | 3 (calendar, charts, editor) | 0, loaded on demand |
+
+The exact numbers depend entirely on your dependencies. The pattern doesn't: a small, always-needed core plus on-demand chunks for everything else.
+
+## How to measure it in your app
+
+Run these against your production build, not dev, since the dev server's output isn't representative:
+
+```bash
+# 1. Build for production
+npm run build
+
+# 2a. Vite projects: visualize what's actually in each chunk
+npm install --save-dev rollup-plugin-visualizer
+# add to vite.config.ts (see fix below), then:
+npm run build
+# opens an interactive treemap of your bundle in the browser
+
+# 2b. Or, framework-agnostic, inspect built output sizes directly
+npx source-map-explorer 'dist/assets/*.js'
+
+# 3. Next.js projects: official bundle analyzer
+npm install --save-dev @next/bundle-analyzer
+# wrap next.config.js with withBundleAnalyzer, then:
+ANALYZE=true npm run build
+```
+
+In Chrome DevTools:
+
+```text
+1. Open DevTools → Coverage tab (Cmd/Ctrl+Shift+P → "Show Coverage")
+2. Reload the page with recording on
+3. Sort by "Unused Bytes" (this tells you exactly how much of what
+   loaded was never even executed on this page view)
+4. Network tab → filter by JS → sort by size → look at the FIRST
+   request (your entry chunk) on an anonymous/logged-out page load
+```
+
+Run Lighthouse (npx lighthouse https://your-site.com --view or the Chrome DevTools Lighthouse panel) and look specifically at:
+
+- "Reduce unused JavaScript": lists exact scripts and estimated savings.
+- "Reduce initial server response time" and "Minimize main-thread work": often symptomatic of an oversized entry bundle.
+- Total Blocking Time (TBT) and Largest Contentful Paint (LCP) scores.
+
+Rough rule of thumb: an entry or main JS chunk (gzipped) over roughly 200 to 300KB on a content-first page like a landing page is a strong signal of unsplit routes worth investigating.
+
+## The fix
+
+Convert route components to React.lazy(), wrap them in <Suspense> with a lightweight fallback, and pair every lazy boundary with an error boundary so a crash in one route doesn't blank the whole app. Keep only the truly universal, always-needed routes (landing page, login) as eager imports.
+
+```tsx
+// src/App.tsx (route-level code splitting + error boundaries)
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import LandingPage from './pages/LandingPage'; // small, always needed, keep eager
+import LoginPage from './pages/LoginPage';     // small, always needed, keep eager
+
+// Everything else: lazy. Group by "does this route pull in something heavy?"
+const BookingPage = lazy(() => import('./pages/BookingPage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const VideoDetailPage = lazy(() => import('./pages/VideoDetailPage'));
+const SearchResultsPage = lazy(() => import('./pages/SearchResultsPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
+const AccountSettingsPage = lazy(() => import('./pages/AccountSettingsPage'));
+
+// One helper so every lazy route gets the same Suspense + ErrorBoundary wiring.
+// This is the piece that's easy to forget when routes are added ad hoc.
+function withSuspense(Component: React.LazyExoticComponent<React.ComponentType>) {
+  return (
+    <ErrorBoundary fallback={<RouteErrorFallback />}>
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <Component />
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/booking" element={withSuspense(BookingPage)} />
+        <Route path="/dashboard" element={withSuspense(DashboardPage)} />
+        <Route path="/video/:id" element={withSuspense(VideoDetailPage)} />
+        <Route path="/search" element={withSuspense(SearchResultsPage)} />
+        <Route path="/admin" element={withSuspense(AdminPage)} />
+        <Route path="/account" element={withSuspense(AccountSettingsPage)} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+```
+
+A minimal ErrorBoundary so a render-time throw shows a recoverable message instead of a blank screen:
+
+```tsx
+// src/components/ErrorBoundary.tsx
+import { Component, type ReactNode } from 'react';
+
+interface Props { children: ReactNode; fallback: ReactNode }
+interface State { hasError: boolean }
+
+export class ErrorBoundary extends Component<Props, State> {
+  state: State = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: unknown) {
+    console.error('Route crashed:', error);
+  }
+
+  render() {
+    return this.state.hasError ? this.props.fallback : this.props.children;
+  }
+}
+```
+
+Split out large, stable third-party dependencies into their own vendor chunk so they cache independently of your app code (Vite example, Next.js does this automatically):
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          // isolate genuinely heavy, page-specific libraries so they
+          // only load when the page that needs them loads
+          'vendor-calendar': ['react-big-calendar', 'date-fns'],
+          'vendor-charts': ['recharts'],
+        },
+      },
+    },
+  },
+});
+```
+
+For Next.js App Router, the equivalent is next/dynamic:
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const AdminDashboard = dynamic(() => import('@/components/AdminDashboard'), {
+  loading: () => <RouteLoadingFallback />,
+});
+```
+
+When auditing which routes to split first, don't just grab the obvious low-traffic ones (legal, docs, admin). Profile actual dependency weight with the bundle visualizer above, and prioritize the routes that are both heavy and not universally needed on first paint, even when one of them happens to be your most-visited authenticated screen.
+
+## Checklist
+
+**Audit**
+- Run a bundle analyzer against the production build and identify the entry/main chunk size.
+- List every top-level route import in your router file.
+
+**Split and guard**
+- Convert every route except the true "always needed on cold load" ones (landing, login) to lazy() / next/dynamic.
+- Wrap every lazy route in <Suspense> with a real loading fallback, not a blank screen.
+- Wrap every lazy route in an error boundary, and audit whether your eager routes have one too.
+- Split large, stable third-party libraries (calendar, charts, editors) into their own vendor chunk.
+
+**Verify**
+- Re-run the bundle analyzer and confirm the entry chunk shrank and heavy libraries moved to on-demand chunks.
+- Re-run Lighthouse and confirm LCP / TBT improved on an anonymous, logged-out page load.
+- Re-check this after every few feature additions, since bundle bloat is incremental and easy to miss one PR at a time.
+
+## Prompt your AI assistant
+
+```
+Audit this repository for JavaScript bundle bloat from missing code splitting.
+
+1. Find the main router/entry file (App.tsx, App.jsx, or the Next.js app/ router)
+   and list every top-level page/route import that is NOT using React.lazy(),
+   next/dynamic, or an equivalent dynamic import.
+2. For each one, estimate its relative weight by checking what it imports
+   (does it pull in a calendar, charting, rich-text-editor, video, or other
+   heavy third-party library?) and flag the heaviest ones first, not just
+   the obviously low-traffic ones like legal/admin pages.
+3. Propose a converted version of the router file where every route except
+   the minimal "always needed on first paint" set (typically just the
+   landing/home page and the login page) uses lazy loading, wrapped in
+   both a <Suspense> fallback and an error boundary.
+4. Check whether an ErrorBoundary component already exists in the codebase.
+   If lazy routes are wrapped in Suspense but NOT in an error boundary,
+   flag that explicitly: a render-time crash there currently produces a
+   blank screen with no recovery UI.
+5. If this is a Vite project, propose a manualChunks config in
+   vite.config.ts that isolates heavy, page-specific third-party
+   dependencies into their own vendor chunks.
+6. Run a production build before and after your changes and report the
+   entry/main chunk size difference in KB (gzipped if possible).
+
+Do not change any route's behavior or props, this is a bundling/loading
+change only. Show me the diff before applying it.
+```

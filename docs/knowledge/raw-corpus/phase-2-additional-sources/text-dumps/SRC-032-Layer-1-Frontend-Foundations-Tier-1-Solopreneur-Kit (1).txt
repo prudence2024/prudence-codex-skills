@@ -1,0 +1,180 @@
+--- PDF PAGE 1 ---
+LAYER 1 OF 13
+FRONTEND
+FOUNDATIONS
+What Your Users See and Touch
+TIER 1 — SOLOPRENEUR
+MATT MURPHY .AI
+mattmurphy.ai
+Part of the Builder Certification Series
+
+--- PDF PAGE 2 ---
+Layer 1: Frontend Foundations  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 2
+What This Kit Covers
+What This Kit Covers
+This kit covers Layer 1: Frontend Foundations—what your users see and touch. The frontend is 
+your app’s screens, buttons, menus, and forms. It’s the thing people pull up on their phone or 
+open on their laptop. When someone says “the app,” they’re talking about this.
+You’re not going to write code by hand. You’re going to describe what you want to an AI coding 
+tool—something like Cursor, Lovable, Bolt, or Claude Code—and let it build the screens for you. 
+Your job is to know what to ask for, check that it works, and fix what doesn’t. That’s what this 
+certification proves you can do.
+This kit walks you through three levels of mastery. Tier 1 is for someone shipping their first app. 
+Tier 2 is for someone whose app is growing and needs to stay organized. Tier 3 is for someone 
+running a platform that multiple teams build on. Start at Tier 1. You can always come back for 
+the rest.
+Why It Matters
+If your app looks broken on someone’s phone, they won’t use it. Period. They won’t complain—
+they’ll just close it and never come back. The frontend is the first thing people judge, and first 
+impressions are permanent.
+Here’s the thing about AI coding tools: they’re excellent at building things that look great on your 
+laptop screen. But they consistently skip things you didn’t ask for—like making sure the layout 
+works on a phone, or making sure someone can navigate your app with a keyboard. AI builds 
+exactly what you describe. If you don’t know what to ask for, you get gaps. This kit teaches you 
+what to ask for.
+Certification Tier Map
+There are three certification tiers. Each one builds on the one before it. Here’s a quick look at 
+who each tier is for and what you’ll prove you can do.
+Tier
+Who It’s For
+What You Prove
+Tier 1
+Solo builders shipping their first app
+You can describe what you want to AI, check that it built it right, and ship an app that works on a 
+phone.
+Tier 2
+Growing teams and apps that need to stay organized
+You can keep your app consistent as it grows—same look, same patterns, good performance—
+even when multiple people or AI tools are building parts of it.
+Tier 3
+Platforms with multiple teams and compliance requirements
+You can run a frontend operation at scale—multiple teams, accessibility compliance, multiple 
+brands, automated quality checks.
+
+--- PDF PAGE 3 ---
+Layer 1: Frontend Foundations  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 3
+TIER 1 CERTIFICATION GOAL
+You can describe what you want your app to look like, use an AI coding tool to build it, check 
+the result on a phone and a computer, and ship something your users can actually use.
+What You Need to Know
+You don’t need to memorize code. You need to understand a handful of concepts so you can 
+describe what you want clearly and catch problems in what AI gives you back.
+How apps are organized: Modern apps are built from components—reusable pieces like a 
+header, a card, a form, a button. Think of them like LEGO blocks. You need to know this so you 
+can tell AI “build me a job card component” instead of “build me the whole page,” which gives 
+you something harder to fix.
+How layouts work on different screens: Your AI tool uses something called responsive 
+design to make your app look right on phones, tablets, and desktops. If you don’t check the 
+phone version, you’ll ship something that only works on the screen you built it on.
+How styling stays consistent: AI uses a styling system (usually Tailwind CSS) to apply colors, 
+spacing, and fonts. You don’t need to learn Tailwind—but if your app’s buttons are three 
+different sizes on three different pages, that’s a styling consistency problem you need to catch.
+How to check that everyone can use your app: Accessibility means people with disabilities 
+can use your app—screen readers work, buttons are reachable by keyboard, text has enough 
+contrast. AI almost never adds this on its own. You have to ask for it.
+The vibecoder workflow: Describe what you want → AI builds it → you check the output on a 
+real phone → you tell AI what to fix → repeat until it’s right → ship it. This is the loop. Every 
+exam question tests whether you can run this loop effectively.
+Your Toolkit
+Your AI coding tool is the center of your workflow. Everything else supports it.
+AI coding tool (pick one): Cursor, Lovable, Bolt, Claude Code, Windsurf, or whatever AI-
+assisted builder you prefer. This is where you’ll describe what you want and iterate on the 
+output.
+A framework (AI picks this for you): Your AI will likely use Next.js or SvelteKit to build your 
+app. You don’t need to choose—just know that it’s the engine underneath the screens AI 
+generates.
+A browser for testing: Chrome DevTools lets you preview your app on different screen sizes 
+without needing every device. Right-click → Inspect → toggle the device toolbar.
+Certification Exam Topics
+Every exam question is scenario-based. You’ll see a situation and need to identify what’s right, 
+what’s wrong, or what to do next. Here’s what gets tested:
+
+--- PDF PAGE 4 ---
+Layer 1: Frontend Foundations  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 4
+App organization: Can you tell whether AI built your app in a clean, organized way—or 
+dumped everything into one messy folder?
+Phone and tablet layouts: Can you spot when your app looks right on a laptop but falls apart 
+on a phone screen?
+Accessibility basics: Can you identify when AI skipped things like alt text on images, keyboard 
+navigation, or proper heading structure?
+Styling consistency: Can you tell when your app’s buttons, colors, and spacing are 
+inconsistent across different screens?
+Where code runs: Do you understand the basics of why some parts of your app run on a 
+server and some in the browser—and why it matters for speed?
+Image loading: Can you check that images load efficiently instead of slowing down your entire 
+app?
+Forms that work: Can you evaluate whether a form handles mistakes gracefully—showing 
+clear errors, not losing what the user typed?
+Your AI workflow: Can you describe a component clearly, give AI useful feedback when the 
+output is wrong, and iterate to a working result?
+
+--- PDF PAGE 5 ---
+Layer 1: Frontend Foundations  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 5
+Common Pitfalls
+These are the mistakes vibecoders make most often at this layer. No judgment—they’re easy to 
+make. But if you recognize any of them in your own workflow, fix them before sitting for the 
+exam.
+Never checking your app on an actual phone. It looks fine on your laptop. It’s broken on mobile. 
+Every time.
+Asking AI to “build the whole page” instead of building it from smaller pieces. Big prompts 
+produce big messes.
+Not setting up a folder structure before you start generating. AI will put files wherever it wants—
+and six weeks later, nobody can find anything.
+Skipping accessibility because AI doesn’t add it unless you ask. Screen readers, keyboard 
+navigation, alt text—none of it shows up automatically.
+Treating AI’s first output as final. It’s a first draft. Always review. Always iterate.
+Letting every page look slightly different because you never defined your brand rules (colors, 
+fonts, spacing) in one place.
+Tier 1 Self-Assessment Checklist
+Before you take the exam, run through these questions. Every “no” is something to work on.
+Can you describe a screen or feature to AI clearly enough that you get something usable on the 
+first or second try?
+Have you actually opened your app on a phone (not just a laptop simulator) and confirmed it 
+works?
+Can a user navigate your app using only a keyboard—no mouse required?
+Did you set up a consistent folder structure and naming convention before you started 
+generating?
+If someone else looked at your app, would every page feel like it belongs to the same product?
+Have you tested your forms with empty submissions, weird characters, and very long text?
+Do you know how to open browser DevTools and check if your app is throwing errors?
+
+--- PDF PAGE 6 ---
+Layer 1: Frontend Foundations  |  Tier 1: Solopreneur
+mattmurphy.ai  •  Page 6
+AI Audit Prompt Template
+Copy this prompt into your AI coding tool to get a quick health check on your 
+frontend. It checks the same things the certification exam covers.
+Review my app’s frontend and check the following. For each one, tell me pass 
+or fail with a specific example:
+Organization: Are my components cleanly separated into their own files with 
+consistent naming?
+Mobile: Does every screen look correct at phone size (375px wide)?
+Accessibility: Does the HTML use the right elements (buttons for actions, 
+links for navigation)? Are images labeled? Can I tab through the whole app?
+Consistency: Are colors, fonts, button sizes, and spacing the same 
+everywhere?
+Speed: Are images optimized? Is the app loading code it doesn’t need yet?
+Forms: Do forms show clear error messages and keep user input on failed 
+submissions?
+Give me an overall score out of 6 and list the top 3 things to fix first.
+What’s Next
+Once you’ve gone through this kit and can answer “yes” to the self-assessment 
+checklist, you’re ready for the Layer 1 certification exam at your target 
+tier.
+The best way to prepare: build something real. Pick a project—even a small 
+one—and go through the full loop. Describe it to AI. Check what it builds. 
+Fix the gaps. Ship it. Pay attention to every place you catch a mistake. 
+Those catches are exactly what the exam tests.
+CERTIFICATION PATHWAY
+Associate Builder: Pass all 13 layers at Tier 1
+Certified Builder: Pass all 13 layers at Tier 1 + Tier 2
+MADE Certified: Pass all 39 tier exams + capstone project
+Each exam requires 80% to pass. You can retake after a 24-hour cooldown. No rush—take the 
+time to build something real first.
+MATT MURPHY .AI
+mattmurphy.ai
+© 2026 Matt Murphy .AI. All rights reserved.

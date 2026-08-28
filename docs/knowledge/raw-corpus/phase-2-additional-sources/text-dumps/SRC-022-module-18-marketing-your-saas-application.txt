@@ -1,0 +1,1626 @@
+--- PDF PAGE 1 ---
+The Lazy Developer
+18
+MODULE
+Marketing Your SaaS 
+Application
+Tactics for user acquisition, digital marketing strategies, and growth hacks.  Plus a lengthy list 
+of sites where you can launch!
+Table of Contents
+01.  Set up your social media asap!  (20 min)
+02.  Plenty of places to go to launch your app.  (22 min)
+03.  Approach online influencers and creators in your space.  (18 min)
+04.  Go where your users hang out.  (20 min)
+05.  Setup an affiliate program.  (18 min)
+
+--- PDF PAGE 2 ---
+01.  Set up your social media asap! 20 min
+Set Up Your Social Media ASAP!
+Imagine you're opening a new restaurant. Y ou've spent months perfecting the menu, designing the 
+interior, and training the staff. Opening night is still six weeks away. Would you wait until the doors 
+open to tell anyone the restaurant exists? Of course not. Y ou'd be posting construction photos, sneak 
+peeks of the menu, behind-the-scenes clips of the chef experimenting with dishes, and counting 
+down to opening day. By the time you flip that "Open" sign, you'd already have a crowd waiting 
+outside.
+Y our SaaS app deserves the same treatment. Social media isn't something you "get around to" after 
+launch. It's something you set up the moment you decide to build. Every day you spend building 
+without a social presence is a day you could have been growing an audience of people who are 
+genuinely interested in what you're creating. By the time you're ready to launch, you want followers 
+who already know your name, understand your product, and are excited to try it.
+Let's walk through how to set up your social media presence, which platforms to prioritise, what to 
+actually post, and how to use AI to make the whole process dramatically easier.
+Why Social Media Matters Before You Launch
+Here's the uncomfortable truth about launching a product: if nobody knows about it, nobody will use 
+it. Y ou could build the most incredible app in the world, but without an audience, launch day is just... 
+you refreshing your analytics dashboard alone.
+Social media solves this by letting you build in public. Building in public means sharing your journey 
+as you create your product — the wins, the struggles, the progress updates, the design decisions. It's 
+become one of the most powerful marketing strategies in the indie hacker and SaaS community for 
+several reasons:
+• People love following a journey. There's something compelling about watching someone build 
+something from scratch. It's reality TV for tech people.
+• It builds trust. When people see you being transparent about your process, they trust your 
+product more when it launches.
+• It creates accountability. When you share publicly that you're working on something, you're more 
+likely to follow through.
+• It generates feedback. Share a screenshot of your UI and people will tell you what works and 
+what doesn't — for free.
+• It compounds over time. A post today might get 5 likes. But six months of consistent posting 
+builds an audience that amplifies your launch exponentially.
+The indie hacker community — people building small software products independently — has 
+embraced building in public as almost a standard practice. Platforms like Twitter/X are full of founders 
+sharing their Monthly Recurring Revenue (MRR) numbers, their feature releases, and their honest 
+struggles. It works because it's genuine.
+
+--- PDF PAGE 3 ---
+Which Platforms Should You Prioritise?
+Y ou don't need to be everywhere. In fact, trying to maintain a presence on every platform from day 
+one is a recipe for burnout. Instead, pick two or three platforms that make the most sense for your 
+product and audience, and do those well.
+Here's a breakdown of the major platforms and who they work best for:
+Platform Best For Audience Type Content Style Effort Level
+Twitter/X SaaS, dev tools, 
+indie hackers
+Tech community, 
+founders, 
+developers
+Short text updates, 
+threads, 
+screenshots
+Medium
+LinkedIn B2B SaaS, 
+professional tools
+Business 
+professionals, 
+decision makers
+Professional 
+updates, articles, 
+case studies
+Medium
+TikTok Visual products, 
+broad appeal
+Gen Z, millennials, 
+general consumers
+Short video demos, 
+behind-the-scenes, 
+tips
+High (video 
+creation)
+Instagram Design-heavy 
+products, lifestyle
+Visual-first 
+audiences, younger 
+demographics
+Polished images, 
+Reels, Stories
+High (visual 
+content)
+Y ouTube Technical products, 
+tutorials
+People actively 
+searching for 
+solutions
+Long-form tutorials, 
+demos, 
+walkthroughs
+High (production)
+Reddit Niche communities, 
+technical products
+Highly engaged 
+niche communities
+Value-first posts, 
+discussions, 
+feedback requests
+Low-Medium
+Twitter/X — The Indie Hacker Hub
+If you're building a SaaS product, Twitter/X is almost certainly your first stop. The indie hacker and 
+tech community there is massive and supportive. People genuinely celebrate others' wins and offer 
+help during struggles. The format — short, punchy posts — is perfect for quick build updates.
+What works on Twitter/X:
+• Sharing milestones: "Just hit 100 users on my app!"
+• Screenshots of features in progress
+• Short threads explaining a decision you made
+• Engagement posts asking for opinions
+• Revenue updates (the community loves transparency)
+LinkedIn — The B2B Powerhouse
+If your app targets businesses or professionals, LinkedIn is essential. The platform has evolved 
+dramatically — it's no longer just for job hunting. Founders share genuine stories, product updates, 
+and industry insights that get significant engagement. The algorithm currently favours personal 
+stories and lessons learned, which pairs perfectly with a build-in-public approach.
+TikTok — The Wild Card That Works
+Don't underestimate TikTok for SaaS. Short video demos of your app, behind-the-scenes coding 
+sessions, and quick tips can reach audiences you'd never find on Twitter. We use TikTok ourselves at 
+@TheLazyDeveloper to share quick tips, building sessions, and platform updates. The format forces 
+you to be concise and engaging, which is a great exercise for your marketing messaging overall.
+
+--- PDF PAGE 4 ---
+The beauty of TikTok is the algorithm. Unlike Twitter where you need followers to get reach, TikTok 
+will show your video to relevant audiences regardless of your follower count. A single good video can 
+get tens of thousands of views even if you have zero followers.
+YouTube — The Long Game
+Y ouTube is a longer-term investment, but it pays dividends. Tutorial videos and product demos live 
+forever on Y ouTube. Someone might discover your product through a Y ouTube video you made three 
+years ago. If your product requires explanation or has a learning curve, Y ouTube is invaluable.
+Reddit — The Honest Feedback Machine
+Reddit deserves a mention here (and we'll cover it in much more detail in a later section). Subreddits 
+like r/SideProject, r/startups, and r/webdev are great for sharing your progress and getting brutally 
+honest feedback. Just be aware: Reddit communities hate blatant self-promotion. Lead with value, not 
+a sales pitch.
+Setting Up Consistent Branding
+Before you start posting, take an hour to set up your profiles properly. Consistency across platforms 
+builds recognition and professionalism. Here's your checklist:
+Profile Picture: Use the same image or logo across all platforms. If it's a personal brand (common for 
+indie hackers), use a clear, friendly headshot. If it's a company brand, use your logo.
+Handle/Username: Try to get the same handle on every platform. If @yourappname is taken, try 
+@yourappnameHQ or @getyourappname. Consistency matters — you want people to find you easily.
+Bio: Write a clear, concise bio that explains what your product does and who it's for. Include a link to 
+your website (or landing page, even if it's a simple "coming soon" page).
+Banner Image: Use the same banner design across platforms. It should include your app name, a 
+brief tagline, and optionally a screenshot or illustration.
+Here's a prompt to get AI to help you set this up:
+I'm building a SaaS app called [app name] that [describe what it does]. 
+Help me create consistent social media profiles. Write:
+1. A Twitter/X bio (max 160 characters)
+2. A LinkedIn headline and about section (2-3 sentences)
+3. A TikTok bio (max 80 characters)
+4. A universal tagline I can use across all platforms
+5. Suggestions for my handle if @[appname] is taken
+
+--- PDF PAGE 5 ---
+What to Actually Post: Your Content Strategy
+The biggest mistake people make with social media is treating it like a billboard — just blasting "Buy 
+my product!" over and over. That doesn't work. Instead, think of social media as a conversation. 
+Y ou're sharing your journey, providing value, and building relationships.
+Here's a content mix that works well for SaaS builders:
+The 70/20/10 Rule
+• 70% Value and Journey: Tips, insights, build updates, lessons learned, behind-the-scenes
+• 20% Community Engagement: Replying to others, retweeting/sharing, asking questions, running 
+polls
+• 10% Promotion: Direct product mentions, feature announcements, launch posts
+If you flip this ratio and make 70% of your posts promotional, people will unfollow you fast. The key is 
+that by the time you do promote your product, your audience already trusts you and is interested.
+Content Ideas by Category
+Build-in-Public Updates
+• "Today I implemented [feature]. Here's a quick demo..."
+• "Week 12 of building [app name]. Here's what I shipped this week..."
+• "I just hit [milestone] users. Here's what I've learned so far..."
+• "Honest update: this week was rough. Here's what went wrong and how I fixed it..."
+Tips and Value Posts
+• Share something you learned that could help others
+• Quick how-to threads about your domain (e.g., "5 things I wish I knew about deploying to 
+Railway")
+• Recommendations for tools, resources, or approaches you've found useful
+Behind-the-Scenes
+• Screenshots of your development environment
+• Time-lapse videos of you building a feature
+• Y our workspace setup
+• The tech stack you chose and why
+Engagement Posts
+• "What's the hardest part of [problem your app solves]?"
+• Polls: "Which feature should I build next? A or B?"
+• "What tools are you using for [relevant topic]?"
+
+--- PDF PAGE 6 ---
+User Testimonials and Social Proof
+• Share positive feedback (with permission)
+• Repost user content that mentions your product
+• Case studies of how someone used your product
+Posting Frequency and Scheduling
+How often should you post? Here's a realistic guide that won't burn you out:
+Platform Minimum Frequency Ideal Frequency Best Times
+Twitter/X 3x per week 1-2x daily Morning (8-10am) and 
+evening (5-7pm) your 
+target audience's 
+timezone
+LinkedIn 2x per week 3-5x per week Tuesday-Thursday, 
+8-10am
+TikTok 2x per week 1x daily Evening hours, weekends
+Instagram 2x per week 3-5x per week Lunch (11am-1pm) and 
+evening (7-9pm)
+Y ouTube 1x per month 1x per week Tuesday-Thursday
+Scheduling Tools
+Y ou absolutely do not need to be online every time a post goes out. Use scheduling tools to batch-
+create content and schedule it in advance:
+• Buffer (Free tier: 3 channels, 10 posts per channel): Simple, clean interface. Great for beginners.
+• Hootsuite (Free tier: 2 channels): More features but slightly more complex.
+• Typefully (Free tier available): Specifically designed for Twitter/X. Great for writing threads.
+• Later (Free tier: 1 profile per platform): Particularly good for Instagram with visual planning.
+• Native scheduling: Twitter/X, LinkedIn, and Y ouTube all have built-in scheduling for free.
+A good workflow is to spend one or two hours on a Sunday batch-creating your posts for the week, 
+schedule them all, and then just check in during the week to respond to comments and engage with 
+others.
+Using AI to Generate Social Content
+This is where things get really powerful. AI tools can help you create social media content 
+dramatically faster. Instead of staring at a blank screen trying to think of what to post, you can use 
+prompts to generate ideas and drafts in seconds.
+Here's a practical prompt you can use right now:
+
+--- PDF PAGE 7 ---
+Write 10 Twitter/X posts announcing the launch of my SaaS app 
+[describe your app — what it does, who it's for, what problem it solves]. 
+Mix between:
+- 3 feature highlight posts
+- 3 behind-the-scenes/build journey posts  
+- 2 engagement questions
+- 2 social proof or milestone posts
+Keep each post under 280 characters. Use a conversational, 
+excited but not salesy tone. Include relevant hashtags where appropriate.
+And here's another for creating a week's worth of content:
+Create a 7-day social media content calendar for my SaaS app 
+[describe app]. For each day, provide:
+- A Twitter/X post (under 280 characters)
+- A LinkedIn post (2-3 paragraphs, professional tone)
+- A TikTok video concept (30-60 seconds, describe the script and visual)
+Follow the 70/20/10 rule: 70% value/journey, 20% engagement, 
+10% promotion. The tone should be friendly and authentic, 
+not corporate.
+For visual content, you can also use AI to help plan your graphics:
+I need to create 5 social media graphics for my SaaS app [describe app]. 
+Suggest:
+1. What each graphic should show (feature screenshot, comparison, stat, etc.)
+2. A headline for each graphic (max 8 words)
+3. A supporting caption for each platform (Twitter, LinkedIn, Instagram)
+4. Colour palette suggestions that match my brand colours [list your colours]
+The Build-in-Public Playbook
+Let's get specific about building in public, because it's genuinely one of the most effective marketing 
+strategies for indie SaaS products.
+Phase 1: Pre-Development (Weeks before you write code)
+• Share the problem you're going to solve
+• Post about your research process
+• Ask your audience what features they'd want
+• Share competitor analysis (respectfully)
+Phase 2: Active Development
+
+--- PDF PAGE 8 ---
+• Weekly progress updates
+• Feature demos (even if rough)
+• Tech stack decisions and why you made them
+• Bugs you encountered and how you fixed them
+• Revenue: $0 — and that's okay, share anyway
+Phase 3: Pre-Launch
+• Teaser posts and countdowns
+• Early access or beta invites for followers
+• Behind-the-scenes of your launch preparation
+• Ask for help: "Can anyone with [specific expertise] give me feedback?"
+Phase 4: Launch and Beyond
+• The launch announcement (we'll cover launch platforms in the next section)
+• User testimonials and early feedback
+• Revenue milestones
+• Feature updates and roadmap sharing
+• Lessons learned posts
+Platform-Specific Tips
+Twitter/X Tips
+• Threads perform well. A thread that walks through your journey or explains something valuable 
+will get more reach than a single tweet.
+• Quote tweet with your take when sharing relevant industry news.
+• Engage before you post. Spend 10 minutes replying to others in your niche before publishing 
+your own content. The algorithm rewards active users.
+• Pin your best tweet — make it your app announcement or a popular thread.
+LinkedIn Tips
+• Start with a hook. LinkedIn truncates posts after about 3 lines. Y our first sentence needs to grab 
+attention.
+• Use line breaks liberally. Dense paragraphs get scrolled past. Short lines with space between 
+them get read.
+• Personal stories outperform corporate updates. "I almost gave up on my app last Tuesday" will 
+outperform "We're excited to announce feature X."
+• Comment on posts by people in your target market. Thoughtful comments get you visible to their 
+audience.
+
+--- PDF PAGE 9 ---
+TikTok Tips
+• Show, don't tell. Screen recordings of your app with a voiceover explaining what's happening 
+work brilliantly.
+• Use trending sounds when they fit — it massively boosts discoverability.
+• Hook in the first second. Start with the most interesting part: "I built this in 3 hours using AI" is 
+better than "So today I want to talk about my app..."
+• Keep it under 60 seconds for best performance. Under 30 seconds is even better for new 
+accounts.
+Measuring What Works
+Don't post blindly. Every platform provides analytics that show you what's working. Check them 
+weekly and double down on what resonates.
+Key metrics to track:
+Metric What It Tells You Where to Find It
+Impressions How many people saw your post Native analytics on each platform
+Engagement Rate How many people interacted 
+(likes, comments, shares) relative 
+to views
+Native analytics
+Profile Visits How many people clicked through 
+to your profile after seeing a post
+Native analytics
+Link Clicks How many people clicked through 
+to your website or app
+Link tracking tools (Bitly, UTM 
+parameters)
+Follower Growth Is your audience growing over 
+time?
+Native analytics
+The most important metric early on is engagement rate, not follower count. Having 200 engaged 
+followers who comment and share is infinitely more valuable than 10,000 followers who never interact.
+Common Mistakes to Avoid
+1. Waiting until launch to start posting. Start now. Even if your app is just an idea on a napkin.
+2. Being too promotional. Follow the 70/20/10 rule. Nobody wants to follow an advertisement.
+3. Posting inconsistently. Three posts in one day then nothing for two weeks is worse than one 
+post every three days.
+4. Ignoring comments and DMs. Social media is social. Respond to people who engage with you.
+5. Trying to be on every platform at once. Pick two or three and do them well.
+6. Copying competitor content. Be authentic. People can spot inauthenticity instantly.
+7. Using AI-generated content without editing. AI is a starting point. Always add your personal 
+voice and specifics before publishing.
+
+--- PDF PAGE 10 ---
+Key Takeaways
+• Start your social media presence before you write a single line of code. The earlier you begin 
+building an audience, the bigger your launch will be.
+• Pick 2-3 platforms that match your audience. Twitter/X is almost always essential for SaaS. Add 
+LinkedIn for B2B, TikTok for visual/broad appeal, or Y ouTube for technical products.
+• Set up consistent branding across all platforms. Same profile picture, same handle (or as close 
+as possible), clear bio with a link to your site.
+• Follow the 70/20/10 content rule. 70% value and journey sharing, 20% community engagement, 
+10% direct promotion.
+• Build in public. Share your progress, your wins, your struggles, and your milestones. People love 
+following a genuine journey.
+• Use scheduling tools to batch-create content. Spend a couple of hours on the weekend, 
+schedule the week, then just engage during the week.
+• Leverage AI for content creation. Use prompts to generate post ideas, drafts, content calendars, 
+and graphic concepts. Always edit and personalise before posting.
+• Measure and adapt. Check your analytics weekly. Do more of what's working. Engagement rate 
+matters more than follower count, especially early on.
+• Respond and engage. Social media rewards people who are genuinely social. Reply to 
+comments, engage with others' posts, and build real relationships.
+
+--- PDF PAGE 11 ---
+02.  Plenty of places to go to launch your app. 22 min
+Plenty of Places to Go to Launch Your App
+Think of launching your app like opening night of a play. Y ou've rehearsed for months, the set is built, 
+the costumes are ready. But if you only invited your mum and your best friend, that beautiful theatre is 
+going to feel pretty empty. A successful opening night needs a full house — and that means getting 
+the word out to every relevant audience you can find.
+The same is true for your SaaS launch. Y our product might be brilliant, but if you only share it on your 
+personal Twitter account and hope for the best, you're leaving an enormous amount of potential on 
+the table. The good news? There are dozens of platforms specifically designed for product launches, 
+and many of them are completely free. The even better news? Y ou don't need to launch on all of 
+them on the same day. Y ou can stagger your launches over weeks or even months, getting a fresh 
+wave of attention each time.
+In this section, we'll walk through a comprehensive list of launch platforms, give you specific tips for 
+the most important ones, and build a launch strategy that maximises your visibility without burning 
+you out.
+The Marathon Mindset: Why Launch Day Is Just the Beginning
+Before we dive into the platforms, let's reframe what "launching" actually means. Many first-time 
+builders think of launch as a single, make-or-break event. Y ou post on Product Hunt, hold your 
+breath, and either it works or it doesn't. That's a lot of pressure — and it's the wrong way to think 
+about it.
+In reality, the most successful products launch multiple times across multiple platforms over several 
+weeks. Each platform is a new audience that's never heard of you. What feels repetitive to you is 
+brand new to them.
+Here's a healthier way to think about it:
+• Week 1: Soft launch to your existing audience (social media, email list)
+• Week 2: Product Hunt launch
+• Week 3: Reddit, Hacker News, Indie Hackers
+• Week 4: BetaList, directory submissions, blog posts
+• Ongoing: New platforms, communities, guest posts, and partnerships
+Each of these is a mini-launch. Each brings new eyes. And each gives you an opportunity to refine 
+your messaging based on what resonated before.
+
+--- PDF PAGE 12 ---
+The Comprehensive Launch Platform Guide
+Let's go through the major platforms where you can launch your product. For each one, we'll cover 
+what it is, who the audience is, what works, and any specific tips.
+Product Hunt
+What it is: The most well-known product launch platform. Products are featured daily, upvoted by the 
+community, and the top products each day get significant visibility.
+Audience: Tech enthusiasts, early adopters, founders, investors, and product managers.
+Cost: Free to launch.
+Why it matters: A successful Product Hunt launch can drive hundreds or thousands of visitors to your 
+site in a single day. It also provides social proof — "Featured on Product Hunt" is a badge many 
+SaaS products display proudly.
+Tips for a successful Product Hunt launch:
+• Pick your day carefully. Avoid launching on Mondays (everyone launches on Monday) and 
+weekends (lower traffic). Tuesday through Thursday tend to be the sweet spot.
+• Launch at 12:01 AM Pacific Time. Product Hunt resets daily at midnight Pacific. Launching right 
+at the start gives you the full 24 hours to accumulate upvotes.
+• Find a Hunter. While you can launch your own product, having a well-known community member 
+"hunt" (submit) your product can boost visibility. Reach out to active hunters beforehand.
+• Write a compelling tagline. Y ou get about 60 characters. Make it crystal clear what your product 
+does and why someone should care.
+• Prepare your Maker Comment. As the maker, your first comment on the launch should introduce 
+yourself, explain why you built this, what problem it solves, and invite questions. Be genuine and 
+personal.
+• Rally your network (authentically). Let your followers, friends, and community know about the 
+launch. Ask them to check it out and leave honest feedback — not just "please upvote." Product 
+Hunt's algorithm detects inauthentic voting patterns.
+• Prepare visuals. High-quality screenshots, a demo video (GIF or short video), and a clear logo 
+make your listing stand out.
+Here's a prompt to help you prepare:
+Write a Product Hunt launch description for my app [describe your app]. 
+Include:
+1. A tagline (max 60 characters)
+2. A description (2-3 short paragraphs)
+3. A maker's first comment (personal, genuine, 3-4 paragraphs)
+4. 5 key features as bullet points
+5. 3 thumbnail/screenshot descriptions that would showcase the app well
+
+--- PDF PAGE 13 ---
+Hacker News (Show HN)
+What it is: The legendary tech community run by Y Combinator. "Show HN" is a dedicated format for 
+sharing projects you've built.
+Audience: Developers, technical founders, engineers, and tech enthusiasts. This is a very technically 
+savvy crowd.
+Cost: Free.
+What works: Technical depth, unique approaches, honest stories about your building journey, and 
+genuine innovation. Hacker News values substance over marketing polish.
+What doesn't work: Marketing-speak, buzzword-heavy descriptions, or anything that feels like an 
+advertisement. The community will downvote you into oblivion if you come across as salesy.
+Tips:
+• Title format: "Show HN: [Product Name] – [What It Does in Plain English]"
+• Include a text comment explaining the backstory, the tech stack, and what makes it interesting
+• Be prepared for tough feedback. HN commenters are brilliant but direct. Take it constructively.
+• Respond to every comment thoughtfully. Engagement matters.
+Reddit
+What it is: A massive network of topic-specific communities (subreddits). Several subreddits are 
+perfect for product launches.
+Audience: Varies by subreddit. Highly engaged, often sceptical of self-promotion.
+Relevant subreddits:
+• r/SideProject — Built specifically for people sharing their side projects. Very supportive 
+community.
+• r/webdev — For web development projects. Share your tech journey, not just your product.
+• r/startups — For startup founders. Good for sharing milestones and asking for feedback.
+• r/InternetIsBeautiful — For visually impressive or particularly clever web applications.
+• r/alphaandbetausers — People looking to try new products and give feedback.
+• r/EntrepreneurRideAlong — For founders building businesses. Share your journey.
+The golden rule: Reddit communities have strict rules about self-promotion. Read the rules of each 
+subreddit before posting. Lead with value — share what you learned building it, ask for genuine 
+feedback, or tell an interesting story. Don't just post "Check out my app!"
+Indie Hackers
+What it is: A community of founders building profitable internet businesses. Founded by Courtland 
+Allen, it's one of the most supportive communities for indie SaaS builders.
+
+--- PDF PAGE 14 ---
+Audience: Solo founders, indie hackers, bootstrapped SaaS builders.
+Cost: Free.
+What works: Transparency about revenue, honest build stories, milestone posts, and asking for 
+feedback. The community celebrates small wins just as much as big ones.
+Tips:
+• Create a product page for your app on Indie Hackers
+• Post milestone updates ("Just hit $100 MRR!" or "First 50 users!")
+• Share detailed build stories — the community loves hearing about the journey
+• Engage with other people's posts too — it's a community, not a billboard
+BetaList
+What it is: A platform specifically for pre-launch products looking for early adopters and beta testers.
+Audience: Early adopters who love trying new products before they're widely available.
+Cost: Free submission (can take weeks to be featured) or paid ($129+) for faster, guaranteed listing.
+When to use it: Before your official launch. BetaList is perfect for building an email list of interested 
+users before you're fully ready.
+AlternativeTo
+What it is: A website where users discover alternatives to popular software. If your product competes 
+with or is an alternative to an established tool, this is gold.
+Audience: People actively searching for alternatives to existing tools — high purchase intent.
+Cost: Free to list.
+Tips: Position your product clearly as an alternative to well-known competitors. Explain what makes 
+yours different or better for certain use cases.
+There's An AI For That (TAAFT)
+What it is: A directory of AI-powered tools. If your product uses AI in any way, this is a must-list 
+platform.
+Audience: People looking for AI solutions to specific problems.
+Cost: Free to submit.
+Tips: Be specific about what AI capabilities your product offers. The directory is searchable, so use 
+clear, descriptive language.
+
+--- PDF PAGE 15 ---
+Additional Platforms Worth Listing On
+Platform What It Is Audience Cost Best For
+SaaSHub SaaS discovery 
+platform
+People comparing 
+SaaS tools
+Free Established SaaS 
+products
+MicroLaunch Launch platform for 
+micro-SaaS
+Indie hackers, small 
+SaaS builders
+Free Small, focused 
+products
+Launching.io Product launch 
+community
+Founders and early 
+adopters
+Free New product 
+launches
+SideProjectors Marketplace for 
+side projects
+Developers, buyers, 
+collaborators
+Free Side projects 
+seeking users or 
+buyersDev.to Developer blogging 
+platform
+Developers and 
+tech enthusiasts
+Free Technical build 
+stories and tutorials
+Hashnode Developer blogging 
+platform
+Developers with 
+personal blogs
+Free Technical content 
+that drives traffic
+Uneed Curated product 
+directory
+Tech early adopters Free Quality products 
+seeking visibility
+Peerlist Professional 
+network for builders
+Developers, 
+designers, founders
+Free Portfolio and 
+project showcases
+ToolPilot.ai AI tool directory AI tool seekers Free AI-powered 
+products
+StartupStash Curated directory of 
+startup resources
+Founders looking 
+for tools
+Free/Paid SaaS tools for 
+startups
+Your Pre-Launch Checklist
+Before you start posting on these platforms, make sure you have everything ready. There's nothing 
+worse than driving a flood of traffic to a broken sign-up flow.
+Technical readiness:
+• Landing page is live and loads fast
+• Sign-up or waitlist form works perfectly
+• Analytics are set up (you want to track where visitors come from)
+• The app itself is stable and usable (it doesn't need to be perfect, but it needs to work)
+Marketing materials:
+• Clear, concise description of what your product does (one sentence, one paragraph, and three 
+paragraphs)
+• High-quality screenshots (at least 3-5)
+• Demo video or GIF (30-90 seconds)
+• Logo in multiple sizes
+• Tagline (under 60 characters)
+• Feature list (5-7 key features)
+Social proof (if you have any):
+• Beta user testimonials
+• Usage statistics ("500 users in our beta")
+• Notable mentions or press
+
+--- PDF PAGE 16 ---
+Here's a prompt to help you prepare all of this:
+I'm preparing to launch my SaaS app [describe app] on Product Hunt, 
+Hacker News, Reddit, and Indie Hackers over the next month. 
+Help me create a launch kit with:
+1. A one-sentence description
+2. A one-paragraph description
+3. A three-paragraph description
+4. A tagline (under 60 characters)
+5. 7 key features as bullet points
+6. 5 screenshot descriptions (what should each screenshot show?)
+7. A 60-second demo video script
+8. 3 different post titles optimised for: Product Hunt, Hacker News (Show HN), and 
+Reddit (r...
+Post-Launch Follow-Up Strategy
+The launch itself is only half the battle. What you do in the hours and days after you launch is equally 
+important.
+In the first 24 hours:
+• Respond to every comment on every platform
+• Thank people who share your product
+• Fix any bugs that users report (immediately)
+• Share updates on your social media about the launch progress
+In the first week:
+• Write a "launch retrospective" post — what went well, what you'd change, traffic numbers, sign-
+up numbers. These posts do incredibly well on Twitter/X, LinkedIn, and Indie Hackers.
+• Follow up with everyone who provided feedback
+• Send a thank-you email to beta users and early supporters
+In the first month:
+• Continue staggered launches on remaining platforms
+• Write guest blog posts about your building journey
+• Reach out to newsletter authors who cover new products in your space
+• Update your product based on the feedback you received
+Timing Your Launches for Maximum Impact
+Not all days and times are equal when it comes to launching. Here's a general guide:
+
+--- PDF PAGE 17 ---
+Platform Best Day Best Time Why
+Product Hunt Tuesday-Thursday 12:01 AM Pacific Full 24 hours, avoids 
+Monday/weekend 
+competitionHacker News Weekday mornings 8-10 AM Eastern Peak traffic for the US 
+tech crowd
+Reddit Tuesday-Thursday 9 AM - 12 PM in relevant 
+timezone
+Highest engagement mid-
+week
+Indie Hackers Any weekday Morning Community is active 
+during working hours
+BetaList Submit 2-3 weeks before 
+planned launch
+N/A Takes time to be 
+reviewed and featured
+Learning From Every Launch
+Each platform you launch on is a learning opportunity. Track these metrics for each launch:
+• Traffic: How many visitors did this platform send? (Use UTM parameters in your links to track 
+this in Google Analytics)
+• Sign-ups: How many of those visitors actually signed up?
+• Conversion rate: Traffic to sign-ups — this tells you how compelling your landing page is
+• Engagement: How many comments, upvotes, or shares did you get?
+• Feedback quality: Did you get actionable feedback you can use to improve?
+Over time, you'll learn which platforms work best for your specific product and audience. Double 
+down on those.
+Key Takeaways
+• Launch is a marathon, not a sprint. Stagger your launches across multiple platforms over 
+several weeks. Each platform is a fresh audience.
+• Product Hunt is the biggest stage, but it requires preparation. Pick the right day (Tuesday-
+Thursday), launch at midnight Pacific, prepare your maker comment, and rally your network 
+authentically.
+• Hacker News values substance. Skip the marketing polish and lead with technical depth, honest 
+stories, and genuine innovation.
+• Reddit requires a value-first approach. Read each subreddit's rules, lead with your story or 
+learnings, and avoid blatant self-promotion.
+• Indie Hackers is your tribe. The community celebrates transparency, small wins, and honest 
+build stories. Create a product page and share milestone updates.
+• Prepare a launch kit before you launch anywhere. Descriptions at three lengths, screenshots, a 
+demo video, and a clear feature list will serve you across all platforms.
+• Follow up after every launch. Respond to comments, fix reported bugs immediately, and write a 
+retrospective. The follow-up often generates more long-term value than the launch itself.
+• Track everything. Use UTM parameters and analytics to understand which platforms drive the 
+most valuable traffic for your specific product.
+
+--- PDF PAGE 18 ---
+• Use AI to prepare your launch materials. Prompts can help you write descriptions, taglines, 
+maker comments, and post titles for every platform. Always personalise the output before 
+posting.
+
+--- PDF PAGE 19 ---
+03.  Approach online influencers and creators in your space. 18 min
+Approach Online Influencers and Creators in Your Space
+Think about the last time you bought something online. Maybe it was a piece of software, a course, or 
+a physical product. There's a good chance you didn't find it through an advertisement. Y ou probably 
+heard about it from someone you follow — a Y ouTuber you trust, a Twitter account whose opinions 
+you respect, or a newsletter writer whose recommendations you've acted on before. That's the power 
+of influencer marketing: it's word of mouth at scale, delivered through voices that already have your 
+target audience's attention and trust.
+For SaaS products — especially those built by indie hackers and solo founders — influencer 
+marketing is one of the most cost-effective acquisition channels available. Y ou don't need a massive 
+advertising budget. Y ou don't need a marketing team. Y ou need genuine relationships with the right 
+creators, a product worth talking about, and a smart approach to outreach.
+In this section, we'll cover how to find relevant creators, how to approach them without being 
+spammy, what to offer in exchange for coverage, and how to measure whether it's actually working.
+Why Influencer Marketing Works for SaaS
+Before we get into tactics, let's understand why this approach is particularly effective for software 
+products.
+Trust transfer: When a creator recommends your product, their audience transfers a portion of the 
+trust they have in that creator onto your product. This is far more powerful than any ad campaign. An 
+ad says "we're great" — but a trusted creator saying "I tried this and it's genuinely good" carries real 
+weight.
+Targeted reach: The right creator already has the exact audience you're trying to reach. Instead of 
+casting a wide net with ads and hoping your target customers are in there somewhere, you're putting 
+your product directly in front of people who are predisposed to care about it.
+Content creation: When a creator reviews your product, they're creating marketing content for you — 
+often higher quality and more authentic than anything you'd produce yourself. That Y ouTube review, 
+that Twitter thread, that newsletter mention — these are assets that continue working for you long 
+after the initial publication.
+SEO and backlinks: Blog posts and Y ouTube videos that mention your product create backlinks and 
+search visibility that can drive traffic for months or years.
+Finding the Right Creators
+The key word here is "right." Having a creator with 5 million followers mention your niche project 
+management tool won't do much if their audience is primarily interested in gaming. Y ou want creators 
+whose audience overlaps significantly with your target users.
+
+--- PDF PAGE 20 ---
+Here's where to look:
+YouTube Tech Reviewers and Tutorial Creators
+Y ouTube is gold for SaaS products because video reviews and tutorials are incredibly persuasive. 
+People watch someone actually use your product and see it in action.
+Search Y ouTube for:
+• "[your problem space] tools" (e.g., "best project management tools 2026")
+• "[competitor name] alternatives"
+• "[your industry] software review"
+• "build with [technology your audience uses]"
+Look for creators with 5,000 to 100,000 subscribers. These "mid-tier" creators often have highly 
+engaged audiences and are much more likely to respond to outreach than someone with millions of 
+subscribers.
+Twitter/X Tech Voices
+The tech Twitter community is full of people who regularly share tool recommendations, build-in-
+public updates, and product reviews. Look for:
+• Indie hackers with engaged followings
+• Tech bloggers and newsletter writers
+• Developers who share tool recommendations
+• Founders in adjacent (not competing) spaces
+Newsletter Writers
+Email newsletters have some of the highest engagement rates of any medium. A recommendation in 
+a relevant newsletter can drive a surge of high-quality traffic. Look for newsletters in your space using:
+• Substack's discover page
+• Newsletter directories like LetterList
+• Searching "[your niche] newsletter" on Google
+Podcast Hosts
+If there are podcasts in your space, a guest appearance or sponsor mention can reach a dedicated 
+audience. Podcast listeners are often more engaged than users on visual platforms because they've 
+chosen to spend 30-60 minutes on the topic.
+TikTok and Instagram Creators
+For more consumer-facing or visual products, short-form video creators on TikTok and Instagram can 
+generate significant buzz. Look for creators who already make content about productivity, tech tools, 
+or whatever category fits your product.
+
+--- PDF PAGE 21 ---
+Micro-Influencers vs Macro-Influencers
+One of the biggest decisions in influencer marketing is whether to work with a few big names or many 
+smaller creators. For most SaaS products — especially early-stage ones — micro-influencers are the 
+clear winner.
+Factor Micro-Influencers (1K-50K 
+followers)
+Macro-Influencers (50K-500K+ 
+followers)
+Cost Often free (product access) or 
+very affordable ($50-$500)
+Expensive ($1,000-$10,000+)
+Engagement Rate Higher (3-8% typical) Lower (1-3% typical)
+Audience Trust Very high — followers feel a 
+personal connection
+Moderate — more "celebrity" feel
+Conversion Rate Higher — recommendations feel 
+genuine
+Lower — can feel like sponsored 
+content
+Response to Outreach Much more likely to respond and 
+collaborate
+Often require going through 
+management
+Content Quality Authentic, personal Polished, professional
+Best For Early-stage products, niche 
+audiences
+Brand awareness, broad reach
+The math often works out like this: ten micro-influencers, each with 5,000 engaged followers in your 
+niche, will generate more sign-ups than one macro-influencer with 500,000 followers who aren't 
+specifically your target audience.
+How to Approach Creators (Without Being Spammy)
+This is where most people get it wrong. They send a generic message to 100 creators and wonder 
+why nobody responds. The secret is personalisation and genuine value.
+The Wrong Way
+"Hi! I built an amazing app and I think your audience would love it. Can you review it? Here's the 
+link: [link]"
+This gets deleted instantly. It says nothing about why you chose this specific creator, shows no 
+knowledge of their content, and only focuses on what you want.
+The Right Way
+Before reaching out to any creator:
+1. Follow them for at least a week. Engage with their content genuinely.
+2. Leave thoughtful comments on their posts or videos.
+3. Understand their content style and what their audience cares about.
+4. Find a genuine connection between their content and your product.
+Then, when you reach out:
+
+--- PDF PAGE 22 ---
+Cold DM Template (Twitter/X):
+Hey [Name], I've been following your content on [specific topic] 
+for a while — your [specific post/video] about [topic] really 
+resonated with me.
+I'm building [product name], which [one sentence about what it does]. 
+I think it could be really relevant to your audience who are 
+interested in [topic they cover].
+Would you be open to trying it out? Happy to give you full access, 
+no strings attached. If you like it and think it's worth sharing, 
+amazing. If not, I'd genuinely appreciate any feedback.
+Either way, keep making great content!
+Email Outreach Template:
+Subject: Loved your [specific content piece] — quick thought
+Hi [Name],
+I'm [your name], and I've been a regular [reader/viewer/listener] 
+of your [newsletter/channel/podcast]. Your recent piece on 
+[specific topic] was especially good — [specific detail showing 
+you actually consumed the content].
+I'm reaching out because I've been building [product name], a 
+[one sentence description]. Given your audience's interest in 
+[their niche], I thought there might be a natural fit.
+I'd love to offer you:
+- Full free access to [product name] (no time limit)
+- A personal walkthrough if you'd find that helpful
+- [Any other specific offer]
+No pressure to cover it — I genuinely think you'd find it useful 
+yourself. But if you do think it's worth mentioning to your 
+audience, I'd be thrilled.
+Happy to answer any questions. Thanks for all the great content 
+you put out!
+Best,
+[Your name]
+[Your website]
+Here's a prompt to personalise your outreach at scale:
+
+--- PDF PAGE 23 ---
+Draft 3 personalised outreach emails to YouTube tech creators 
+asking them to review my SaaS product [describe your product, 
+what it does, who it's for]. 
+For each email, I'll give you the creator's details:
+- Creator 1: [Name, channel name, recent video topic, subscriber count]
+- Creator 2: [Name, channel name, recent video topic, subscriber count]
+- Creator 3: [Name, channel name, recent video topic, subscriber count]
+Each email should:
+- Reference their specific content genuinely
+- Explain why my product is relevant to their audience
+- Offer something of value (free access, exclusive deal for their audience)
+- Feel personal, not templated
+- Be under 200 words
+What to Offer Creators
+Different creators respond to different incentives. Here are the most common approaches, from 
+lowest to highest cost:
+Free access to your product: The simplest offer. Give them a premium account at no cost. Many 
+creators genuinely enjoy trying new tools and will share if they like it.
+Exclusive discount for their audience: Provide a unique coupon code (e.g., "CREATOR20" for 20% 
+off). This gives the creator something special to offer their audience and lets you track which creator 
+drives sign-ups.
+Affiliate commission: Offer a percentage of revenue from customers they refer. This aligns incentives 
+— they earn more when they drive real results. We'll cover affiliate programs in detail in a later 
+section.
+Sponsorship fee: Pay a flat fee for a dedicated mention, review, or integration. This is more common 
+with larger creators and gives you more control over the messaging.
+Co-creation: Build something together. Maybe they name a feature, or you create a template inspired 
+by their workflow. This creates genuine investment in your product's success.
+Offer Type Cost Creator Appeal Your Control Best For
+Free access Zero Moderate Low Any stage, initial 
+outreach
+Exclusive discount Revenue share High (value for their 
+audience)
+Medium Growing products
+Affiliate commission Performance-based High (ongoing 
+income)
+Low Products with 
+proven conversion
+Sponsorship Fixed fee ($100-
+$5,000+)
+Very high High Established 
+products with 
+budgetCo-creation Time investment Very high Shared Strategic 
+partnerships
+
+--- PDF PAGE 24 ---
+Building Genuine Relationships
+The most successful influencer marketing doesn't feel like marketing at all. It feels like a genuine 
+recommendation from someone who actually uses and likes your product.
+Here's how to build those genuine relationships:
+• Engage with their content consistently, not just when you want something.
+• Share their content with your audience.
+• Provide value to them beyond your product — introductions, feedback on their projects, etc.
+• Don't expect immediate results. Some relationships take months before they lead to a mention.
+• Accept "no" gracefully. If a creator isn't interested, thank them and move on. Never be pushy.
+• Follow through on promises. If you said you'd give them free access, do it immediately. If you 
+said you'd fix a bug they found, fix it fast.
+Think of it as making friends in your industry, not running a marketing campaign. The best 
+partnerships happen when both sides genuinely benefit.
+Measuring ROI from Influencer Campaigns
+Y ou need to know whether your influencer efforts are actually driving results. Here's how to track it:
+UTM parameters: Give each creator a unique link with UTM tags so you can see exactly how much 
+traffic and how many sign-ups they drive.
+Example: https://yourapp.com?
+utm_source=youtube&utm_medium=influencer&utm_campaign=creator_name
+Unique discount codes: Each creator gets a unique code. Y ou can track how many times each code 
+is used.
+Direct attribution: Ask new sign-ups "How did you hear about us?" in your onboarding flow. Y ou'd be 
+surprised how many people will say "I saw it on [creator]'s video."
+Traffic spikes: Monitor your analytics around the time a creator publishes content about you. The 
+correlation is usually obvious.
+Metric How to Track What It Tells You
+Traffic UTM parameters + Google 
+Analytics
+How many visitors the creator sent
+Sign-ups UTM tracking or unique landing 
+pages
+How many visitors converted to 
+users
+Revenue Discount codes or affiliate tracking Direct revenue from the partnership
+Content value Manual assessment Quality and longevity of the 
+content created
+
+--- PDF PAGE 25 ---
+Brand mentions Social listening tools or manual 
+search
+Ongoing visibility from the 
+partnership
+Using AI to Research and Plan Outreach
+AI can dramatically speed up your influencer research and outreach preparation:
+I'm looking for YouTube creators who make content about 
+[your niche/topic]. My SaaS product is [describe product]. 
+Help me:
+1. Identify 10 types of YouTube channels that would be relevant
+2. Suggest search queries I should use to find these creators
+3. Create a scoring rubric to evaluate which creators to 
+   prioritise (engagement rate, audience relevance, content quality)
+4. Draft a spreadsheet template to track my outreach efforts
+And for drafting outreach messages:
+I want to reach out to a tech newsletter writer who covers 
+[topic]. Their newsletter has about [subscriber count] subscribers 
+and they recently wrote about [specific article topic]. 
+My product is [describe product]. Draft a personalised outreach 
+email that:
+- References their recent article naturally
+- Explains why my product is relevant to their readers
+- Offers free access and an exclusive discount for their audience
+- Is warm and genuine, not corporate
+- Is under 150 words
+Key Takeaways
+• Influencer marketing is word of mouth at scale. A trusted creator's recommendation carries 
+more weight than any advertisement you could buy.
+• Micro-influencers beat macro-influencers for SaaS. Ten creators with 5,000 engaged, niche 
+followers will typically outperform one creator with 500,000 general followers.
+• Personalisation is everything. Generic outreach gets deleted. Reference specific content, 
+explain why you chose them specifically, and offer genuine value.
+• Offer a range of incentives. Start with free product access, add exclusive discount codes for 
+their audience, and consider affiliate commissions for ongoing partnerships.
+• Build genuine relationships, not transactions. Engage with creators' content consistently, share 
+their work, and provide value beyond your product. The best partnerships feel like friendships.
+• Always measure results. Use UTM parameters, unique discount codes, and direct attribution to 
+track which creator partnerships drive real sign-ups and revenue.
+
+--- PDF PAGE 26 ---
+• Use AI to scale your research and outreach. AI can help you identify relevant creators, draft 
+personalised messages, and plan your outreach strategy — but always add a personal touch 
+before hitting send.
+• Accept that not every creator will say yes. That's perfectly fine. Be gracious, keep building 
+relationships, and focus your energy on the partnerships that do materialise.
+
+--- PDF PAGE 27 ---
+04.  Go where your users hang out. 20 min
+Go Where Your Users Hang Out
+Imagine you invented the world's best fishing rod. It's lightweight, virtually unbreakable, and catches 
+fish twice as fast as anything else on the market. Now imagine you set up a stall to sell it — in the 
+middle of a shopping mall, surrounded by clothing stores and phone repair shops. Y ou might sell a 
+few to curious passers-by, but you'd sell a thousand times more if you set up that stall at a lakeside, a 
+fishing tournament, or outside a bait shop. The product hasn't changed. The audience has.
+This is one of the most fundamental principles in marketing, and it's especially critical for SaaS 
+products: you need to go where your users already congregate. Not where you wish they were, not 
+where the biggest crowds are, but where the specific people who have the problem your product 
+solves are already having conversations, asking questions, and looking for solutions.
+In this section, we'll map out the landscape of online communities where your potential users hang 
+out, show you how to engage authentically (without getting banned for self-promotion), and build a 
+community-led growth strategy that turns you from an outsider into a trusted member who happens 
+to have built something useful.
+Understanding Your Target Audience
+Before you start joining every Discord server and subreddit you can find, take a step back and get 
+specific about who your users actually are. The more precisely you can describe your ideal user, the 
+more effectively you can find them.
+Ask yourself these questions:
+• What is the specific problem my product solves? Not the general category, but the specific pain 
+point.
+• Who experiences this problem most acutely? What's their job title, their industry, their skill level?
+• Where do they go when they have questions about this problem? Google? Reddit? A specific 
+forum?
+• What other tools do they currently use? Those tools' communities might be where your users 
+hang out.
+• What content do they consume? Podcasts, Y ouTube channels, newsletters, blogs?
+Here's a prompt to help you think this through:
+
+--- PDF PAGE 28 ---
+I've built a SaaS app that [describe what your app does and who it's for]. 
+Help me create a detailed ideal customer profile:
+1. Demographics (age range, profession, technical skill level)
+2. The specific pain points they experience
+3. The exact words and phrases they would use to describe their problem
+4. Where they go online for help (specific platforms, communities, forums)
+5. What other tools they currently use to solve or work around this problem
+6. What content they consume (blogs, podcasts, YouTube channels, newsletters)
+Once you have this profile, finding the right communities becomes much more targeted.
+The Landscape of Online Communities
+Let's walk through the major types of online communities and how each one works for finding and 
+engaging with potential users.
+Discord Servers
+Discord has exploded beyond gaming and become a hub for every kind of community — tech, 
+design, business, productivity, creativity, and more. Many SaaS tools, coding communities, and 
+industry groups have active Discord servers with thousands of members.
+How to find relevant servers:
+• Search on Disboard.org or Discord.me (server discovery platforms)
+• Look for Discord links on the websites of tools your target users use
+• Search Twitter/X for "[your niche] Discord"
+• Check if competitors or adjacent products have Discord communities
+How to engage:
+• Introduce yourself in the #introductions channel (most servers have one)
+• Spend your first week just listening and understanding the culture
+• Start by answering questions others ask — be genuinely helpful
+• Share your product only when it's directly relevant to someone's question, and always with 
+context, not just a link
+• Become a recognisable, helpful member before you ever mention your own product
+Slack Communities
+Many professional communities run on Slack. These tend to be more business-focused and have a 
+higher concentration of decision-makers.
+Notable communities:
+• Online Geniuses — Digital marketing professionals
+
+--- PDF PAGE 29 ---
+• Launch House — Founders and startup builders
+• Demand Curve — Growth marketing
+• Product-Led Alliance — Product-led growth professionals
+• Various industry-specific Slack groups
+How to find them: Search "[your industry] Slack community" on Google. Many require an application 
+or invitation, which actually makes them more valuable because the members are more committed.
+Facebook Groups
+Don't write off Facebook Groups just because Facebook feels "old." Many niche communities on 
+Facebook are incredibly active with highly engaged members, particularly in non-tech industries.
+How to find them: Search Facebook for groups related to your product's problem space. Sort by 
+member count and activity level. Groups with 1,000-50,000 members tend to have the best 
+engagement — big enough to be useful, small enough that your contributions are visible.
+Subreddits (Reddit Communities)
+Reddit is one of the best places to find people discussing specific problems in incredible detail. For 
+almost every niche, there's a subreddit.
+How to find relevant subreddits:
+• Use Reddit's search to find discussions about your problem space
+• Check the sidebar of subreddits you find — they often link to related communities
+• Use tools like subredditstats.com to find active communities
+Engagement strategy for Reddit:
+Do Don't
+Provide thorough, helpful answers to questions Drop links to your product without context
+Share your expertise and experience Use multiple accounts to upvote yourself
+Participate in discussions unrelated to your product Post the same promotional content across multiple 
+subreddits
+Build karma and reputation over weeks before 
+mentioning your product
+Argue with people who criticise self-promotion
+Be transparent — say "I'm the founder of X" when 
+relevant
+Pretend to be a regular user recommending your own 
+product
+Forums and Discourse Communities
+Many niche communities run on forum software like Discourse. These tend to be more focused and 
+have deeper, longer-form discussions than social media platforms.
+Examples:
+• Product-specific forums (many SaaS tools have their own Discourse community)
+• Industry forums (web development, design, marketing, etc.)
+
+--- PDF PAGE 30 ---
+• The Indie Hackers forum (technically Discourse-based)
+Stack Overflow and Quora
+If your product solves a technical problem, Stack Overflow is where developers go to ask questions. If 
+your product solves a broader problem, Quora is where curious people go for answers.
+Strategy: Find questions that relate to the problem your product solves. Write genuinely helpful, 
+detailed answers. If your product is relevant, mention it at the end as one of several options — never 
+as the sole answer.
+The Golden Rule: Provide Value First, Promote Second
+This principle is so important that it deserves its own section. Every online community has a finely 
+tuned sense of when someone is being genuinely helpful versus when someone is trying to sell 
+something. If you show up in a community and immediately start talking about your product, you'll be 
+ignored at best and banned at worst.
+The approach that works is the give, give, give, ask model:
+1. Give: Answer someone's question thoroughly
+2. Give: Share a useful resource or tip
+3. Give: Provide feedback on someone else's project
+4. Ask: When someone asks a question that your product directly solves, mention it naturally 
+alongside your helpful answer
+Here's what this looks like in practice. Imagine you've built a tool that helps small businesses create 
+invoices:
+Bad approach: "Hey everyone! I just launched InvoiceMagic, the best invoicing tool for small 
+businesses! Check it out at [link]!"
+Good approach: Someone asks "What's the easiest way to handle invoicing for my freelance 
+business?" Y ou respond with a detailed answer explaining different approaches — spreadsheets, free 
+templates, dedicated software. Y ou mention the pros and cons of each. And at the end, you say: "Full 
+disclosure, I recently built a tool called InvoiceMagic that focuses specifically on this problem for 
+freelancers. But honestly, for someone just starting out, a simple Google Sheets template might be all 
+you need. Here's a link to a free template I like: [link]. If you outgrow that, feel free to check out what I 
+built or other tools like FreshBooks or Wave."
+See the difference? The second approach is genuinely helpful, transparent, and positions your 
+product as one option among many rather than a hard sell.
+
+--- PDF PAGE 31 ---
+Community-Led Growth Strategy
+Community-led growth is a systematic approach to using community engagement as a primary driver 
+of user acquisition. Here's a framework you can follow:
+Phase 1: Research and Join (Week 1-2)
+• Identify 5-10 communities where your target users are active
+• Join each one with a genuine profile
+• Read posts for a full week before engaging
+• Note the culture, rules, and what types of content get the most engagement
+Phase 2: Contribute and Build Reputation (Week 3-6)
+• Answer at least 3-5 questions per week across your communities
+• Share useful resources (not your own product)
+• Engage in discussions — add your perspective and experience
+• Start recognising regular members and building relationships
+Phase 3: Naturally Introduce Y our Product (Week 6+)
+• When directly relevant questions come up, mention your product alongside helpful context
+• Share your building journey in communities that welcome it (Indie Hackers, r/SideProject)
+• Offer free access to community members for feedback
+• Create content specifically for the community (a tutorial, a guide, a comparison)
+Phase 4: Sustain and Scale
+• Continue providing value even after you've gained users
+• Consider creating helpful resources specifically for these communities
+• If appropriate, build your own community (more on this below)
+Writing Helpful Content That Naturally Leads to Your Product
+One of the most effective community marketing strategies is creating genuinely useful content that 
+naturally demonstrates your product's value without being a sales pitch.
+Example formats:
+• "How I solved X problem" posts: Walk through a problem and your solution journey. Y our product 
+can be part of the solution you describe.
+• Comparison posts: "I tried 5 tools for [problem]. Here's what I found." Include your product 
+honestly alongside competitors.
+• Tutorial posts: Teach something related to your product's domain. At the end, mention that your 
+product simplifies this process.
+
+--- PDF PAGE 32 ---
+• Data or research posts: Share interesting findings from your space. These get shared widely 
+and establish your authority.
+Here's a prompt to help you create this kind of content:
+I've built a SaaS app that [describe app]. I want to write a 
+helpful post for [specific community — e.g., r/webdev] that 
+provides genuine value while naturally demonstrating why my 
+product exists.
+The post should:
+- Start with a common problem or question the community faces
+- Provide a thorough, helpful answer with multiple approaches
+- Naturally mention my product as one of the solutions
+- Include other alternatives so it doesn't feel like an ad
+- End with a question that invites discussion
+- Be around 500-800 words
+- Match the tone and style of [the community]
+Guest Posting and Cross-Promotion
+Beyond community engagement, guest posting on relevant blogs and newsletters can put you in front 
+of established audiences.
+How to find guest posting opportunities:
+• Search "[your niche] guest post" or "[your niche] write for us"
+• Look at where your competitors have been featured
+• Reach out to newsletter writers and blog owners in your space
+• Offer to write something valuable for their audience (not a product review — a genuinely useful 
+article)
+Cross-promotion works when you partner with non-competing products that share your audience. For 
+example, if you've built an invoicing tool, you could cross-promote with a time-tracking tool. Y ou 
+mention them, they mention you — both audiences benefit.
+Building Your Own Community
+At some point, you might want to create your own community around your product or your niche. This 
+is a powerful long-term strategy, but it requires consistent effort.
+Options for community platforms:
+
+--- PDF PAGE 33 ---
+Platform Best For Cost Effort
+Discord server Technical communities, 
+real-time chat
+Free Medium-High
+Slack workspace Professional communities Free (limited) Medium
+Email newsletter Content-first communities Free-$50/month Medium
+Circle.so Premium, course-based 
+communities
+From $39/month Medium-High
+Facebook Group Non-technical audiences Free Medium
+The "100 Users Who Love Y ou" Philosophy
+This concept, popularised by Paul Graham (co-founder of Y Combinator), says it's better to have 100 
+users who absolutely love your product than 10,000 who think it's "okay." Those 100 passionate 
+users become your evangelists — they recommend you to friends, defend you in discussions, and 
+give you the feedback you need to make the product even better.
+Y our community strategy should focus on finding and nurturing those first 100 passionate users. 
+They're worth more than any advertising campaign.
+Offline Events and Meetups (Brief Mention)
+While this module is focused on digital marketing, it's worth noting that offline events can be 
+incredibly valuable for making connections that lead to online relationships:
+• Local meetup groups (Meetup.com) — especially tech and startup meetups
+• Hackathons — great for finding potential users and collaborators
+• Conferences — even attending (not just speaking) puts you in rooms with potential users
+• Co-working spaces — daily proximity to other builders creates natural networking
+These don't need to be your primary strategy, but don't overlook them entirely. A single genuine 
+conversation at a meetup can be worth more than a hundred online comments.
+Tracking Community Marketing Efforts
+Unlike paid advertising, community marketing is harder to measure directly. But you can still track its 
+impact:
+Metric How to Track What It Tells You
+Referral traffic from communities UTM links + Google Analytics Which communities send the most 
+visitors
+"How did you hear about us?" 
+responses
+Onboarding survey question Direct attribution to community 
+efforts
+Community mentions Manual search or tools like Mention How often your product comes up 
+organically
+Direct messages and inquiries Track manually Quality of interest from community 
+engagement
+
+--- PDF PAGE 34 ---
+Sign-ups from community content UTM links on shared posts Which content pieces drive 
+conversions
+A Practical Community Engagement Plan
+Here's what a realistic weekly community engagement schedule looks like. This should take about 
+3-5 hours per week:
+Monday: Check your top 3 communities. Answer 2-3 questions. Share one useful resource.
+Wednesday: Write and post one piece of helpful content in your most active community.
+Friday: Engage with other people's posts — comment, share, provide feedback. Check for any 
+questions where your product is directly relevant.
+That's it. Consistency trumps intensity. Showing up reliably every week builds your reputation far 
+more effectively than occasional bursts of activity.
+Using AI to Research Communities and Plan Engagement
+Identify 15 online communities (Discord servers, Reddit 
+subreddits, Slack groups, forums, and Facebook groups) where 
+users of [describe your app's target audience and the problem 
+your app solves] hang out. 
+For each community, provide:
+1. Platform and name
+2. Approximate size/activity level
+3. Primary topics discussed
+4. Self-promotion rules (strict, moderate, or relaxed)
+5. A value-first engagement strategy specific to that community
+6. A sample helpful post or comment I could make there
+Key Takeaways
+• Go where your users already are. Don't try to build an audience from scratch when thousands of 
+your potential users are already congregating in online communities.
+• Provide value first, always. The give, give, give, ask model works. Become a helpful, trusted 
+member of a community before you ever mention your product.
+• Discord, Slack, Reddit, forums, and Facebook Groups are all potential goldmines. Identify which 
+ones your specific target audience uses most actively.
+• Build a reputation before you promote. Spend at least 2-4 weeks being genuinely helpful in a 
+community before mentioning your product.
+• Create content that naturally demonstrates your product's value. "How I solved X" posts, 
+comparisons, and tutorials work much better than direct product announcements.
+• Consider building your own community once you have traction. A Discord server, newsletter, or 
+group can become a powerful long-term asset.
+
+--- PDF PAGE 35 ---
+• Focus on finding 100 users who love you rather than 10,000 who are indifferent. Passionate 
+early users are your most valuable marketing asset.
+• Track your efforts. Use UTM links, onboarding surveys, and manual tracking to understand 
+which communities drive the most valuable users.
+• Consistency beats intensity. Spending 3-5 hours per week engaging reliably across a few 
+communities is far more effective than sporadic bursts of activity.
+• Be transparent. When you mention your product, always disclose that you're the founder. 
+Communities respect honesty and punish deception.
+
+--- PDF PAGE 36 ---
+05.  Setup an affiliate program. 18 min
+Set Up an Affiliate Program
+Think of your happiest customers. The ones who genuinely love your product, who tell their friends 
+about it at dinner parties, who tweet about it without being asked. Now imagine you could give each 
+of those people a unique tracking link and say: "Every time someone signs up through your link, you 
+earn a commission." Y ou've just turned your most passionate users into a motivated sales force — 
+and you only pay them when they deliver results.
+That's the essence of an affiliate program. It's word of mouth, systematised and scaled. And for SaaS 
+products, it's one of the most efficient growth channels available because you pay nothing upfront. 
+Every pound or dollar you spend on affiliate commissions is tied directly to a paying customer who 
+already signed up. There's no wasted ad spend, no "hoping the campaign works." Someone signed 
+up, they're paying, and now you share a portion of that revenue with the person who sent them your 
+way.
+In this section, we'll cover what affiliate programs are, how to design one that works for your SaaS 
+product, which platforms make it easy to set up, how to recruit affiliates, and how to avoid common 
+pitfalls.
+What Is an Affiliate Program and How Does It Work?
+An affiliate program is a marketing arrangement where you pay a commission to third parties 
+(affiliates) for driving customers to your product. The mechanics are straightforward:
+1. Y ou create the program with a defined commission structure
+2. Affiliates sign up and receive a unique tracking link or referral code
+3. Affiliates share your product with their audience through blog posts, videos, social media, email 
+newsletters, or direct recommendations
+4. A potential customer clicks the affiliate's link and signs up for your product
+5. The tracking system attributes the sign-up to that specific affiliate
+6. Y ou pay the affiliate a commission based on the terms you've set
+The beauty of this model is alignment of incentives. The affiliate only earns money when they drive a 
+real, paying customer. Y ou only spend money when you acquire a real, paying customer. Everyone 
+wins.
+Why Affiliate Programs Work Especially Well for SaaS
+SaaS products have characteristics that make affiliate programs particularly effective:
+Recurring revenue means recurring commissions: If you offer recurring commissions (a percentage 
+of each monthly payment, not just the first one), affiliates are motivated to send you customers who 
+stick around. This naturally selects for higher-quality referrals.
+
+--- PDF PAGE 37 ---
+Digital delivery means instant tracking: Unlike physical products where tracking gets complicated with 
+shipping and returns, SaaS sign-ups happen instantly online and are easy to track and attribute.
+High customer lifetime value (LTV): SaaS customers often pay for months or years. This means you 
+can afford to pay generous commissions while still being profitable on each customer.
+Easy to try: Most SaaS products offer free trials or freemium tiers. This makes it easier for affiliates to 
+recommend your product because there's no risk for the person they're recommending it to.
+Choosing Your Commission Structure
+This is one of the most important decisions you'll make. Y our commission structure needs to be 
+attractive enough to motivate affiliates but sustainable enough that you remain profitable.
+Here are the main approaches:
+One-Time Commission
+The affiliate earns a single payment when a customer signs up. Simple, predictable, and easy to 
+manage.
+Example: Y our product costs $29/month. Y ou pay a one-time $50 commission per new paying 
+customer.
+Pros: Easy to calculate costs, predictable expenses
+Cons: Affiliates have less incentive to send you long-term customers
+Recurring Commission
+The affiliate earns a percentage of the customer's payment every month (or billing cycle) for as long 
+as the customer remains subscribed.
+Example: Y our product costs $29/month. Y ou pay 20% recurring commission — the affiliate earns 
+$5.80 per month for each customer they referred, for as long as that customer keeps paying.
+Pros: Strongly motivates affiliates to find quality customers who stay. Builds long-term partnerships.
+Cons: Commission costs grow over time as referred customers accumulate.
+Hybrid Model
+A combination — a larger one-time payment plus a smaller recurring commission.
+Example: $25 one-time bonus + 10% recurring commission.
+Pros: Immediate reward plus ongoing motivation
+Cons: More complex to manage and communicate
+
+--- PDF PAGE 38 ---
+Commission Comparison Table
+Structure Example ($29/month 
+product)
+Affiliate Earnings (Year 
+1 per customer)
+Best For
+One-time flat fee $50 per sign-up $50 Products with high 
+volume, lower LTV
+One-time percentage 100% of first month ($29) $29 Simple programs, easy to 
+communicate
+Recurring percentage 20% ongoing ($5.80/
+month)
+$69.60 Products with high 
+retention, long LTV
+Recurring with cap 20% for 12 months $69.60 (capped) Balance between affiliate 
+motivation and cost 
+controlHybrid $25 + 10% ongoing $59.80 Attracting affiliates who 
+want immediate and long-
+term earnings
+What Commission Rate Should You Choose?
+A common range for SaaS affiliate programs is 15% to 30% recurring or $20 to $100 one-time per 
+customer. The right number depends on:
+• Y our profit margins: Make sure you're still profitable after the commission
+• Customer lifetime value: If your average customer stays for 18 months at $29/month ($522 
+total), a 20% commission ($104.40 over the lifetime) is very reasonable
+• Competitor programs: Check what similar products offer. Y ou don't need to be the highest, but 
+being competitive helps
+Here's a prompt to help you figure out the right structure:
+Help me design an affiliate program for my SaaS product. 
+Here are the details:
+- Monthly subscription price: $29/month
+- Annual subscription price: $290/year
+- Average customer stays for [X] months
+- My approximate profit margin per customer is [X]%
+- Competitor affiliate programs offer [describe if known]
+Suggest:
+1. The best commission structure (one-time, recurring, or hybrid)
+2. Specific commission rates with reasoning
+3. Cookie duration (how long after clicking the link does the 
+   affiliate get credit?)
+4. Payment terms (when and how affiliates get paid)
+5. Any special bonuses for top-performing affiliates
+Affiliate Platforms: Making It Easy to Set Up
+Y ou could theoretically build an affiliate tracking system yourself using referral codes and database 
+queries. But unless tracking and attribution is your core business, you're much better off using a 
+dedicated platform. These tools handle tracking, attribution, payouts, and reporting so you can focus 
+on growing your product.
+
+--- PDF PAGE 39 ---
+Here's a comparison of the most popular affiliate platforms for SaaS:
+Platform Starting Price Best For Key Features Ease of Setup
+Rewardful $49/month Stripe-based SaaS Deep Stripe 
+integration, simple 
+setup, recurring 
+commission tracking
+Very Easy
+FirstPromoter $49/month SaaS with Stripe/
+Paddle
+Campaign 
+management, 
+automated payouts, 
+multiple 
+commission tiers
+Easy
+PartnerStack Custom pricing Mid to large SaaS Full partner 
+ecosystem 
+management, 
+marketplace for 
+affiliates
+Medium
+Tapfiliate $89/month E-commerce and 
+SaaS
+Multi-language 
+support, 
+automation 
+workflows, deep 
+customisation
+Medium
+Refersion $99/month E-commerce (some 
+SaaS)
+Large affiliate 
+marketplace, strong 
+Shopify integration
+Medium
+Tolt $29/month Early-stage SaaS Affordable, Stripe 
+integration, simple 
+interface
+Very Easy
+Lemon Squeezy Built-in (payment 
+platform)
+Digital products 
+and SaaS
+Affiliates built into 
+payment system, 
+no separate tool 
+needed
+Very Easy
+Which Platform Should You Choose?
+For most readers of this platform who are building SaaS products with Stripe, Rewardful or Tolt are 
+excellent starting points. They integrate directly with Stripe (which you're likely already using for 
+payments) and can be set up in under an hour. As your program grows, you might graduate to 
+something more feature-rich like FirstPromoter or PartnerStack.
+If you're using Lemon Squeezy for payments instead of Stripe, affiliate tracking is already built into 
+their platform — one less thing to worry about.
+The DIY Approach (Free but Limited)
+If you're not ready for a paid platform, you can start with a manual approach:
+1. Create unique discount codes for each affiliate (e.g., "ALEX20", "SARAH20")
+2. Track code usage in your Stripe dashboard or database
+3. Calculate commissions manually each month
+4. Pay affiliates via PayPal, bank transfer, or Wise
+This works fine for a handful of affiliates but becomes unmanageable as your program grows. Think 
+of it as a prototype — use it to validate that affiliate marketing works for your product, then upgrade to 
+a proper platform.
+Setting Up Tracking Properly
+Accurate tracking is the backbone of any affiliate program. If affiliates don't trust that their referrals 
+are being properly tracked and credited, they won't promote your product.
+Cookie duration: When someone clicks an affiliate link, a tracking cookie is stored in their browser. If 
+they come back and sign up days later, the cookie ensures the affiliate still gets credit. Industry 
+standard is 30 to 90 days. Shorter durations (7 days) can frustrate affiliates because not everyone 
+signs up immediately.
+
+--- PDF PAGE 40 ---
+UTM parameters: In addition to your affiliate platform's tracking, use UTM parameters to see affiliate 
+traffic in your analytics:
+https://yourapp.com?
+utm_source=affiliate&utm_medium=referral&utm_campaign=affiliate_name
+Attribution models: Most affiliate programs use "last click" attribution — the last affiliate link clicked 
+before sign-up gets the credit. This is the simplest and most common approach.
+Creating Resources for Your Affiliates
+Happy, productive affiliates need resources. The easier you make it for them to promote your product, 
+the more they'll do it.
+An affiliate resource kit should include:
+• Product description: Short (1 sentence), medium (1 paragraph), and long (3 paragraphs)
+• Key selling points: 5-7 bullet points explaining why your product is valuable
+• Banner images: Multiple sizes (728x90, 300x250, 160x600) for websites
+• Social media graphics: Optimised for Twitter, LinkedIn, Instagram, Facebook
+• Email copy: Pre-written email templates affiliates can customise and send to their lists
+• Demo video: A short walkthrough they can embed or share
+• Comparison content: How your product compares to alternatives (give them the talking points)
+• FAQ: Common questions potential customers ask, with answers
+Here's a prompt to create your affiliate kit:
+Help me create an affiliate resource kit for my SaaS product 
+[describe product, price, target audience]. Generate:
+1. Three product descriptions (1 sentence, 1 paragraph, 3 paragraphs)
+2. 7 key selling points as bullet points
+3. 5 email subject lines affiliates could use
+4. A pre-written email template (3 paragraphs) affiliates can 
+   customise for their audience
+5. 5 social media posts (mix of Twitter, LinkedIn, and Instagram) 
+   affiliates can use or adapt
+6. Answers to the 5 most common objections potential customers might have
+7. A comparison table showing our product vs [top 2-3 competitors]
+Recruiting Affiliates
+The best affiliate program in the world is useless without affiliates. Here's how to recruit them:
+
+--- PDF PAGE 41 ---
+Your Existing Users (Best Source)
+Y our happiest customers are your best potential affiliates. They already know and love your product, 
+which means their recommendations will be genuine and persuasive.
+• Add an "Earn with us" or "Refer a friend" link in your app's navigation or footer
+• Email your user base about the affiliate program when you launch it
+• Identify your most active users and reach out personally with an invitation to join the program
+Bloggers and Content Creators
+People who write "best tools for X" or "top 10 Y tools" articles are natural affiliates. They're already 
+creating content that compares and recommends products.
+Search for:
+• "Best [your category] tools 2026"
+• "[Competitor name] alternatives"
+• "Top [your niche] software"
+Reach out to the authors of these articles and offer them an affiliate partnership. Many are already 
+monetising through affiliate programs and will be happy to include your product.
+YouTube Reviewers
+Similar to bloggers, but in video format. Y ouTube creators who review tools in your category can drive 
+significant affiliate revenue.
+Comparison and Review Sites
+Websites like G2, Capterra, and TrustRadius are often visited by people comparing products. While 
+these are review sites rather than affiliate sites, getting listed and well-reviewed on them drives 
+organic discovery.
+Affiliate Networks and Marketplaces
+Some affiliate platforms (like PartnerStack) have marketplaces where affiliates browse and apply to 
+programs. Listing your program there provides passive affiliate recruitment.
+Terms and Conditions Basics
+Y our affiliate program needs clear terms. While you should consult a legal professional for your 
+specific situation, here are the standard elements:
+• Commission rates and structure: Clearly state how much and when affiliates earn
+• Cookie duration: How long referrals are tracked after a click
+• Payment schedule: When and how commissions are paid (monthly, minimum threshold)
+
+--- PDF PAGE 42 ---
+• Prohibited activities: No spam, no misleading ads, no bidding on your brand name in Google Ads
+• Termination clause: Y ou can terminate the relationship if terms are violated
+• Attribution rules: How overlapping referrals are handled
+Fraud Prevention
+Unfortunately, some people try to game affiliate programs. Here are common fraud tactics and how to 
+prevent them:
+Fraud Type How It Works Prevention
+Self-referral Affiliate signs up through their own 
+link
+Block same-IP/email sign-ups, 
+review suspicious patterns
+Cookie stuffing Loading tracking cookies without 
+genuine clicks
+Use reputable affiliate platforms 
+with fraud detection
+Fake sign-ups Creating fake accounts to earn 
+commissions
+Require payment verification 
+before paying commission
+Brand bidding Running Google Ads on your 
+brand name to intercept traffic
+Explicitly prohibit in terms, monitor 
+with Google Alerts
+Coupon sites Posting your affiliate discount code 
+on coupon aggregators
+Restrict where codes can be 
+shared, use unique links instead
+Most reputable affiliate platforms include built-in fraud detection. Additionally, setting a minimum 
+payout threshold (e.g., $50 before first payout) and a commission holding period (e.g., commissions 
+are payable 30 days after the customer's first payment) helps filter out fraudulent activity.
+Measuring Your Affiliate Program's Success
+Track these metrics monthly to understand whether your affiliate program is healthy:
+Metric What It Tells You Healthy Range
+Number of active affiliates How many affiliates are actually 
+promoting you
+Growing month-over-month
+Click-through rate How compelling the affiliate's 
+promotion is
+1-5% of impressions
+Conversion rate How well your landing page 
+converts affiliate traffic
+2-10% of clicks
+Revenue per affiliate Average revenue generated per 
+active affiliate
+Varies by niche
+Customer quality Do affiliate-referred customers 
+retain as well as organic ones?
+Similar or better than average
+Commission as % of revenue How much of your revenue goes to 
+affiliate payouts
+15-30% is typical
+Top affiliate concentration Is one affiliate driving most of your 
+affiliate revenue?
+Diversified is healthier
+Building a Landing Page for Potential Affiliates
+Y ou need a page on your website that explains your affiliate program and makes it easy to sign up. 
+This page should include:
+• What the program is (1-2 sentences)
+
+--- PDF PAGE 43 ---
+• Commission structure (clear, specific numbers)
+• Cookie duration
+• Who it's for (bloggers, creators, existing users, etc.)
+• What resources you provide (banners, copy, etc.)
+• Testimonials from existing affiliates (once you have them)
+• Sign-up form or link to your affiliate platform
+Help me design an affiliate program landing page for my SaaS. 
+Monthly subscription is $29/month. I'm offering 25% recurring 
+commission with a 60-day cookie window.
+Create:
+1. A compelling headline and subheadline
+2. Three bullet points explaining why someone should become an affiliate
+3. A clear breakdown of the commission structure with examples 
+   (e.g., "Refer 10 customers and earn $72.50/month, every month")
+4. A FAQ section with 5 common questions and answers
+5. A call-to-action section encouraging sign-up
+6. Suggested page layout and sections in order
+Getting Started: A Step-by-Step Plan
+Here's a practical roadmap for launching your affiliate program:
+Week 1: Design
+• Decide on your commission structure
+• Choose an affiliate platform
+• Write your terms and conditions
+Week 2: Build
+• Set up the affiliate platform and connect to your payment system (Stripe)
+• Create your affiliate landing page
+• Prepare your affiliate resource kit (descriptions, images, email templates)
+Week 3: Soft Launch
+• Email your existing users about the program
+• Personally invite your 5-10 happiest customers
+• Add "Affiliate" or "Earn with us" link to your website footer
+Week 4+: Grow
+• Reach out to bloggers and content creators in your space
+
+--- PDF PAGE 44 ---
+• Optimise your affiliate landing page based on sign-up data
+• Support your affiliates with fresh resources and promotional ideas
+• Celebrate and share affiliate success stories
+Key Takeaways
+• Affiliate programs let you pay for results, not promises. Y ou only spend money when an affiliate 
+drives a real, paying customer. This makes it one of the most cost-efficient marketing channels.
+• Recurring commissions attract better affiliates. Offering 20-30% recurring commission motivates 
+affiliates to send you quality customers who stick around, because their earnings grow over time.
+• Use a dedicated platform for tracking. Rewardful, Tolt, and FirstPromoter are excellent for Stripe-
+based SaaS products. Manual tracking works for a handful of affiliates but doesn't scale.
+• Y our existing users are your best potential affiliates. They already love your product and can 
+recommend it authentically. Make it easy for them to sign up and share.
+• Create a comprehensive resource kit. Give affiliates descriptions, images, email templates, and 
+social media copy. The easier you make it for them to promote you, the more they will.
+• Set clear terms and prevent fraud. Define commission rates, cookie duration, prohibited 
+activities, and payment schedules. Use holding periods and minimum thresholds to deter bad 
+actors.
+• Measure and optimise continuously. Track active affiliates, conversion rates, revenue per 
+affiliate, and customer quality. A healthy program should show steady growth across these 
+metrics.
+• Start simple and iterate. Y ou don't need a perfect program on day one. Launch with a few happy 
+customers as affiliates, learn what works, and expand from there.

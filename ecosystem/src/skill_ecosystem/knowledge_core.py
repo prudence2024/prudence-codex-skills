@@ -60,6 +60,14 @@ class KnowledgeType(StrEnum):
     OBSERVATION = "observation"
     HYPOTHESIS = "hypothesis"
     RESEARCH_FINDING = "research_finding"
+    PROMPT = "prompt"
+    INSTRUCTION = "instruction"
+    RECOMMENDATION = "recommendation"
+    PREFERENCE = "preference"
+    PROJECT_KNOWLEDGE = "project_knowledge"
+    EXTERNAL_KNOWLEDGE = "external_knowledge"
+    AI_INFERENCE = "ai_inference"
+    UNKNOWN = "unknown"
 
 
 class SourceDerivation(StrEnum):
@@ -69,6 +77,13 @@ class SourceDerivation(StrEnum):
     RESEARCH_DERIVED = "RESEARCH_DERIVED"
     AI_INFERRED = "AI_INFERRED"
     AI_SYNTHESIZED = "AI_SYNTHESIZED"
+
+
+class AccessScope(StrEnum):
+    GLOBAL = "global"
+    PROJECT = "project"
+    PRIVATE = "private"
+    RESTRICTED = "restricted"
 
 
 class MemoryCategory(StrEnum):
@@ -189,6 +204,7 @@ class KnowledgeItem:
     valid_from: str | None = None
     valid_until: str | None = None
     superseded_by: str | None = None
+    access_scope: AccessScope = AccessScope.GLOBAL
 
     def __post_init__(self) -> None:
         for name in ("id", "title", "content", "summary", "source_id", "source_location", "source_type", "domain", "project", "created_at", "observed_at", "updated_at"):
@@ -198,6 +214,8 @@ class KnowledgeItem:
         ensure_no_secret("content", self.content)
         if self.provenance.source_id != self.source_id:
             raise KnowledgeCoreError("provenance source_id must match knowledge source_id")
+        if self.type == KnowledgeType.FACT and self.provenance.derivation in {SourceDerivation.AI_INFERRED, SourceDerivation.AI_SYNTHESIZED}:
+            raise KnowledgeCoreError("AI-derived information cannot be created as objective fact without validation")
 
     @property
     def evidence_confidence(self) -> float:
@@ -407,6 +425,8 @@ class KnowledgeSearchQuery:
     status: KnowledgeStatus | None = None
     min_evidence_confidence: float | None = None
     freshness: Freshness | None = None
+    access_scope: AccessScope | None = None
+    include_archived: bool = False
 
 
 class KnowledgeRepository(Protocol):
@@ -452,10 +472,28 @@ class InMemoryKnowledgeRepository:
     def list(self) -> list[KnowledgeItem]:
         return list(self._items.values())
 
+    def list_by_source(self, source_id: str) -> list[KnowledgeItem]:
+        return [item for item in self._items.values() if item.source_id == source_id]
+
+    def archive_source(self, source_id: str) -> list[KnowledgeItem]:
+        archived = []
+        for item in self.list_by_source(source_id):
+            if item.status != KnowledgeStatus.ARCHIVED:
+                item = item.transition(KnowledgeStatus.ARCHIVED)
+                self._items[item.id] = item
+            archived.append(item)
+        return archived
+
     def search(self, query: KnowledgeSearchQuery) -> list[KnowledgeItem]:
         results = []
         text = query.query.casefold() if query.query else None
         for item in self._items.values():
+            if not query.include_archived and item.status in {KnowledgeStatus.ARCHIVED, KnowledgeStatus.SUPERSEDED}:
+                continue
+            if query.access_scope and item.access_scope != query.access_scope:
+                continue
+            if query.access_scope is None and item.access_scope != AccessScope.GLOBAL and query.project != item.project:
+                continue
             if query.domain and item.domain != query.domain:
                 continue
             if query.topic and query.topic not in item.topics:
@@ -599,6 +637,7 @@ class CorpusImporter:
         "Tool / package knowledge",
         "Security knowledge",
         "Design knowledge",
+        "Visibility / AEO knowledge",
     }
 
     def __init__(self, repository: InMemoryKnowledgeRepository | None = None) -> None:
@@ -739,9 +778,10 @@ def _as_strings(value: Any) -> tuple[str, ...]:
 def _knowledge_type_for_content(content_type: str) -> KnowledgeType:
     mapping = {
         "Operational instruction": KnowledgeType.PROCEDURE,
-        "Prompt / agent instruction": KnowledgeType.PROCEDURE,
+        "Prompt / agent instruction": KnowledgeType.PROMPT,
         "Design knowledge": KnowledgeType.PATTERN,
         "Security knowledge": KnowledgeType.PROCEDURE,
+        "Visibility / AEO knowledge": KnowledgeType.PROCEDURE,
         "Startup / product knowledge": KnowledgeType.HYPOTHESIS,
         "Tool / package knowledge": KnowledgeType.FACT,
     }
@@ -774,3 +814,4 @@ def _substantial_overlap(left: str, right: str) -> bool:
         return False
     overlap = len(left_words & right_words) / min(len(left_words), len(right_words))
     return overlap >= 0.9
+

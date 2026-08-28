@@ -1,0 +1,939 @@
+{
+  "schema_version": 1,
+  "corpus": "docs\\knowledge\\ADE-EXTRACTED-ITEMS.jsonl",
+  "corpus_items": 932,
+  "queries": [
+    {
+      "id": "Q1",
+      "text": "How should ADE handle prompt instructions without treating them as facts?",
+      "expected_terms": [
+        "prompt",
+        "instruction",
+        "fact"
+      ],
+      "expected_content_types": [
+        "Prompt / agent instruction"
+      ],
+      "expected_source_ids": []
+    },
+    {
+      "id": "Q2",
+      "text": "What does the corpus say about backups and version control?",
+      "expected_terms": [
+        "backup",
+        "version",
+        "control"
+      ],
+      "expected_content_types": [],
+      "expected_source_ids": []
+    },
+    {
+      "id": "Q3",
+      "text": "Find security RLS and authentication guidance for project systems.",
+      "expected_terms": [
+        "security",
+        "rls",
+        "authentication"
+      ],
+      "expected_content_types": [],
+      "expected_source_ids": []
+    },
+    {
+      "id": "Q4",
+      "text": "What should ADE use for robots.txt sitemap llms.txt and AEO visibility?",
+      "expected_terms": [
+        "robots",
+        "sitemap",
+        "llms",
+        "aeo"
+      ],
+      "expected_content_types": [
+        "Visibility / AEO knowledge"
+      ],
+      "expected_source_ids": []
+    },
+    {
+      "id": "Q5",
+      "text": "How should rate limiting and abuse resistance be handled?",
+      "expected_terms": [
+        "rate",
+        "limiting",
+        "abuse"
+      ],
+      "expected_content_types": [],
+      "expected_source_ids": []
+    },
+    {
+      "id": "Q6",
+      "text": "What knowledge supports AI agents from concept to production?",
+      "expected_terms": [
+        "ai",
+        "agents",
+        "production"
+      ],
+      "expected_content_types": [],
+      "expected_source_ids": []
+    },
+    {
+      "id": "Q7",
+      "text": "Which items mention Supabase authentication and databases?",
+      "expected_terms": [
+        "supabase",
+        "authentication",
+        "database"
+      ],
+      "expected_content_types": [],
+      "expected_source_ids": []
+    },
+    {
+      "id": "Q8",
+      "text": "What are current recommendations versus source evidence?",
+      "expected_terms": [
+        "recommendation",
+        "evidence",
+        "source"
+      ],
+      "expected_content_types": [],
+      "expected_source_ids": []
+    }
+  ],
+  "strategies": {
+    "jsonl_keyword_scan": {
+      "elapsed_ms": 2190.23,
+      "avg_score": 0.971,
+      "avg_term_recall": 0.958,
+      "query_results": [
+        {
+          "query_id": "Q1",
+          "result_count": 729,
+          "matched_terms": [
+            "prompt",
+            "instruction",
+            "fact"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00150",
+            "ITEM-00457",
+            "ITEM-00743",
+            "ITEM-00012",
+            "ITEM-00049"
+          ],
+          "top_sources": [
+            "SRC-003",
+            "SRC-008",
+            "SRC-025",
+            "SRC-001",
+            "SRC-001"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q2",
+          "result_count": 932,
+          "matched_terms": [
+            "backup",
+            "version",
+            "control"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00527",
+            "ITEM-00526",
+            "ITEM-00121",
+            "ITEM-00861",
+            "ITEM-00166"
+          ],
+          "top_sources": [
+            "SRC-010",
+            "SRC-010",
+            "SRC-002",
+            "SRC-031",
+            "SRC-003"
+          ],
+          "top_content_types": [
+            "Operational instruction",
+            "Operational instruction",
+            "Operational instruction",
+            "Operational instruction",
+            "Operational instruction"
+          ]
+        },
+        {
+          "query_id": "Q3",
+          "result_count": 838,
+          "matched_terms": [
+            "security",
+            "rls",
+            "authentication"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00555",
+            "ITEM-00566",
+            "ITEM-00269",
+            "ITEM-00579",
+            "ITEM-00247"
+          ],
+          "top_sources": [
+            "SRC-012",
+            "SRC-013",
+            "SRC-004",
+            "SRC-015",
+            "SRC-004"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Operational instruction"
+          ]
+        },
+        {
+          "query_id": "Q4",
+          "result_count": 932,
+          "matched_terms": [
+            "robots",
+            "sitemap",
+            "llms",
+            "aeo"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00401",
+            "ITEM-00333",
+            "ITEM-00827",
+            "ITEM-00402",
+            "ITEM-00778"
+          ],
+          "top_sources": [
+            "SRC-007",
+            "SRC-007",
+            "SRC-026",
+            "SRC-007",
+            "SRC-026"
+          ],
+          "top_content_types": [
+            "Operational instruction",
+            "Visibility / AEO knowledge",
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q5",
+          "result_count": 816,
+          "matched_terms": [
+            "rate",
+            "limiting",
+            "abuse"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00195",
+            "ITEM-00196",
+            "ITEM-00223",
+            "ITEM-00214",
+            "ITEM-00241"
+          ],
+          "top_sources": [
+            "SRC-004",
+            "SRC-004",
+            "SRC-004",
+            "SRC-004",
+            "SRC-004"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Operational instruction"
+          ]
+        },
+        {
+          "query_id": "Q6",
+          "result_count": 916,
+          "matched_terms": [
+            "ai",
+            "agents",
+            "production"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00787",
+            "ITEM-00827",
+            "ITEM-00785",
+            "ITEM-00779",
+            "ITEM-00777"
+          ],
+          "top_sources": [
+            "SRC-026",
+            "SRC-026",
+            "SRC-026",
+            "SRC-026",
+            "SRC-026"
+          ],
+          "top_content_types": [
+            "Knowledge candidate",
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Operational instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q7",
+          "result_count": 808,
+          "matched_terms": [
+            "supabase",
+            "authentication",
+            "database"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00559",
+            "ITEM-00561",
+            "ITEM-00563",
+            "ITEM-00564",
+            "ITEM-00560"
+          ],
+          "top_sources": [
+            "SRC-013",
+            "SRC-013",
+            "SRC-013",
+            "SRC-013",
+            "SRC-013"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Security knowledge",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q8",
+          "result_count": 547,
+          "matched_terms": [
+            "evidence",
+            "source"
+          ],
+          "term_recall": 0.667,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 0.767,
+          "top_ids": [
+            "ITEM-00182",
+            "ITEM-00024",
+            "ITEM-00061",
+            "ITEM-00184",
+            "ITEM-00210"
+          ],
+          "top_sources": [
+            "SRC-003",
+            "SRC-001",
+            "SRC-001",
+            "SRC-003",
+            "SRC-004"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Prompt / agent instruction"
+          ]
+        }
+      ]
+    },
+    "sqlite_fts5_bm25": {
+      "elapsed_ms": 450.56,
+      "avg_score": 0.971,
+      "avg_term_recall": 0.958,
+      "query_results": [
+        {
+          "query_id": "Q1",
+          "result_count": 50,
+          "matched_terms": [
+            "prompt",
+            "instruction",
+            "fact"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00012",
+            "ITEM-00049",
+            "ITEM-00150",
+            "ITEM-00298",
+            "ITEM-00721"
+          ],
+          "top_sources": [
+            "SRC-001",
+            "SRC-001",
+            "SRC-003",
+            "SRC-006",
+            "SRC-025"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Operational instruction"
+          ]
+        },
+        {
+          "query_id": "Q2",
+          "result_count": 50,
+          "matched_terms": [
+            "backup",
+            "version",
+            "control"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00517",
+            "ITEM-00522",
+            "ITEM-00536",
+            "ITEM-00520",
+            "ITEM-00519"
+          ],
+          "top_sources": [
+            "SRC-010",
+            "SRC-010",
+            "SRC-010",
+            "SRC-010",
+            "SRC-010"
+          ],
+          "top_content_types": [
+            "Operational instruction",
+            "Knowledge candidate",
+            "Tool / package knowledge",
+            "Knowledge candidate",
+            "Knowledge candidate"
+          ]
+        },
+        {
+          "query_id": "Q3",
+          "result_count": 50,
+          "matched_terms": [
+            "security",
+            "rls",
+            "authentication"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00333",
+            "ITEM-00377",
+            "ITEM-00555",
+            "ITEM-00818",
+            "ITEM-00565"
+          ],
+          "top_sources": [
+            "SRC-007",
+            "SRC-007",
+            "SRC-012",
+            "SRC-026",
+            "SRC-013"
+          ],
+          "top_content_types": [
+            "Visibility / AEO knowledge",
+            "Operational instruction",
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q4",
+          "result_count": 50,
+          "matched_terms": [
+            "robots",
+            "sitemap",
+            "llms",
+            "aeo"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00834",
+            "ITEM-00377",
+            "ITEM-00402",
+            "ITEM-00393",
+            "ITEM-00333"
+          ],
+          "top_sources": [
+            "SRC-027",
+            "SRC-007",
+            "SRC-007",
+            "SRC-007",
+            "SRC-007"
+          ],
+          "top_content_types": [
+            "Operational instruction",
+            "Operational instruction",
+            "Operational instruction",
+            "Operational instruction",
+            "Visibility / AEO knowledge"
+          ]
+        },
+        {
+          "query_id": "Q5",
+          "result_count": 50,
+          "matched_terms": [
+            "rate",
+            "limiting",
+            "abuse"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00195",
+            "ITEM-00196",
+            "ITEM-00223",
+            "ITEM-00928",
+            "ITEM-00930"
+          ],
+          "top_sources": [
+            "SRC-004",
+            "SRC-004",
+            "SRC-004",
+            "SRC-040",
+            "SRC-040"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q6",
+          "result_count": 50,
+          "matched_terms": [
+            "ai",
+            "agents",
+            "production"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00791",
+            "ITEM-00819",
+            "ITEM-00804",
+            "ITEM-00788",
+            "ITEM-00786"
+          ],
+          "top_sources": [
+            "SRC-026",
+            "SRC-026",
+            "SRC-026",
+            "SRC-026",
+            "SRC-026"
+          ],
+          "top_content_types": [
+            "Tool / package knowledge",
+            "Knowledge candidate",
+            "Knowledge candidate",
+            "Knowledge candidate",
+            "Tool / package knowledge"
+          ]
+        },
+        {
+          "query_id": "Q7",
+          "result_count": 50,
+          "matched_terms": [
+            "supabase",
+            "authentication",
+            "database"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00559",
+            "ITEM-00561",
+            "ITEM-00563",
+            "ITEM-00560",
+            "ITEM-00565"
+          ],
+          "top_sources": [
+            "SRC-013",
+            "SRC-013",
+            "SRC-013",
+            "SRC-013",
+            "SRC-013"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Security knowledge",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q8",
+          "result_count": 50,
+          "matched_terms": [
+            "evidence",
+            "source"
+          ],
+          "term_recall": 0.667,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 0.767,
+          "top_ids": [
+            "ITEM-00182",
+            "ITEM-00184",
+            "ITEM-00131",
+            "ITEM-00210",
+            "ITEM-00237"
+          ],
+          "top_sources": [
+            "SRC-003",
+            "SRC-003",
+            "SRC-002",
+            "SRC-004",
+            "SRC-004"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction"
+          ]
+        }
+      ]
+    },
+    "governed_lexical_hybrid_rrf": {
+      "elapsed_ms": 1846.57,
+      "avg_score": 0.971,
+      "avg_term_recall": 0.958,
+      "query_results": [
+        {
+          "query_id": "Q1",
+          "result_count": 69,
+          "matched_terms": [
+            "prompt",
+            "instruction",
+            "fact"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00150",
+            "ITEM-00012",
+            "ITEM-00049",
+            "ITEM-00457",
+            "ITEM-00743"
+          ],
+          "top_sources": [
+            "SRC-003",
+            "SRC-001",
+            "SRC-001",
+            "SRC-008",
+            "SRC-025"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Operational instruction"
+          ]
+        },
+        {
+          "query_id": "Q2",
+          "result_count": 72,
+          "matched_terms": [
+            "backup",
+            "version",
+            "control"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00517",
+            "ITEM-00121",
+            "ITEM-00527",
+            "ITEM-00526",
+            "ITEM-00916"
+          ],
+          "top_sources": [
+            "SRC-010",
+            "SRC-002",
+            "SRC-010",
+            "SRC-010",
+            "SRC-038"
+          ],
+          "top_content_types": [
+            "Operational instruction",
+            "Operational instruction",
+            "Operational instruction",
+            "Operational instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q3",
+          "result_count": 67,
+          "matched_terms": [
+            "security",
+            "rls",
+            "authentication"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00555",
+            "ITEM-00247",
+            "ITEM-00566",
+            "ITEM-00269",
+            "ITEM-00277"
+          ],
+          "top_sources": [
+            "SRC-012",
+            "SRC-004",
+            "SRC-013",
+            "SRC-004",
+            "SRC-004"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q4",
+          "result_count": 69,
+          "matched_terms": [
+            "robots",
+            "sitemap",
+            "llms",
+            "aeo"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00401",
+            "ITEM-00333",
+            "ITEM-00402",
+            "ITEM-00377",
+            "ITEM-00832"
+          ],
+          "top_sources": [
+            "SRC-007",
+            "SRC-007",
+            "SRC-007",
+            "SRC-007",
+            "SRC-027"
+          ],
+          "top_content_types": [
+            "Operational instruction",
+            "Visibility / AEO knowledge",
+            "Operational instruction",
+            "Operational instruction",
+            "Operational instruction"
+          ]
+        },
+        {
+          "query_id": "Q5",
+          "result_count": 69,
+          "matched_terms": [
+            "rate",
+            "limiting",
+            "abuse"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00195",
+            "ITEM-00196",
+            "ITEM-00223",
+            "ITEM-00928",
+            "ITEM-00214"
+          ],
+          "top_sources": [
+            "SRC-004",
+            "SRC-004",
+            "SRC-004",
+            "SRC-040",
+            "SRC-004"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Operational instruction"
+          ]
+        },
+        {
+          "query_id": "Q6",
+          "result_count": 57,
+          "matched_terms": [
+            "ai",
+            "agents",
+            "production"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00791",
+            "ITEM-00787",
+            "ITEM-00804",
+            "ITEM-00819",
+            "ITEM-00795"
+          ],
+          "top_sources": [
+            "SRC-026",
+            "SRC-026",
+            "SRC-026",
+            "SRC-026",
+            "SRC-026"
+          ],
+          "top_content_types": [
+            "Tool / package knowledge",
+            "Knowledge candidate",
+            "Knowledge candidate",
+            "Knowledge candidate",
+            "Security knowledge"
+          ]
+        },
+        {
+          "query_id": "Q7",
+          "result_count": 61,
+          "matched_terms": [
+            "supabase",
+            "authentication",
+            "database"
+          ],
+          "term_recall": 1.0,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 1.0,
+          "top_ids": [
+            "ITEM-00559",
+            "ITEM-00561",
+            "ITEM-00563",
+            "ITEM-00560",
+            "ITEM-00564"
+          ],
+          "top_sources": [
+            "SRC-013",
+            "SRC-013",
+            "SRC-013",
+            "SRC-013",
+            "SRC-013"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Security knowledge",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction"
+          ]
+        },
+        {
+          "query_id": "Q8",
+          "result_count": 72,
+          "matched_terms": [
+            "evidence",
+            "source"
+          ],
+          "term_recall": 0.667,
+          "type_hit": true,
+          "source_hit": true,
+          "score": 0.767,
+          "top_ids": [
+            "ITEM-00182",
+            "ITEM-00184",
+            "ITEM-00024",
+            "ITEM-00210",
+            "ITEM-00061"
+          ],
+          "top_sources": [
+            "SRC-003",
+            "SRC-003",
+            "SRC-001",
+            "SRC-004",
+            "SRC-001"
+          ],
+          "top_content_types": [
+            "Prompt / agent instruction",
+            "Operational instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction",
+            "Prompt / agent instruction"
+          ]
+        }
+      ]
+    }
+  }
+}
