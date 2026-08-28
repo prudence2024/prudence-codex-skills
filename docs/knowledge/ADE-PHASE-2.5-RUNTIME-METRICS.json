@@ -10,7 +10,7 @@
         "prompt",
         "instruction"
       ],
-      "elapsed_ms": 4164.58
+      "elapsed_ms": 2152.294
     },
     {
       "query_id": "Q2",
@@ -21,7 +21,7 @@
         "version",
         "control"
       ],
-      "elapsed_ms": 2684.997
+      "elapsed_ms": 2381.138
     },
     {
       "query_id": "Q3",
@@ -31,7 +31,7 @@
         "security",
         "rls"
       ],
-      "elapsed_ms": 2502.033
+      "elapsed_ms": 1877.895
     },
     {
       "query_id": "Q4",
@@ -43,7 +43,7 @@
         "llms",
         "aeo"
       ],
-      "elapsed_ms": 1949.789
+      "elapsed_ms": 2819.142
     },
     {
       "query_id": "Q5",
@@ -54,7 +54,7 @@
         "limiting",
         "abuse"
       ],
-      "elapsed_ms": 2383.794
+      "elapsed_ms": 2387.789
     },
     {
       "query_id": "Q6",
@@ -65,7 +65,7 @@
         "agents",
         "production"
       ],
-      "elapsed_ms": 1472.876
+      "elapsed_ms": 2073.514
     },
     {
       "query_id": "Q7",
@@ -76,7 +76,7 @@
         "authentication",
         "database"
       ],
-      "elapsed_ms": 1842.491
+      "elapsed_ms": 1867.93
     },
     {
       "query_id": "Q8",
@@ -86,7 +86,7 @@
         "evidence",
         "source"
       ],
-      "elapsed_ms": 1149.079
+      "elapsed_ms": 1983.486
     }
   ],
   "avg_term_recall": 0.875

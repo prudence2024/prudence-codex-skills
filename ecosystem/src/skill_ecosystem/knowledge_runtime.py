@@ -11,6 +11,7 @@ from __future__ import annotations
 from collections import Counter
 from dataclasses import dataclass, field
 import hashlib
+import json
 import math
 import re
 import time
@@ -59,6 +60,8 @@ class RuntimeQuery:
     include_stale: bool = False
     include_conflicts: bool = True
     include_archived: bool = False
+    min_evidence_confidence: float | None = None
+    version: str | None = None
     limit: int = 5
     rerank: bool = False
 
@@ -103,6 +106,120 @@ class ContextPacket:
     results: tuple[ExplainableResult, ...]
     metrics: dict[str, float | int]
     filters: dict[str, str | bool | None]
+
+
+@dataclass(frozen=True)
+class SourceManifestRecord:
+    source_id: str
+    original_filename: str
+    source_type: str
+    raw_location: str
+    text_dump: str
+    hash_sha256: str
+    origin: str
+    extraction_status: str
+    extracted_items: int = 0
+
+
+@dataclass(frozen=True)
+class SourceIntegrityResult:
+    source_count: int
+    missing_raw_files: int
+    missing_text_dumps: int
+    hash_mismatches: int
+    missing_inputs: int
+    input_hash_mismatches: int
+
+
+class SourceRepository(Protocol):
+    def get_source(self, source_id: str) -> SourceManifestRecord | None: ...
+    def list_sources(self) -> list[SourceManifestRecord]: ...
+    def item_source_exists(self, source_id: str) -> bool: ...
+    def verify_integrity(self) -> SourceIntegrityResult: ...
+
+
+class JsonManifestSourceRepository:
+    """Read-only source repository backed by ADE-SOURCE-RECORDS.json."""
+
+    def __init__(self, repository_root: Path) -> None:
+        self.repository_root = repository_root
+        self.knowledge_root = repository_root / "docs" / "knowledge"
+        self.manifest_path = self.knowledge_root / "ADE-SOURCE-RECORDS.json"
+        self.items_path = self.knowledge_root / "ADE-EXTRACTED-ITEMS.jsonl"
+        self._manifest = json.loads(self.manifest_path.read_text(encoding="utf-8"))
+        self._item_counts = self._load_item_counts()
+
+    def get_source(self, source_id: str) -> SourceManifestRecord | None:
+        for source in self._manifest.get("sources", []):
+            if source.get("source_id") == source_id:
+                return self._record(source)
+        return None
+
+    def list_sources(self) -> list[SourceManifestRecord]:
+        return [self._record(source) for source in self._manifest.get("sources", [])]
+
+    def item_source_exists(self, source_id: str) -> bool:
+        return self.get_source(source_id) is not None
+
+    def verify_integrity(self) -> SourceIntegrityResult:
+        missing_raw = 0
+        missing_dump = 0
+        mismatches = 0
+        for source in self._manifest.get("sources", []):
+            raw = self.knowledge_root / source["raw_location"]
+            dump = self.knowledge_root / source["text_dump"]
+            if not raw.exists():
+                missing_raw += 1
+            elif _sha256(raw) != source.get("hash_sha256"):
+                mismatches += 1
+            if not dump.exists():
+                missing_dump += 1
+        missing_inputs = 0
+        input_mismatches = 0
+        input_specs = []
+        if self._manifest.get("preserved_zip"):
+            input_specs.append((self._manifest["preserved_zip"], self._manifest.get("zip_sha256")))
+        for batch in self._manifest.get("batches", []):
+            for input_spec in batch.get("inputs", []):
+                input_specs.append((input_spec.get("preserved"), input_spec.get("sha256")))
+        for preserved, expected_hash in input_specs:
+            path = self.knowledge_root / preserved
+            if not path.exists():
+                missing_inputs += 1
+            elif expected_hash and _sha256(path) != expected_hash:
+                input_mismatches += 1
+        return SourceIntegrityResult(
+            source_count=len(self._manifest.get("sources", [])),
+            missing_raw_files=missing_raw,
+            missing_text_dumps=missing_dump,
+            hash_mismatches=mismatches,
+            missing_inputs=missing_inputs,
+            input_hash_mismatches=input_mismatches,
+        )
+
+    def _record(self, source: dict[str, object]) -> SourceManifestRecord:
+        source_id = str(source["source_id"])
+        return SourceManifestRecord(
+            source_id=source_id,
+            original_filename=str(source.get("original_filename", "")),
+            source_type=str(source.get("source_type", "")),
+            raw_location=str(source.get("raw_location", "")),
+            text_dump=str(source.get("text_dump", "")),
+            hash_sha256=str(source.get("hash_sha256", "")),
+            origin=str(source.get("origin", "")),
+            extraction_status=str(source.get("extraction_status", "")),
+            extracted_items=self._item_counts.get(source_id, 0),
+        )
+
+    def _load_item_counts(self) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        with self.items_path.open(encoding="utf-8") as handle:
+            for line in handle:
+                if line.strip():
+                    record = json.loads(line)
+                    source_id = str(record.get("source_id", ""))
+                    counts[source_id] = counts.get(source_id, 0) + 1
+        return counts
 
 
 class StructuredStore(Protocol):
@@ -173,15 +290,16 @@ class PrototypeVectorProvider:
 
     name = "prototype_pgvector_hash"
 
-    def __init__(self, dimensions: int = 96) -> None:
+    def __init__(self, dimensions: int = 96, min_score: float = 0.25) -> None:
         self.dimensions = dimensions
+        self.min_score = min_score
 
     def search(self, query: RuntimeQuery, items: Iterable[KnowledgeItem]) -> list[RetrievalHit]:
         query_vec = _hashed_vector(query.text, self.dimensions)
         hits: list[RetrievalHit] = []
         for item in items:
             score = _cosine(query_vec, _hashed_vector(_searchable_text(item), self.dimensions))
-            if score <= 0:
+            if score < self.min_score:
                 continue
             hits.append(RetrievalHit(item, score, self.name, 0, "hashed-vector similarity over governed candidate set"))
         return _rank(hits)
@@ -216,11 +334,13 @@ class KnowledgeRetrievalRuntime:
         full_text: FullTextProvider,
         vector: VectorProvider,
         reranker: Reranker | None = None,
+        source_repository: SourceRepository | None = None,
     ) -> None:
         self.store = store
         self.full_text = full_text
         self.vector = vector
         self.reranker = reranker
+        self.source_repository = source_repository
 
     def retrieve(self, query: RuntimeQuery) -> ContextPacket:
         started = time.perf_counter()
@@ -250,6 +370,8 @@ class KnowledgeRetrievalRuntime:
                 "freshness": query.freshness.value if query.freshness else None,
                 "include_stale": query.include_stale,
                 "include_archived": query.include_archived,
+                "min_evidence_confidence": query.min_evidence_confidence,
+                "version": query.version,
                 "knowledge_type": query.knowledge_type.value if query.knowledge_type else None,
             },
         )
@@ -264,6 +386,10 @@ class KnowledgeRetrievalRuntime:
             if query.freshness and item.freshness != query.freshness:
                 continue
             if query.knowledge_type and item.type != query.knowledge_type:
+                continue
+            if query.min_evidence_confidence is not None and item.evidence_confidence < query.min_evidence_confidence:
+                continue
+            if query.version and item.version != query.version:
                 continue
             if item.access_scope not in query.principal.access_scopes:
                 if not (item.access_scope == AccessScope.PROJECT and item.project in query.principal.projects):
@@ -289,6 +415,10 @@ class KnowledgeRetrievalRuntime:
             warnings.append("ai_inference_not_authoritative_fact")
         if item.status not in {KnowledgeStatus.VALIDATED, KnowledgeStatus.INDEXED}:
             warnings.append("not_validated")
+        if item.type in {KnowledgeType.PROMPT, KnowledgeType.INSTRUCTION}:
+            warnings.append("source_content_not_agent_instruction")
+        if self.source_repository and not self.source_repository.item_source_exists(item.source_id):
+            warnings.append("source_record_missing")
         return ExplainableResult(
             item_id=item.id,
             title=item.title,
@@ -323,6 +453,7 @@ def load_phase_2_5_runtime(corpus: Path) -> KnowledgeRetrievalRuntime:
         PrototypeFullTextProvider(),
         PrototypeVectorProvider(),
         GovernanceReranker(),
+        JsonManifestSourceRepository(corpus.resolve().parents[2]),
     )
 
 
@@ -391,3 +522,7 @@ def _fuse_rrf(rankings: Iterable[list[RetrievalHit]], k: int = 60) -> list[Retri
         for item_id, score in scores.items()
     ]
     return _rank(fused)
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
