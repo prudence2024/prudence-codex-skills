@@ -19,14 +19,26 @@ from .validation import (
 )
 
 _FIRST_PARTY = {
+    "ai-assisted-engineering",
+    "context-engineering",
     "design-toolkit",
-    "visibility",
+    "ecommerce-engineering",
+    "incident-response",
+    "knowledge-graphs",
+    "legal-business",
+    "memory-engineering",
+    "motion-interaction",
+    "package-intelligence",
+    "post-production",
+    "research-intelligence",
     "security",
     "session-security",
-    "legal-business",
-    "incident-response",
     "support-triage",
-    "post-production",
+    "system-breaker",
+    "three-d-web",
+    "visibility",
+    "voice-audio",
+    "website-generation",
 }
 
 _DOCUMENTS = (
@@ -183,3 +195,4 @@ def validate_integration(root: Path) -> dict[str, Any]:
         report["summary"]["status"] = "fail"
         report["errors"].extend(issue.message for issue in report_issues)
     return report
+

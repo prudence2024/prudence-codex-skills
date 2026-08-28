@@ -1,0 +1,4 @@
+interface:
+  display_name: System Breaker
+  short_description: Primary adversarial engineering methodology for owned or authorized systems. Use when Codex needs to question assumptions, break safely, verify, fix, retest, harden, or produce evidence-backed engineering validation.
+  default_prompt: Use this skill to handle the requested system breaker work with evidence, provenance, and clear boundaries.

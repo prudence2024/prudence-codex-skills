@@ -1,7 +1,218 @@
 {
-  "generated_at": "2026-07-30T19:09:48.591106+00:00",
+  "generated_at": "2026-08-26T17:39:46.778185+00:00",
   "schema_version": 1,
   "skills": [
+    {
+      "category": "engineering",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "system-breaker",
+          "security",
+          "design-toolkit"
+        ],
+        "required": []
+      },
+      "description": "Guide AI-assisted software development, review, planning, verification, and context use. Use when Codex needs to decompose requirements, manage agent output, detect hallucinated code, or turn AI confidence into engineering evidence.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "ai-assisted-engineering",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "AI Assisted Engineering",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Help agents and humans use AI coding assistance without confusing plausible output for verified engineering work.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "ai-assisted-engineering-run"
+      },
+      "responsibilities": [
+        "Turn vague requests into testable engineering claims.",
+        "Review AI output against repository architecture and user intent.",
+        "Require concrete evidence before accepting generated code, explanations, or tests.",
+        "Document assumptions, checked evidence, and untested areas."
+      ],
+      "scope": {
+        "excludes": [
+          "Provider-specific OpenAI, Gemini, Claude, or IDE setup instructions unless supplied by the current task.",
+          "General package selection, which belongs to Package Intelligence."
+        ],
+        "includes": [
+          "Requirement decomposition, implementation planning, review, verification, regression testing, and context management for AI-generated work.",
+          "Assumption identification, hallucination detection, architectural verification, and AI-generated code review.",
+          "Evidence standards that distinguish model confidence from tests, runtime behavior, and source-backed facts."
+        ]
+      },
+      "source_path": "ai-assisted-engineering",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "category": "knowledge",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "memory-engineering",
+          "knowledge-graphs",
+          "ai-assisted-engineering"
+        ],
+        "required": []
+      },
+      "description": "Construct, prioritize, compress, refresh, and hand off task context for AI agents. Use when Codex needs the right project, task, file, evidence, and instruction context rather than simply more context.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "context-engineering",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "Context Engineering",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Give agents relevant, fresh, bounded context for long-running and multi-agent engineering work.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "context-engineering-run"
+      },
+      "responsibilities": [
+        "Separate instructions from source material and evidence.",
+        "Select context by decision impact, freshness, and provenance.",
+        "Compress without losing constraints, assumptions, and open risks.",
+        "Prepare handoffs that preserve uncertainty and next actions."
+      ],
+      "scope": {
+        "excludes": [
+          "Durable memory storage and retrieval policy, which belongs to Memory Engineering.",
+          "Knowledge graph modeling, which belongs to Knowledge Graphs."
+        ],
+        "includes": [
+          "Task context, project context, relevant-file selection, compression, prioritization, freshness, contamination control, and handoff.",
+          "Instruction hierarchy and source separation for user requests, repo instructions, documents, tool output, and memories."
+        ]
+      },
+      "source_path": "context-engineering",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
     {
       "category": "design",
       "context": {
@@ -127,6 +338,112 @@
         "Validate relevant responsive, accessibility, form, failure-state, progressive-enhancement, browser, motion, performance, maintainability, and consistency checks.",
         "Validate Shared Context writes and the standardized report.",
         "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "category": "commerce",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "security",
+          "system-breaker",
+          "incident-response",
+          "support-triage"
+        ],
+        "required": []
+      },
+      "description": "Design, implement, or audit e-commerce, CMS, checkout, payment, inventory, order, coupon, refund, media, email, and transaction flows. Use when Codex needs commerce-specific engineering beyond generic security, especially price authority, idempotency, failure states, and concurrency.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "ecommerce-engineering",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "E-Commerce Engineering",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Make commerce flows server-authoritative, auditable, resilient, and safe under failure and concurrency.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "ecommerce-engineering-run"
+      },
+      "responsibilities": [
+        "Treat browser totals and success screens as untrusted.",
+        "Define order/payment/inventory state machines and idempotency keys.",
+        "Test duplicate, delayed, failed, abandoned, and concurrent flows.",
+        "Preserve customer data isolation and admin authorization boundaries."
+      ],
+      "scope": {
+        "excludes": [
+          "General security review unless commerce-specific risk is being assessed.",
+          "Provider-specific payment test execution unless credentials and authorization are supplied."
+        ],
+        "includes": [
+          "Product catalogs, carts, checkout, payment integration, verification, webhooks, idempotency, inventory, orders, refunds, coupons, admin CMS, accounts, media, email, transaction records, failure states, and concurrency.",
+          "Server authority for prices, totals, discounts, inventory, and order state."
+        ]
+      },
+      "source_path": "ecommerce-engineering",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
       ],
       "version": "1.0.0"
     },
@@ -258,6 +575,111 @@
       "version": "1.0.0"
     },
     {
+      "category": "knowledge",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "memory-engineering",
+          "context-engineering",
+          "research-intelligence"
+        ],
+        "required": []
+      },
+      "description": "Model and use entity-relationship knowledge for agent systems. Use when Codex needs graph memory, temporal relationships, provenance-aware retrieval, or to evaluate graph technologies without hard-coding ADE to one implementation.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "knowledge-graphs",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "Knowledge Graphs",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Represent relationships and temporal facts when graph structure improves retrieval and reasoning.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "knowledge-graphs-run"
+      },
+      "responsibilities": [
+        "Decide whether graph structure is warranted by the task.",
+        "Preserve provenance, time, confidence, and contradiction records.",
+        "Avoid treating graph retrieval as proof.",
+        "Keep implementation choices reversible until architecture is approved."
+      ],
+      "scope": {
+        "excludes": [
+          "Installing or operating a graph database unless explicitly requested.",
+          "General durable memory policy, which belongs to Memory Engineering."
+        ],
+        "includes": [
+          "Entities, relationships, temporal information, graph retrieval, contextual relationships, integration patterns, limitations, and implementation-neutral technology evaluation.",
+          "Graphiti as one possible implementation option, not a fixed architectural commitment."
+        ]
+      },
+      "source_path": "knowledge-graphs",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
+    {
       "category": "legal-business",
       "context": {
         "reads": [
@@ -378,6 +800,320 @@
         "Validate fact provenance, unresolved placeholders, cross-document consistency, review markers, versions, and approval state.",
         "Validate Shared Context writes, specialist handoffs, and the standardized report.",
         "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "category": "knowledge",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "context-engineering",
+          "knowledge-graphs",
+          "security"
+        ],
+        "required": []
+      },
+      "description": "Design, audit, or reason about AI memory systems. Use when Codex needs to distinguish knowledge, memory, and context; manage durable or project memory; handle stale, conflicting, private, or unnecessary memories.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "memory-engineering",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "Memory Engineering",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Make memory useful, attributable, privacy-aware, and safe to update or forget.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "memory-engineering-run"
+      },
+      "responsibilities": [
+        "Record why a memory exists and where it came from.",
+        "Prefer retrieving relevant memory over loading everything.",
+        "Detect stale or conflicting memory before acting on it.",
+        "Avoid storing unnecessary, sensitive, or unverifiable information."
+      ],
+      "scope": {
+        "excludes": [
+          "Immediate prompt/context packing, which belongs to Context Engineering.",
+          "Graph-specific modeling, which belongs to Knowledge Graphs."
+        ],
+        "includes": [
+          "Short-term working memory, project memory, durable memory, retrieval, relevance, decay, conflicts, provenance, update, deletion, and privacy.",
+          "Clear boundaries between knowledge, memory, and context."
+        ]
+      },
+      "source_path": "memory-engineering",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "category": "design",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "design-toolkit",
+          "package-intelligence"
+        ],
+        "required": []
+      },
+      "description": "Design and verify purposeful web motion and interaction. Use when Codex needs Framer Motion, CSS animation, transitions, micro-interactions, page or scroll interactions, reduced-motion support, and performance-aware motion decisions.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "motion-interaction",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "Motion Interaction",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Make motion expressive, accessible, performant, and tied to interface meaning.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "motion-interaction-run"
+      },
+      "responsibilities": [
+        "Define the job of each motion choice before implementation.",
+        "Preserve reduced-motion and critical workflow usability.",
+        "Test layout stability, jank, hydration, viewport, and keyboard impact.",
+        "Keep tool details modular and source-aware."
+      ],
+      "scope": {
+        "excludes": [
+          "General visual design ownership already covered by Design Toolkit.",
+          "Adding animation libraries without Package Intelligence when adoption risk matters."
+        ],
+        "includes": [
+          "Framer Motion, CSS animation, transitions, micro-interactions, page transitions, scroll interaction, reduced-motion behavior, and performance.",
+          "Tool-specific guidance that can be updated modularly."
+        ]
+      },
+      "source_path": "motion-interaction",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "category": "engineering",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "research-intelligence",
+          "security",
+          "design-toolkit"
+        ],
+        "required": []
+      },
+      "description": "Evaluate tools, libraries, SDKs, and packages before adoption. Use when Codex needs to decide whether to install or use a package based on need, existing solutions, docs, maintenance, compatibility, security, license, performance, install, and tests.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "package-intelligence",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "Package Intelligence",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Make package adoption deliberate, evidence-backed, compatible, and reversible.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "package-intelligence-run"
+      },
+      "responsibilities": [
+        "Start from the problem and existing project stack.",
+        "Prefer official documentation and maintained packages.",
+        "Check compatibility, license, security, size, performance, and operational cost.",
+        "Validate actual install, import, build, and representative runtime behavior when adopted."
+      ],
+      "scope": {
+        "excludes": [
+          "Installing every mentioned package.",
+          "Security deep dives beyond package adoption risks; hand off to Security."
+        ],
+        "includes": [
+          "Need analysis, existing-solution checks, package search, official documentation, maintenance, compatibility, security, license, performance, decision, install, and testing.",
+          "Framework-specific modular guidance for packages such as Framer Motion, Three.js, React Three Fiber, Drei, shadcn/ui, Tailwind, AI, voice, and deployment tools."
+        ]
+      },
+      "source_path": "package-intelligence",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
       ],
       "version": "1.0.0"
     },
@@ -504,6 +1240,111 @@
         "Validate specialist provenance, coverage, single ownership, environment identity, scoring formula, conflicts, and handoffs.",
         "Validate baseline and final matrices, changed artifacts, affected-check reruns, Shared Context writes, and standardized reporting.",
         "Validate registry freshness and run the full repository test suite."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "category": "research",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "package-intelligence",
+          "context-engineering",
+          "knowledge-graphs"
+        ],
+        "required": []
+      },
+      "description": "Plan, conduct, and promote evidence-backed current research. Use when Codex needs web, official-docs, GitHub, package, or trend research with source quality, freshness, conflicts, citations, provenance, and confidence.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "research-intelligence",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "Research Intelligence",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Convert discovery into verified, source-aware knowledge without treating search results as truth.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "research-intelligence-run"
+      },
+      "responsibilities": [
+        "Prefer primary sources for technical facts and current official behavior.",
+        "Record freshness, authority, confidence, and conflicts.",
+        "Distinguish discovery from truth and source claims from agent inference.",
+        "Promote durable knowledge only after validation and provenance capture."
+      ],
+      "scope": {
+        "excludes": [
+          "Final legal, medical, or financial advice.",
+          "Package adoption decisions after research, which belong to Package Intelligence."
+        ],
+        "includes": [
+          "Web, official documentation, GitHub, package, trend, and conflicting-source research.",
+          "Source quality, freshness, evidence collection, citation, provenance, confidence, and research-to-skill promotion."
+        ]
+      },
+      "source_path": "research-intelligence",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
       ],
       "version": "1.0.0"
     },
@@ -886,6 +1727,221 @@
       "version": "1.0.0"
     },
     {
+      "category": "engineering",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "security",
+          "session-security",
+          "incident-response",
+          "support-triage"
+        ],
+        "required": []
+      },
+      "description": "Primary adversarial engineering methodology for owned or authorized systems. Use when Codex needs to question assumptions, break safely, verify, fix, retest, harden, or produce evidence-backed engineering validation.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "system-breaker",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "System Breaker",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Make adversarial verification a reusable engineering capability for owned or explicitly authorized systems.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "system-breaker-run"
+      },
+      "responsibilities": [
+        "Read architecture and define what must not change before testing.",
+        "List assumptions and map each to a safe break attempt.",
+        "Classify evidence and severity without overstating code inspection.",
+        "Verify fixes by retesting the original failure and relevant regressions.",
+        "Stop for owner approval before destructive, production-active, privacy-sensitive, money-moving, or unauthorized tests."
+      ],
+      "scope": {
+        "excludes": [
+          "Unauthorized testing, exploit development, destructive production activity, or high-volume traffic.",
+          "General security ownership already covered by Security unless adversarial verification is the requested mode.",
+          "Incident command, public communication, and legal interpretation."
+        ],
+        "includes": [
+          "Assumption extraction and failure-state testing.",
+          "Controlled invalid-input, auth/RBAC, IDOR, upload, dependency, concurrency, API, database, network, configuration, and third-party failure checks.",
+          "Reproduction, root-cause analysis, fix verification, regression testing, evidence classification, and severity assessment.",
+          "E-commerce integrity checks for cart, price, inventory, order, payment, webhook, CMS, upload, and customer-data boundaries."
+        ]
+      },
+      "source_path": "system-breaker",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "category": "design",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "design-toolkit",
+          "package-intelligence",
+          "motion-interaction"
+        ],
+        "required": []
+      },
+      "description": "Plan, build, or audit web 3D experiences with Three.js, React Three Fiber, Drei, and WebGL concepts. Use when Codex needs scene composition, camera, lighting, materials, interaction, performance, responsive 3D, accessibility, progressive enhancement, or deciding when not to use 3D.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "three-d-web",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "3D Web",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Use 3D on the web when it improves the experience and can be verified across devices.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "three-d-web-run"
+      },
+      "responsibilities": [
+        "Decide whether 3D serves the product, user, and device constraints.",
+        "Use proven 3D libraries for established 3D behavior.",
+        "Verify nonblank rendering, framing, interaction, performance, fallback, and reduced-motion behavior.",
+        "Keep accessible alternatives for essential content."
+      ],
+      "scope": {
+        "excludes": [
+          "General design-system work covered by Design Toolkit.",
+          "Package adoption without Package Intelligence."
+        ],
+        "includes": [
+          "Three.js, React Three Fiber, Drei, WebGL concepts, scene composition, camera, lighting, materials, interaction, performance, responsive behavior, accessibility, and progressive enhancement.",
+          "Decision criteria for when 3D is unnecessary or harmful."
+        ]
+      },
+      "source_path": "three-d-web",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
+    {
       "category": "visibility",
       "context": {
         "reads": [
@@ -1020,6 +2076,219 @@
       "version": "1.0.0"
     },
     {
+      "category": "ai",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "research-intelligence",
+          "package-intelligence",
+          "security"
+        ],
+        "required": []
+      },
+      "description": "Evaluate and plan voice and audio capabilities. Use when Codex needs speech-to-text, text-to-speech, AI voice-over, voice interfaces, open-source voice models, local inference, API voice services, latency, hardware, privacy, or licensing guidance without locking into one provider.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "voice-audio",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "Voice Audio",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Make voice/audio choices evidence-backed, privacy-aware, and provider-neutral until requirements justify a provider.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "voice-audio-run"
+      },
+      "responsibilities": [
+        "Clarify interaction, latency, privacy, budget, language, device, and licensing constraints.",
+        "Compare local and API-based approaches using current source evidence.",
+        "Keep audio data handling explicit and minimal.",
+        "Validate representative transcription, synthesis, latency, fallback, and consent flows."
+      ],
+      "scope": {
+        "excludes": [
+          "Provider-specific implementation without current official documentation and user approval.",
+          "Recording or processing private audio without explicit authorization."
+        ],
+        "includes": [
+          "Speech-to-text, text-to-speech, AI voice-over, voice interfaces, open-source models, local inference, API services, latency, hardware, privacy, and licensing."
+        ]
+      },
+      "source_path": "voice-audio",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "category": "design",
+      "context": {
+        "reads": [
+          "project",
+          "goals",
+          "constraints",
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs"
+        ],
+        "writes": [
+          "state.facts",
+          "state.assumptions",
+          "state.uncertainties",
+          "decisions",
+          "artifacts",
+          "risks",
+          "skill_runs",
+          "handoff"
+        ]
+      },
+      "dependencies": {
+        "optional": [
+          "design-toolkit",
+          "visibility",
+          "security",
+          "post-production",
+          "three-d-web",
+          "motion-interaction"
+        ],
+        "required": []
+      },
+      "description": "Analyze references and requirements to create original, production-quality websites. Use when Codex needs reference decomposition, design extraction, component architecture, design-to-code, responsive implementation, visual QA, authorized recreation, design-system extraction, mockup generation, visual regression, or quality evaluation.",
+      "extension_points": [
+        "source-adapters",
+        "decision-records",
+        "validation-checks",
+        "report-sections"
+      ],
+      "id": "website-generation",
+      "inputs": [
+        {
+          "description": "Versioned project facts, goals, constraints, decisions, artifacts, risks, and prior skill runs.",
+          "id": "project-context",
+          "schema": "ecosystem/schemas/shared-context.json"
+        },
+        {
+          "description": "The user's current request and any explicit constraints or authorization.",
+          "id": "request"
+        },
+        {
+          "description": "Relevant source files, runtime output, documents, research sources, screenshots, logs, or prior decisions.",
+          "id": "evidence"
+        }
+      ],
+      "name": "Website Generation",
+      "outputs": [
+        {
+          "description": "Selected approach, alternatives, assumptions, risks, trade-offs, evidence, uncertainty, and handoffs.",
+          "id": "decision"
+        },
+        {
+          "description": "Standardized evidence-backed skill-run report.",
+          "id": "validation-report",
+          "schema": "ecosystem/schemas/report.json"
+        },
+        {
+          "description": "Attributable Shared Context additions and handoff.",
+          "id": "context-update",
+          "schema": "ecosystem/schemas/shared-context.json"
+        }
+      ],
+      "purpose": "Guide sophisticated website creation from requirements and authorized references without cloning protected expression.",
+      "read_only": false,
+      "reporting": {
+        "report_type": "website-generation-run"
+      },
+      "responsibilities": [
+        "Extract principles, not protected layouts or assets, unless explicitly authorized.",
+        "Map requirements to component architecture and responsive behavior.",
+        "Use visual QA and regression evidence before claiming quality.",
+        "Hand off visibility, security, performance, and deployment concerns to owning skills."
+      ],
+      "scope": {
+        "excludes": [
+          "Autonomous website generator runtime implementation.",
+          "SEO ownership, which belongs to Visibility.",
+          "Security and production readiness ownership, which belong to Security and Post Production."
+        ],
+        "includes": [
+          "Website analysis, reference decomposition, reusable design principles, component architecture, design-to-code, responsive implementation, visual QA, design-system extraction, mockups, visual regression, and quality evaluation.",
+          "Authorized reference recreation boundaries and originality requirements."
+        ]
+      },
+      "source_path": "website-generation",
+      "status": "stable",
+      "upstream": false,
+      "validation": [
+        "Validate SKILL.md frontmatter, agent metadata, manifest identity, and declared file paths.",
+        "Validate registry freshness and run the repository test suite after material changes.",
+        "Verify representative behavior, evidence, or decision records appropriate to the request."
+      ],
+      "version": "1.0.0"
+    },
+    {
       "description": "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas.",
       "id": "imagegen",
       "name": "imagegen",
@@ -1029,7 +2298,7 @@
       "upstream": true
     },
     {
-      "description": "Use when the user asks how to build with OpenAI products or APIs, asks about Codex itself or choosing Codex surfaces, needs up-to-date official documentation with citations, help choosing the latest model for a use case, latest/current/default-model prompting guidance, or model upgrade and prompt-upgrade guidance; use OpenAI docs MCP tools for non-Codex docs questions, use the Codex manual helper first for broad Codex self-knowledge, and restrict fallback browsing to official OpenAI domains.",
+      "description": "Use for Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, customization, automations, and self-knowledge—including 'you,' 'your,' 'this app,' or 'this coding agent' when they refer to Codex—and for OpenAI APIs/products and ChatGPT Work. Also use for model choice/migration, prompting, SDKs, Responses, Realtime, agents, evals, and Chat/Work/Codex comparisons. Do not use for generic app/software tasks that merely mention Codex.",
       "id": "openai-docs",
       "name": "openai-docs",
       "read_only": true,
@@ -1056,7 +2325,7 @@
       "upstream": true
     },
     {
-      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations.",
+      "description": "Create or update a Codex skill with appropriately scoped instructions and any needed supporting resources.",
       "id": "skill-creator",
       "name": "skill-creator",
       "read_only": true,

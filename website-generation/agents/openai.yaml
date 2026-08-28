@@ -1,0 +1,4 @@
+interface:
+  display_name: Website Generation
+  short_description: Analyze references and requirements to create original, production-quality websites. Use when Codex needs reference decomposition, design extraction, component architecture, design-to-code, responsive implementation, visual QA, authorized recreation, design-system extraction, mockup generation, visual regression, or quality evaluation.
+  default_prompt: Use this skill to handle the requested website generation work with evidence, provenance, and clear boundaries.

@@ -1,0 +1,4 @@
+interface:
+  display_name: AI Assisted Engineering
+  short_description: Guide AI-assisted software development, review, planning, verification, and context use. Use when Codex needs to decompose requirements, manage agent output, detect hallucinated code, or turn AI confidence into engineering evidence.
+  default_prompt: Use this skill to handle the requested ai assisted engineering work with evidence, provenance, and clear boundaries.

@@ -1,0 +1,4 @@
+interface:
+  display_name: Motion Interaction
+  short_description: Design and verify purposeful web motion and interaction. Use when Codex needs Framer Motion, CSS animation, transitions, micro-interactions, page or scroll interactions, reduced-motion support, and performance-aware motion decisions.
+  default_prompt: Use this skill to handle the requested motion interaction work with evidence, provenance, and clear boundaries.

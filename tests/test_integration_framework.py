@@ -24,5 +24,6 @@ def test_all_first_party_skills_are_stable_and_upstream_is_read_only(repository_
         item for item in report["validation_results"] if item["name"] == "skill-inventory"
     )
     assert inventory["status"] == "pass"
-    assert "First-party skills: 8" in inventory["evidence"]
+    assert "First-party skills: 20" in inventory["evidence"]
     assert "Read-only upstream skills: 6" in inventory["evidence"]
+

@@ -1,0 +1,4 @@
+interface:
+  display_name: Context Engineering
+  short_description: Construct, prioritize, compress, refresh, and hand off task context for AI agents. Use when Codex needs the right project, task, file, evidence, and instruction context rather than simply more context.
+  default_prompt: Use this skill to handle the requested context engineering work with evidence, provenance, and clear boundaries.

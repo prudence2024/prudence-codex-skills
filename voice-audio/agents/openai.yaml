@@ -1,0 +1,4 @@
+interface:
+  display_name: Voice Audio
+  short_description: Evaluate and plan voice and audio capabilities. Use when Codex needs speech-to-text, text-to-speech, AI voice-over, voice interfaces, open-source voice models, local inference, API voice services, latency, hardware, privacy, or licensing guidance without locking into one provider.
+  default_prompt: Use this skill to handle the requested voice audio work with evidence, provenance, and clear boundaries.

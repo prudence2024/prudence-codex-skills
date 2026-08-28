@@ -1,0 +1,4 @@
+interface:
+  display_name: 3D Web
+  short_description: Plan, build, or audit web 3D experiences with Three.js, React Three Fiber, Drei, and WebGL concepts. Use when Codex needs scene composition, camera, lighting, materials, interaction, performance, responsive 3D, accessibility, progressive enhancement, or deciding when not to use 3D.
+  default_prompt: Use this skill to handle the requested 3d web work with evidence, provenance, and clear boundaries.

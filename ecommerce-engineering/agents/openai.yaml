@@ -1,0 +1,4 @@
+interface:
+  display_name: E-Commerce Engineering
+  short_description: Design, implement, or audit e-commerce, CMS, checkout, payment, inventory, order, coupon, refund, media, email, and transaction flows. Use when Codex needs commerce-specific engineering beyond generic security, especially price authority, idempotency, failure states, and concurrency.
+  default_prompt: Use this skill to handle the requested e-commerce engineering work with evidence, provenance, and clear boundaries.

@@ -1,0 +1,4 @@
+interface:
+  display_name: Research Intelligence
+  short_description: Plan, conduct, and promote evidence-backed current research. Use when Codex needs web, official-docs, GitHub, package, or trend research with source quality, freshness, conflicts, citations, provenance, and confidence.
+  default_prompt: Use this skill to handle the requested research intelligence work with evidence, provenance, and clear boundaries.

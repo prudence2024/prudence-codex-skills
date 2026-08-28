@@ -1,0 +1,4 @@
+interface:
+  display_name: Memory Engineering
+  short_description: Design, audit, or reason about AI memory systems. Use when Codex needs to distinguish knowledge, memory, and context; manage durable or project memory; handle stale, conflicting, private, or unnecessary memories.
+  default_prompt: Use this skill to handle the requested memory engineering work with evidence, provenance, and clear boundaries.

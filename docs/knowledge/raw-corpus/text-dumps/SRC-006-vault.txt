@@ -1,0 +1,1282 @@
+Module 1: Your App's Attack Surface — Study Guide
+Matt Murphy
+💎
+Module 1: Your App’s Attack Surface
+Frontend Security for AI Directed Engineers
+
+This is the study guide. Everything for Your App's Attack Surface is on this page — there's nothing to download.
+
+What This Module Covers
+This module covers the attack surface of your AI-built application—every point where an attacker can interact with your product and try to break in. Your frontend is the most exposed part of your stack. It runs in the user’s browser where anyone can inspect it, modify it, and probe it for weaknesses. Client-side secrets, unvalidated inputs, clickjackable iframes, cross-site scripting injection points, and exposed API endpoints are all visible to anyone who opens their browser’s developer tools. Your AI coding tool builds fast. It ships features in hours. But speed creates blind spots. AI tools don’t audit their own output for security vulnerabilities unless you explicitly tell them to. A login form that looks correct might accept script injection. A dashboard that works perfectly might expose admin API routes in the client-side JavaScript bundle. An image upload feature might accept executable files. Every feature your AI builds is a potential entry point for an attacker—and your job as the AI Directed Engineer is to know where to look.
+
+Why It Matters
+Attackers don’t start with your database. They start with what they can see: your frontend. They view your page source. They inspect your API calls in the network tab. They read your JavaScript bundle for hardcoded keys and hidden endpoints. They test your forms with malicious input. They try to iframe your pages. Every piece of information your frontend exposes—intentionally or accidentally—gives an attacker a map of how to get deeper into your system. The builders in this community ship AI-built applications to real users. Those users trust that the application protects their data. Understanding your attack surface is the first step in honoring that trust. You can’t secure what you can’t see, and this module teaches you to see what attackers see.
+
+Module Certification Goal
+You can identify the attack surface of an AI-built web application—exposed endpoints, client-side secrets, injection points, and clickjacking risks—direct your AI tool to remediate each vulnerability, and verify that the fixes actually close the gaps without breaking functionality.
+
+What You Need to Know
+What is an attack surface: Your attack surface is every point where an unauthorized user can attempt to interact with your system. Forms, API endpoints, file upload handlers, URL parameters, cookies, and client-side storage are all part of it. The larger your attack surface, the more opportunities an attacker has. Reducing it means removing unnecessary exposure—endpoints that don’t need to be public, features that don’t need to accept user input, and data that doesn’t need to be in the browser.
+
+Client-side secrets exposure: AI tools frequently hardcode API keys, database connection strings, and service credentials in frontend code. These are visible to anyone who views the page source or inspects the JavaScript bundle. Your AI built the feature—you need to audit where it stored the credentials. Secrets belong in server-side environment variables, never in client-side code.
+
+Cross-Site Scripting (XSS): XSS occurs when your application renders user-supplied content without sanitizing it. If a user can submit a comment containing a script tag and that script executes when other users view the page, the attacker can steal session tokens, redirect users, or modify what they see. AI-generated code often renders dynamic content without proper escaping—this is one of the most common vulnerabilities in AI-built applications.
+
+Clickjacking and iframe protection: Clickjacking tricks users into clicking something different from what they see by overlaying your application inside a transparent iframe on the attacker’s page. The user thinks they’re clicking a button on a legitimate site but they’re actually interacting with your application. The X-Frame-Options header and Content Security Policy frame-ancestors directive prevent this.
+
+Exposed API routes in client bundles: When your AI builds a frontend, it often includes references to every API endpoint in the client-side JavaScript—including admin routes that should never be visible to regular users. An attacker reads your bundle and discovers endpoints like /api/admin/users or /api/internal/export that the UI doesn’t show but the browser can still call.
+
+Your Toolkit
+AI coding tool (pick one): Cursor, Lovable, Bolt, Claude Code—direct it to audit your frontend for exposed secrets, XSS vulnerabilities, and unnecessary API exposure.
+
+Browser developer tools: Chrome DevTools Network tab to see every API call your frontend makes, Sources tab to inspect your JavaScript bundle, and Application tab to check what’s in cookies and local storage.
+
+Security scanner: OWASP ZAP or Burp Suite Community Edition to automatically probe your application for common vulnerabilities. Run these against your staging environment.
+
+Content Security Policy evaluator: CSP Evaluator (csp-evaluator.withgoogle.com) to check whether your Content Security Policy headers actually protect against XSS and clickjacking.
+
+Certification Exam Topics
+Every exam question is scenario-based. You’ll see a situation and need to identify what’s right, what’s wrong, or what to do next. Here’s what gets tested:
+
+Attack surface identification: Can you identify every point where an attacker can interact with your application and evaluate which ones need to be locked down?
+
+Client-side secret detection: Can you find API keys and credentials exposed in frontend code and know where they should be stored instead?
+
+XSS vulnerability recognition: Can you identify when user input is rendered without sanitization and know what remediation to direct your AI to implement?
+
+Clickjacking prevention: Can you evaluate whether your application is protected against iframe-based clickjacking attacks through proper headers?
+
+API route exposure: Can you audit your client-side bundle for references to internal API endpoints that should not be discoverable by regular users?
+
+Input validation: Can you assess whether all user-facing forms properly validate and sanitize input before processing it on the server?
+
+Security header configuration: Can you evaluate whether your application serves the correct security headers to prevent common browser-based attacks?
+
+Attack surface reduction: Can you identify unnecessary features, endpoints, or data exposure that increase your attack surface without adding user value?
+
+Common Pitfalls
+These are the mistakes vibecoders make most often in this area. No judgment—they’re easy to make. But if you recognize any of them in your own workflow, fix them before sitting for the exam.
+
+Assuming your AI tool wrote secure code by default. AI tools optimize for functionality not security. Every feature needs a security review before it ships to users.
+
+Storing API keys in frontend JavaScript because the AI put them there. Client-side secrets are visible to every user. Move them to server-side environment variables.
+
+Rendering user-submitted content without sanitization. If a user can submit HTML or JavaScript and it renders on the page, you have an XSS vulnerability.
+
+Not setting security headers because the application works without them. Security headers prevent entire categories of attacks. Working without them just means you haven’t been attacked yet.
+
+Leaving debug endpoints active in production. Your AI may have created /api/debug or /api/test routes during development. If they’re still accessible in production, they’re part of your attack surface.
+
+Not inspecting your own JavaScript bundle. If you don’t look at what your build process produces, you don’t know what secrets and routes you’re shipping to every browser that loads your application.
+
+Self-Assessment Checklist
+Before you take the exam, run through these questions. Every “no” is something to work on.
+
+Have you opened your browser’s DevTools and inspected every API call your frontend makes to understand your full attack surface?
+
+Have you searched your client-side JavaScript bundle for API keys, tokens, or credentials that should be server-side only?
+
+Does your application sanitize all user input before rendering it on any page?
+
+Are X-Frame-Options and Content Security Policy headers set to prevent clickjacking?
+
+Have you removed or locked down all debug and test endpoints in production?
+
+Can you list every form, API endpoint, and file upload handler that accepts external input in your application?
+
+Have you run a security scanner against your staging environment in the last 30 days?
+
+AI Audit Prompt Template
+Copy this prompt into your AI coding tool to get a quick health check. It checks the same things the certification exam covers.
+
+Review my application’s frontend attack surface and check the following. For each one, tell me pass or fail with a specific example: Client-side secrets: Are any API keys, tokens, or credentials visible in the frontend JavaScript bundle or page source? XSS protection: Is all user-submitted content sanitized before rendering? Clickjacking: Are X-Frame-Options and CSP frame-ancestors headers configured? API exposure: Are internal or admin API routes discoverable in the client bundle? Input validation: Do all forms validate and sanitize input server-side? Security headers: Are CSP, HSTS, X-Content-Type-Options, and Referrer-Policy set? Give me an overall score out of 6 and list the top 3 things to fix first.
+
+What’s Next
+Once you can answer yes to the self-assessment checklist, you’re ready for the Module 1 exam. The best way to prepare: open your own application in Chrome DevTools. Inspect the Network tab. Read your JavaScript bundle. Search for hardcoded strings. Try submitting script tags in every form. Every vulnerability you find in your own app is exactly what the exam tests.
+
+Module 2: API Security Basics — Study Guide
+Matt Murphy
+💎
+Module 2: API Security Basics
+Backend Security for AI Directed Engineers
+
+This is the study guide. Everything for API Security Basics is on this page — there's nothing to download.
+
+What This Module Covers
+This module covers the security of your API endpoints—the backend routes that your frontend calls and that attackers will call directly. Your API is the real target. While Module 1 covered what attackers see from the frontend, this module covers what happens when they start making requests to your backend. Insecure API endpoints are the most exploited vulnerability in modern web applications. Missing authentication on routes, broken object-level authorization that lets users access other users' data, mass assignment that lets attackers modify fields they shouldn't, and rate limiting gaps that allow brute force attacks—these are the vulnerabilities that lead to data breaches. Your AI coding tool creates API routes quickly. It builds CRUD endpoints in minutes. But it often creates routes without authentication checks, returns more data than the client needs, accepts more fields than it should, and doesn't validate who is requesting what. Your job is to audit every route your AI creates and ensure it answers three questions: Who is making this request? Are they allowed to? Are they only getting what they should?
+
+Why It Matters
+A single unprotected API endpoint can expose your entire database. If /api/users/123 returns user data and your API doesn't verify that the requesting user IS user 123, an attacker can iterate through every user ID and download your entire user table. This is called Broken Object-Level Authorization and it's the number one API vulnerability in the OWASP API Security Top 10. AI tools build APIs that work. They return the right data to the right frontend components. But working correctly for the intended user is not the same as being secure against an unintended user. Security means your API works correctly even when someone is actively trying to make it work incorrectly.
+
+Module Certification Goal
+You can audit API endpoints built by your AI tool for authentication gaps, authorization failures, mass assignment vulnerabilities, and excessive data exposure—direct your AI to implement proper controls on every route—and verify that the API rejects unauthorized requests correctly.
+
+What You Need to Know
+Authentication vs. authorization: Authentication verifies who you are (login). Authorization verifies what you can access (permissions). An API that checks authentication but not authorization knows you're logged in but doesn't verify you're allowed to access the specific resource you're requesting. Both checks are required on every protected endpoint.
+
+Broken Object-Level Authorization (BOLA): BOLA occurs when your API lets a user access objects that belong to other users. If GET /api/invoices/456 returns invoice 456 without checking whether the requesting user owns that invoice, any authenticated user can access any invoice by changing the ID. Your AI builds the endpoint to return data—you must add the ownership check.
+
+Mass assignment: Mass assignment occurs when your API accepts more fields than intended. If your user update endpoint accepts any field sent in the request body, an attacker can send {role: 'admin'} and elevate their privileges. Your API should explicitly whitelist which fields each endpoint accepts.
+
+Excessive data exposure: AI-built APIs often return entire database records when the frontend only needs a few fields. An endpoint returning the full user object including password hash, internal notes, and billing details exposes data the client never displays. Return only the fields the frontend actually uses.
+
+Rate limiting and brute force protection: Without rate limiting, an attacker can send thousands of requests per second to your login endpoint trying password combinations, to your API trying different object IDs, or to your signup form creating spam accounts. Rate limiting restricts how many requests a single client can make in a time window.
+
+Your Toolkit
+AI coding tool (pick one): Cursor, Lovable, Bolt, Claude Code—direct it to add authentication checks, authorization validation, and field whitelisting to every API endpoint.
+
+API testing tool: Postman or Insomnia to manually test your endpoints with different authentication states—no token, expired token, other user's token—to verify they reject properly.
+
+OWASP API Security Top 10: The reference checklist for API vulnerabilities. Review each item against your own API endpoints to identify gaps.
+
+Request logging and monitoring: Log every API request with user ID, endpoint, and response code. Unusual patterns (sequential ID enumeration, high request rates) indicate active attacks.
+
+Certification Exam Topics
+Every exam question is scenario-based. You'll see a situation and need to identify what's right, what's wrong, or what to do next. Here's what gets tested:
+
+Authentication enforcement: Can you identify API endpoints that are missing authentication checks and should require a valid session or token?
+
+Object-level authorization: Can you detect when an API returns data that doesn't belong to the requesting user because ownership isn't verified?
+
+Mass assignment prevention: Can you evaluate whether an API endpoint restricts which fields can be modified by the client request?
+
+Data exposure reduction: Can you assess whether API responses include more data than the frontend needs and identify fields that should be excluded?
+
+Rate limiting: Can you evaluate whether critical endpoints like login and signup have rate limiting to prevent brute force attacks?
+
+Input validation: Can you identify when API endpoints accept and process input without validating data types, lengths, and formats?
+
+Error handling security: Can you assess whether API error messages reveal internal system details that help attackers understand your architecture?
+
+HTTP method restriction: Can you verify that API endpoints only respond to the HTTP methods they're designed for and reject unexpected methods?
+
+Common Pitfalls
+These are the mistakes vibecoders make most often in this area. No judgment—they're easy to make. But if you recognize any of them in your own workflow, fix them before sitting for the exam.
+
+Adding authentication to the frontend but not the API. If your React app checks login state before showing a page but the API endpoint returns data without checking the token, the frontend check is meaningless. Attackers call APIs directly.
+
+Using sequential integer IDs for resources without authorization checks. If your invoices are numbered 1, 2, 3... an attacker just increments the ID to access every invoice in your system. Always verify ownership before returning data.
+
+Accepting all fields from the request body because your AI built a generic update handler. If your endpoint runs UPDATE users SET ... with whatever the client sends, an attacker can modify any field including role and permissions.
+
+Returning full database records from every endpoint. Your user profile endpoint doesn't need to return the password hash, API keys, or internal admin notes. Select only the fields the client actually displays.
+
+Not rate limiting your login endpoint. Without rate limiting, an attacker can try millions of password combinations. Even basic rate limiting (10 attempts per minute) makes brute force attacks impractical.
+
+Exposing detailed error messages in production. An error like 'Column users.ssn does not exist' tells an attacker your table name and that you store SSNs. Production errors should be generic to the user and detailed only in server logs.
+
+Self-Assessment Checklist
+Before you take the exam, run through these questions. Every “no” is something to work on.
+
+Does every API endpoint that returns user-specific data verify that the requesting user owns that data?
+
+Are all protected endpoints checking for a valid authentication token before processing the request?
+
+Does your API explicitly whitelist which fields each endpoint accepts for creation and updates?
+
+Do your API responses return only the fields the frontend needs, not full database records?
+
+Is rate limiting active on login, signup, and password reset endpoints?
+
+Have you tested your API with no token, an expired token, and another user's token to verify it rejects all three?
+
+Do production error responses hide internal details like table names, column names, and stack traces?
+
+AI Audit Prompt Template
+Copy this prompt into your AI coding tool to get a quick health check. It checks the same things the certification exam covers.
+
+Review my API endpoints and check the following. For each one, tell me pass or fail with a specific example: Authentication: Do all protected endpoints verify a valid token? Authorization: Do endpoints that return user-specific data verify ownership? Mass assignment: Do update endpoints whitelist accepted fields? Data exposure: Do responses include only necessary fields? Rate limiting: Are login and signup endpoints rate limited? Error handling: Do production errors hide internal system details? Give me an overall score out of 6 and list the top 3 things to fix first.
+
+What's Next
+Once you can answer yes to the self-assessment checklist, you're ready for the Module 2 exam. The best way to prepare: open Postman and call your own API endpoints. Try accessing another user's data by changing the ID. Send extra fields in an update request. Call endpoints without a token. Every gap you find is exactly what the exam tests.
+
+Module 3: Protecting Your Database — Study Guide
+Matt Murphy
+💎
+Module 3: Database Security
+Database Security for AI Directed Engineers
+
+This is the study guide. Everything for Protecting Your Database is on this page — there's nothing to download.
+
+What This Module Covers
+This module covers the security of your database—the place where your most sensitive data lives. Your frontend is what attackers see. Your API is what they probe. Your database is what they want. If they get through the first two layers, the database is the prize. SQL injection remains one of the most common and most devastating attack vectors. A single unsanitized query parameter can let an attacker read, modify, or delete your entire database. Beyond injection, exposed database ports, default credentials, unencrypted data at rest, and overly permissive database users create paths for attackers to access data without going through your application at all. AI tools generate database queries quickly. They build ORMs, write raw SQL, and configure connection strings—often with convenience prioritized over security. Your job is to verify that every query is parameterized, every connection is encrypted, every database user has minimum necessary privileges, and backups are protected as carefully as the production database.
+
+Why It Matters
+A database breach is not a bug to fix. It’s an event that can end a business. Customer data, financial records, personal information, and credentials—once exfiltrated, this data can never be un-stolen. The breach notification costs, legal liability, regulatory fines, and reputation damage compound far beyond the cost of implementing security controls in the first place. Every builder in this community stores user data. That data is a responsibility. Protecting your database isn’t optional—it’s the minimum standard for operating a product that other people trust with their information.
+
+Module Certification Goal
+You can identify database security vulnerabilities in an AI-built application—SQL injection risks, exposed ports, default credentials, unencrypted storage, and overly permissive access—direct your AI to implement proper protections, and verify that your database is secured against both application-layer and network-layer attacks.
+
+What You Need to Know
+SQL injection: SQL injection occurs when user input is concatenated directly into a database query string. If a login form builds the query ‘SELECT * FROM users WHERE email = ‘ + userInput, an attacker can input a string that modifies the query logic—bypassing authentication, extracting data, or deleting tables. Parameterized queries and ORMs prevent this by separating data from query structure.
+
+Parameterized queries and ORMs: Parameterized queries send user input as data values, never as part of the SQL structure. ORMs like Prisma, Drizzle, and SQLAlchemy do this by default when used correctly. But AI tools sometimes generate raw SQL concatenation even when an ORM is available. Audit every database query in your codebase for string concatenation.
+
+Database access credentials: Your application connects to the database with a username and password. If that credential has full admin access, a compromised application gives the attacker full database control. Create a dedicated application user with only the permissions your app needs—SELECT, INSERT, UPDATE on specific tables. Never connect with the database root or admin account.
+
+Encryption at rest: Data at rest means data stored on disk. If an attacker gains access to your database server’s storage—through a cloud misconfiguration, stolen backup, or physical access—unencrypted data is immediately readable. Encryption at rest scrambles the stored data so it’s useless without the decryption key.
+
+Network exposure and port security: Databases should never be directly accessible from the internet. A database listening on a public IP with port 5432 (Postgres) or 3306 (MySQL) open is an invitation. Database connections should only be accepted from your application server’s IP or through a private network.
+
+Your Toolkit
+AI coding tool (pick one): Cursor, Lovable, Bolt, Claude Code—direct it to audit your queries for injection vulnerabilities and implement parameterized queries throughout.
+
+SQL injection testing tool: SQLMap or manual testing through your API with injection payloads. Test every endpoint that accepts user input and passes it to a database query.
+
+Database security scanner: DbProtect, pgAudit for Postgres, or cloud-native database security features. These audit your database configuration for known vulnerabilities.
+
+Network scanning tool: Nmap or cloud security group audit to verify your database ports are not exposed to the public internet.
+
+Certification Exam Topics
+Every exam question is scenario-based. You’ll see a situation and need to identify what’s right, what’s wrong, or what to do next. Here’s what gets tested:
+
+SQL injection identification: Can you recognize when a database query is vulnerable to injection because user input is concatenated rather than parameterized?
+
+Parameterized query verification: Can you evaluate whether your ORM or query builder correctly separates user data from SQL structure in every database operation?
+
+Credential management: Can you assess whether your application uses a least-privilege database user instead of root or admin credentials?
+
+Encryption at rest: Can you verify that your database encrypts stored data so a storage-level breach doesn’t expose readable records?
+
+Network exposure: Can you check whether your database port is accessible from the public internet or properly restricted to your application server?
+
+Backup security: Can you evaluate whether database backups are encrypted and stored in a location with access controls separate from production?
+
+Query logging: Can you assess whether your database logs queries for security monitoring without logging sensitive data values in the query parameters?
+
+Default credential elimination: Can you verify that default database passwords and sample accounts have been removed or changed before production deployment?
+
+Common Pitfalls
+These are the mistakes vibecoders make most often in this area. No judgment—they’re easy to make. But if you recognize any of them in your own workflow, fix them before sitting for the exam.
+
+Using string concatenation for database queries because the AI generated it that way. Even one concatenated query in your entire codebase is a SQL injection risk. Search your code for string interpolation in any file that touches the database.
+
+Connecting your application to the database with root credentials. If the application is compromised, the attacker has full database access. Create an application-specific user with only the permissions it actually needs.
+
+Leaving your database port open to the public internet. If 5432 or 3306 is accessible from any IP address, attackers will find it. Restrict database access to your application server’s IP or private network.
+
+Not encrypting backups. Your production database might be encrypted at rest, but if your nightly backup is an unencrypted dump file stored in an S3 bucket with loose permissions, the backup is the weak point.
+
+Logging full query strings including user data. Query logs that contain ‘SELECT * FROM users WHERE ssn = 123-45-6789’ are themselves a data exposure. Log query structure and metadata, not parameter values.
+
+Not rotating database credentials. If the same password has been used since the database was created and it’s been shared in Slack channels, old emails, and documentation, the credential surface is enormous.
+
+Self-Assessment Checklist
+Before you take the exam, run through these questions. Every “no” is something to work on.
+
+Have you searched your codebase for any SQL query that uses string concatenation or interpolation with user input?
+
+Does your application connect to the database with a dedicated least-privilege user, not root or admin?
+
+Is your database port restricted to accept connections only from your application server or private network?
+
+Is your database encrypted at rest?
+
+Are database backups encrypted and stored with separate access controls from production?
+
+Have all default database passwords and sample accounts been changed or removed?
+
+Do your query logs capture structure and metadata without logging sensitive parameter values?
+
+AI Audit Prompt Template
+Copy this prompt into your AI coding tool to get a quick health check. It checks the same things the certification exam covers.
+
+Review my database security configuration and check the following. For each one, tell me pass or fail with a specific example: SQL injection: Are all queries parameterized with no string concatenation? Access credentials: Does the app use a least-privilege database user? Network exposure: Is the database port restricted from public access? Encryption at rest: Is stored data encrypted? Backup security: Are backups encrypted with separate access controls? Default credentials: Have all defaults been changed? Give me an overall score out of 6 and list the top 3 things to fix first.
+
+What’s Next
+Once you can answer yes to the self-assessment checklist, you’re ready for the Module 3 exam. The best way to prepare: search your codebase for every file that touches the database. Check if queries are parameterized. Check your database user’s permissions. Run nmap against your database port from outside your network. Every misconfiguration you find is exactly what the exam tests.
+
+
+Module 4: Auth Done Right — Study Guide
+Matt Murphy
+💎
+Module 4: Auth Security
+Authentication Security for AI Directed Engineers
+
+This is the study guide. Everything for Auth Done Right is on this page — there's nothing to download.
+
+What This Module Covers
+This module covers authentication security—how your application verifies user identity and how attackers try to bypass, steal, or brute-force their way through your login system. Authentication is the front door of your application. If it's weak, nothing behind it matters. You already understand auth from a functional perspective through the CADE program. This module covers the security perspective: how password hashing works and how it fails, why token storage location matters, how session fixation attacks steal sessions, how brute force attacks work against login endpoints, and how password reset flows are exploited. AI tools implement auth quickly. They add login forms, issue JWTs, and store sessions. But the defaults are often insecure—passwords hashed with weak algorithms, tokens stored in localStorage where XSS can steal them, reset flows that leak information about which email addresses exist, and no protection against automated login attempts.
+
+Why It Matters
+Credential theft is the starting point for most data breaches. An attacker who gains a valid user session can do everything that user can do—access data, modify records, escalate privileges if the account has admin access. Auth isn't just a feature—it's the boundary between your application being used and your application being exploited. The OWASP Top 10 consistently lists authentication failures as one of the most critical web application security risks. Getting auth right is the highest-leverage security investment you can make.
+
+Module Certification Goal
+You can evaluate the security of authentication implementations in AI-built applications—password hashing, token handling, session management, brute force protection, and password reset flows—direct your AI to implement secure patterns, and verify that the authentication system resists common attack techniques.
+
+What You Need to Know
+Password hashing: Passwords must never be stored in plain text or with reversible encryption. They should be hashed with a modern algorithm like bcrypt, scrypt, or Argon2 that includes salting and is deliberately slow to compute. AI tools sometimes use fast hashes like MD5 or SHA-256 which can be brute-forced at billions of attempts per second.
+
+Token storage and security: JWTs and session tokens must be stored securely. localStorage is accessible to any JavaScript on the page—if your app has an XSS vulnerability, tokens in localStorage are stolen. httpOnly cookies with Secure and SameSite flags are the safer storage mechanism because JavaScript cannot access them.
+
+Session fixation and hijacking: Session fixation occurs when an attacker sets a known session ID before the user logs in, then uses that same session ID to access the authenticated session. Session hijacking occurs when an attacker steals an active session token through XSS, network sniffing, or physical access. Regenerating session IDs on login prevents fixation.
+
+Brute force protection: Without rate limiting on your login endpoint, an attacker can try millions of password combinations. Account lockout after repeated failures, CAPTCHA challenges, and progressive delays between attempts make brute force impractical.
+
+Password reset security: Password reset flows are frequently exploited. Reset tokens that don't expire, reset emails that confirm whether an address exists in the system, and reset links that work more than once all create vulnerabilities. Reset tokens should be single-use, time-limited, and the response should not reveal whether the email exists.
+
+Your Toolkit
+AI coding tool (pick one): Cursor, Lovable, Bolt, Claude Code—direct it to implement bcrypt hashing, httpOnly cookie storage, and rate limiting on auth endpoints.
+
+Password hash verification: Check your database to verify passwords are stored as bcrypt or Argon2 hashes, not plain text, MD5, or unsalted SHA hashes.
+
+Auth testing checklist: The OWASP Authentication Testing Guide provides a systematic checklist for evaluating every aspect of your auth implementation.
+
+Rate limiting tester: A script that sends 100 login attempts in rapid succession to verify your rate limiting activates and blocks further attempts.
+
+Certification Exam Topics
+Every exam question is scenario-based. You'll see a situation and need to identify what's right, what's wrong, or what to do next. Here's what gets tested:
+
+Password hashing algorithm: Can you evaluate whether passwords are hashed with a secure modern algorithm like bcrypt or Argon2 rather than fast hashes like MD5 or SHA-256?
+
+Token storage security: Can you assess whether session tokens are stored in httpOnly cookies rather than localStorage where XSS can steal them?
+
+Session management: Can you identify whether session IDs are regenerated on login to prevent session fixation attacks?
+
+Brute force protection: Can you evaluate whether login endpoints have rate limiting, account lockout, or CAPTCHA to prevent automated password guessing?
+
+Password reset flow: Can you assess whether reset tokens are single-use, time-limited, and the flow doesn't reveal which email addresses exist?
+
+Credential transmission: Can you verify that login credentials are transmitted over HTTPS and never included in URL query parameters or server logs?
+
+Multi-factor authentication: Can you evaluate whether MFA is available and correctly implemented as a second authentication factor beyond just passwords?
+
+Logout and session termination: Can you verify that logging out actually invalidates the session server-side rather than just clearing the client-side token?
+
+Common Pitfalls
+These are the mistakes vibecoders make most often in this area. No judgment—they're easy to make. But if you recognize any of them in your own workflow, fix them before sitting for the exam.
+
+Hashing passwords with MD5 or SHA-256 because the AI used them by default. These are fast hashes designed for data integrity, not password storage. An attacker with a GPU can try billions of SHA-256 hashes per second. Use bcrypt or Argon2.
+
+Storing JWT tokens in localStorage. Any XSS vulnerability on your site lets an attacker's script read localStorage and steal every user's token. Use httpOnly cookies that JavaScript cannot access.
+
+Not regenerating session IDs after login. If the session ID stays the same before and after authentication, an attacker who knows the pre-login session ID can use it to access the post-login session.
+
+Building a login endpoint with no rate limiting. Without limits, an attacker can try every common password against every user account. Even 10 attempts per minute per account makes brute force impractical. Password reset flows that say 'no account found' for unknown emails. This confirms which email addresses have accounts, giving attackers a target list. Always say 'if an account exists, a reset email has been sent' regardless. Implementing logout by only deleting the client-side token. If the server still considers the session valid, a stolen token works even after the user logs out. Logout must invalidate the session on the server.
+
+Self-Assessment Checklist
+Before you take the exam, run through these questions. Every “no” is something to work on.
+
+Are all passwords in your database hashed with bcrypt, scrypt, or Argon2?
+
+Are session tokens stored in httpOnly cookies with Secure and SameSite flags?
+
+Does your login endpoint regenerate the session ID after successful authentication?
+
+Is rate limiting active on your login, signup, and password reset endpoints?
+
+Does your password reset flow use single-use, time-limited tokens?
+
+Does your reset flow respond identically whether the email exists or not?
+
+Does logout invalidate the session on the server, not just clear the client token?
+
+AI Audit Prompt Template
+Copy this prompt into your AI coding tool to get a quick health check. It checks the same things the certification exam covers.
+
+Review my authentication system and check the following. For each one, tell me pass or fail with a specific example: Password hashing: Are passwords stored with bcrypt or Argon2, not MD5 or SHA? Token storage: Are tokens in httpOnly cookies, not localStorage? Session management: Are session IDs regenerated on login? Brute force: Are login endpoints rate limited? Password reset: Are reset tokens single-use and time-limited? Logout: Does logout invalidate the session server-side? Give me an overall score out of 6 and list the top 3 things to fix first.
+
+What's Next
+Once you can answer yes to the self-assessment checklist, you're ready for the Module 4 exam. The best way to prepare: check your database for how passwords are stored. Inspect your cookies in DevTools. Try logging in 50 times rapidly with wrong passwords. Request a password reset for a nonexistent email. Every weakness you find is exactly what the exam tests.
+
+
+Module 5: Secrets & Environment Security — Study Guide
+Matt Murphy
+💎
+Module 5: Secrets & Environment
+Credential Management for AI Directed Engineers
+
+This is the study guide. Everything for Secrets & Environment Security is on this page — there's nothing to download.
+
+What This Module Covers
+This module covers how your application manages secrets—API keys, database credentials, service tokens, encryption keys, and any other sensitive values that your application needs to function but that should never be visible to users, stored in version control, or exposed in logs. This is the single most common security mistake in AI-built applications. AI tools hardcode credentials directly into source files because it's the fastest way to make the code work. The API key goes in the fetch call. The database URL goes in the connection config. The Stripe secret key goes in the payment handler. The code works—and every secret is now visible in your Git repository, your client-side bundle, or your CI/CD logs. Secrets management is the practice of keeping sensitive values separate from your code, storing them in secure locations, rotating them on a schedule, and ensuring they're never exposed in places where unauthorized people can read them.
+
+Why It Matters
+A leaked API key can run up thousands of dollars in cloud charges in hours. A leaked database credential gives direct access to every record. A leaked Stripe secret key lets an attacker process fraudulent transactions. And secrets committed to Git live in the repository history forever—even if you delete the file, the commit that added it is still there. GitHub scans for leaked secrets and reports millions of exposed credentials per year. Automated bots monitor public repositories and exploit leaked credentials within minutes of exposure. If your AI tool hardcoded a secret and you pushed it to GitHub, assume it has already been found.
+
+Module Certification Goal
+You can identify exposed secrets in AI-built applications—hardcoded credentials in source code, secrets in Git history, API keys in frontend bundles, and sensitive values in logs—direct your AI to implement proper secrets management, and verify that no secret is accessible outside its intended secure storage.
+
+What You Need to Know
+Environment variables: Environment variables store configuration values outside your code. Instead of writing const API_KEY = 'sk-abc123' in your source file, you read process.env.API_KEY at runtime. The value lives in your deployment environment's configuration, not in your codebase. This is the foundational pattern for secrets management. .env files and .gitignore: .env files store environment variables locally during development. They must NEVER be committed to Git. Your .gitignore file should include .env on its first line. AI tools frequently create .env files with real credentials and don't always add them to .gitignore. Check immediately after your AI creates any configuration file.
+
+Secrets in Git history: If a secret was ever committed to Git, it lives in the repository history forever. Deleting the file or replacing the value in a new commit does not remove the original commit. Anyone who clones the repository can find it. If a secret was committed, it must be rotated—the old value must be invalidated and replaced.
+
+Frontend vs. backend secrets: Secrets used in frontend code are visible to every user. Environment variables prefixed with NEXT_PUBLIC_ or VITE_ in modern frameworks are bundled into the client-side JavaScript. Only non-sensitive configuration should use these prefixes. Secret keys, database URLs, and service credentials must only be accessed server-side.
+
+Secrets rotation: Secrets should be rotated regularly—replaced with new values on a schedule. If a secret is compromised, rotation limits the window of exposure. If your database password hasn't changed in two years and has been shared in Slack and documentation, the number of people and systems that know it has grown unchecked.
+
+Your Toolkit
+AI coding tool (pick one): Cursor, Lovable, Bolt, Claude Code—direct it to move all hardcoded secrets to environment variables and verify .gitignore includes .env files.
+
+Git secret scanner: GitLeaks, TruffleHog, or GitHub's built-in secret scanning to search your repository history for leaked credentials.
+
+Secrets manager: AWS Secrets Manager, Doppler, or Vault by HashiCorp for storing production secrets with access controls, audit logging, and automatic rotation.
+
+Environment variable validator: A startup check in your application that verifies all required environment variables are set before the app begins serving requests.
+
+Certification Exam Topics
+Every exam question is scenario-based. You'll see a situation and need to identify what's right, what's wrong, or what to do next. Here's what gets tested:
+
+Hardcoded secret detection: Can you find API keys and credentials hardcoded directly in source code files rather than stored in environment variables? .gitignore verification: Can you verify that .env files and other secret-containing files are properly excluded from version control?
+
+Git history exposure: Can you assess whether secrets that were previously committed to Git have been rotated to invalidate the exposed values?
+
+Frontend secret exposure: Can you identify secrets that are incorrectly prefixed for client-side access when they should be server-side only?
+
+CI/CD secret handling: Can you evaluate whether build and deployment pipelines handle secrets securely without exposing them in build logs?
+
+Secrets rotation policy: Can you assess whether critical credentials are rotated on a regular schedule and after any suspected compromise?
+
+Environment separation: Can you verify that development, staging, and production environments use different credentials rather than sharing the same secrets?
+
+Logging sanitization: Can you check whether application logs accidentally capture and store secret values in plain text?
+
+Common Pitfalls
+These are the mistakes vibecoders make most often in this area. No judgment—they're easy to make. But if you recognize any of them in your own workflow, fix them before sitting for the exam.
+
+Hardcoding an API key in your code because the AI put it there and it worked. The code works the same whether the key is hardcoded or in an environment variable. The difference is who else can read it.
+
+Adding .env to .gitignore after the file was already committed. The file is in Git history.
+
+Adding it to .gitignore prevents future commits but doesn't remove the existing one. The secret must be rotated.
+
+Using NEXT_PUBLIC_ or VITE_ prefixes on secret keys. These prefixes tell the framework to include the value in the client-side bundle. Your Stripe secret key with NEXT_PUBLIC_ prefix is in every user's browser.
+
+Sharing secrets in Slack, email, or shared documents. Every channel where a secret appears becomes a potential leak point. Use a secrets manager and share access, not the values themselves. Never rotating credentials. If the same database password has been in use since the project started, every person who has ever had access to it still knows it. Rotate credentials quarterly at minimum.
+
+Not checking CI/CD build logs for secret exposure. Build processes that echo environment variables or print configuration during deployment can expose secrets in log files that are retained for weeks or months.
+
+Self-Assessment Checklist
+Before you take the exam, run through these questions. Every “no” is something to work on.
+
+Have you searched your codebase for any hardcoded API keys, database URLs, or service credentials?
+
+Is .env listed in your .gitignore file and has it been there since before any .env file was committed?
+
+Have you scanned your Git history for previously committed secrets using GitLeaks or TruffleHog?
+
+Are all secrets that are only needed server-side excluded from client-side environment variable prefixes?
+
+Do your CI/CD pipeline logs sanitize or mask secret values?
+
+Are different credentials used for development, staging, and production?
+
+When was the last time your production database password was rotated?
+
+AI Audit Prompt Template
+Copy this prompt into your AI coding tool to get a quick health check. It checks the same things the certification exam covers.
+
+Review my secrets management practices and check the following. For each one, tell me pass or fail with a specific example: Hardcoded secrets: Are all secrets stored in environment variables, not code? .gitignore: Are .env files excluded from version control? Git history: Have previously committed secrets been rotated? Frontend exposure: Are secret keys excluded from client-side bundles? CI/CD logs: Are secrets masked in build and deployment output? Rotation: Are credentials rotated on a regular schedule? Give me an overall score out of 6 and list the top 3 things to fix first.
+
+What's Next
+Once you can answer yes to the self-assessment checklist, you're ready for the Module 5 exam. The best way to prepare: run GitLeaks against your own repository. Search your codebase for strings that look like API keys. Check your .gitignore. Inspect your CI/CD build logs for exposed values. Every leaked secret you find is exactly what the exam tests.
+
+
+Module 7: Vulnerability Scanning & Security Audits — Study Guide
+Matt Murphy
+💎
+Module 7: Vulnerability Scanning
+Security Auditing for AI Directed Engineers
+
+This is the study guide. Everything for Vulnerability Scanning & Security Audits is on this page — there's nothing to download.
+
+What This Module Covers
+This module covers how to systematically find vulnerabilities in your own application before attackers find them. Modules 1 through 6 taught you what to protect and how. This module teaches you how to verify that your protections actually work. Vulnerability scanning uses automated tools to probe your application for known weaknesses—missing patches, outdated dependencies with published exploits, misconfigured security settings, and common vulnerability patterns. Security auditing is the broader practice of systematically reviewing your entire security posture: code, configuration, dependencies, infrastructure, and processes. Your AI built the application. You secured it using the principles from this course. Now you need to verify. Trust but verify is the foundation of security assurance. A security scan that finds nothing is not proof of security—it's proof that the scan didn't find anything. But a scan that finds vulnerabilities gives you the opportunity to fix them before an attacker exploits them.
+
+Why It Matters
+You don't know what you don't know. A developer who builds and deploys without ever scanning their application is operating on assumption—assuming the code is secure, assuming the dependencies are safe, assuming the configuration is correct. Security scanning replaces assumption with evidence. The average web application has 26 vulnerabilities according to industry research. Most are in dependencies—libraries your AI tool imported that have known security issues. You didn't write the vulnerable code, but you shipped it. Scanning finds these before your users pay the price.
+
+Module Certification Goal
+You can run vulnerability scans against AI-built applications, interpret the results, prioritize findings by severity, direct your AI to remediate the critical issues, and establish an ongoing security audit cadence that keeps your application protected as new vulnerabilities are discovered.
+
+What You Need to Know
+Dependency vulnerability scanning: Your application imports dozens or hundreds of open-source libraries. Each one may have known vulnerabilities published in databases like the National Vulnerability Database (NVD). Tools like npm audit, pip audit, and Snyk scan your dependency tree and flag packages with published security advisories. This is the highest-yield scan you can run—it finds vulnerabilities you inherited, not ones you wrote.
+
+Dynamic Application Security Testing (DAST): DAST tools like OWASP ZAP probe your running application from the outside—like an attacker would. They submit malicious inputs, test for injection vulnerabilities, check headers, and map your attack surface automatically. DAST finds vulnerabilities that only appear when the application is running.
+
+Static Application Security Testing (SAST): SAST tools analyze your source code without running it. They look for patterns that indicate vulnerabilities—hardcoded secrets, SQL concatenation, insecure function calls, missing input validation. SAST catches issues earlier in the development process before the code is deployed.
+
+Security logging and monitoring: Security-relevant events—failed login attempts, authorization failures, unexpected errors, unusual traffic patterns—should be logged and monitored. A spike in failed login attempts might indicate a brute force attack. A burst of 404 errors on API endpoints might indicate someone probing your attack surface.
+
+Vulnerability prioritization: Not every finding is critical. Vulnerability scanners assign severity ratings (Critical, High, Medium, Low) based on exploitability and impact. Focus remediation on Critical and High findings first. A Critical vulnerability in a public-facing endpoint is more urgent than a Low finding in an internal admin tool.
+
+Your Toolkit
+AI coding tool (pick one): Cursor, Lovable, Bolt, Claude Code—direct it to fix vulnerabilities identified by your scanning tools, starting with critical severity.
+
+Dependency scanner: npm audit, pip audit, Snyk, or Dependabot. Run these against every project to find known vulnerabilities in your dependency tree.
+
+DAST scanner: OWASP ZAP (free) or Burp Suite Community Edition. Point these at your staging environment and let them probe for vulnerabilities automatically.
+
+SAST scanner: Semgrep, SonarQube, or CodeQL for static analysis of your source code. These find vulnerability patterns without running the application.
+
+Certification Exam Topics
+Every exam question is scenario-based. You'll see a situation and need to identify what's right, what's wrong, or what to do next. Here's what gets tested:
+
+Dependency scanning: Can you run a dependency vulnerability scan and interpret the results to identify which packages need updating or replacing?
+
+DAST execution: Can you configure and run a dynamic security scan against a staging environment and interpret the findings?
+
+SAST interpretation: Can you evaluate static analysis results to distinguish real vulnerabilities from false positives in AI-generated code?
+
+Vulnerability prioritization: Can you triage scanner findings by severity and exploitability to focus remediation on the highest-risk issues first?
+
+Security logging: Can you verify that your application logs security-relevant events like failed logins, authorization failures, and unusual patterns?
+
+Remediation verification: Can you confirm that a vulnerability fix actually resolves the issue by re-scanning after the remediation is deployed?
+
+Scan scheduling: Can you establish a regular scanning cadence and determine the appropriate frequency for dependency, DAST, and SAST scans?
+
+False positive handling: Can you differentiate between real vulnerabilities and false positives in scanner output and document your suppression decisions?
+
+Common Pitfalls
+These are the mistakes vibecoders make most often in this area. No judgment—they're easy to make. But if you recognize any of them in your own workflow, fix them before sitting for the exam.
+
+Running a scan once and never scanning again. New vulnerabilities are published daily. A dependency that was safe last month may have a critical vulnerability today. Scanning must be ongoing, not one-time. Scanning only your own code and ignoring dependencies. Most vulnerabilities in modern applications come from imported libraries, not the code you wrote. Dependency scanning is the highest-yield security activity.
+
+Running DAST tools against production instead of staging. Security scanners send malicious inputs and may cause errors, data corruption, or outages. Always scan against a staging environment that mirrors production.
+
+Treating all scanner findings as equal priority. A Critical RCE vulnerability in a public endpoint needs immediate attention. A Low information disclosure in an internal admin page can wait. Prioritize by severity and exposure. Fixing vulnerabilities without re-scanning to verify the fix. A remediation that doesn't actually resolve the vulnerability gives false confidence. Always re-scan after applying fixes.
+
+Ignoring scanner findings because there are too many. Start with Critical severity. Fix those. Then High. Then Medium. Progress through the backlog systematically rather than being overwhelmed by the total count.
+
+Self-Assessment Checklist
+Before you take the exam, run through these questions. Every “no” is something to work on.
+
+Have you run npm audit, pip audit, or equivalent against your project in the last 30 days?
+
+Have you run a DAST scan (OWASP ZAP or similar) against your staging environment?
+
+Have you run a SAST scan against your source code for vulnerability patterns?
+
+Do you have a process for triaging findings by severity and tracking remediation?
+
+Does your application log failed login attempts, authorization failures, and unusual traffic patterns?
+
+After fixing a vulnerability, do you re-scan to verify the fix resolved the issue?
+
+Is security scanning part of your regular development workflow, not a one-time event?
+
+AI Audit Prompt Template
+Copy this prompt into your AI coding tool to get a quick health check. It checks the same things the certification exam covers.
+
+Review my security scanning and audit practices and check the following. For each one, tell me pass or fail with a specific example: Dependency scanning: Are dependencies scanned regularly for known vulnerabilities? DAST: Has a dynamic scan been run against the staging environment recently? SAST: Has static analysis been run against the source code? Prioritization: Are findings triaged by severity with critical issues addressed first? Security logging: Are security events logged and monitored? Verification: Are fixes re-scanned to confirm remediation? Give me an overall score out of 6 and list the top 3 things to fix first.
+
+What's Next
+Once you can answer yes to the self-assessment checklist, you're ready for the Module 7 exam. The best way to prepare: run npm audit on your project right now. Download OWASP ZAP and scan your staging URL. Read the results. Fix the critical findings and re-scan. Every vulnerability you discover and fix is exactly what the exam tests.
+
+
+Compliance Foundations for Builders
+T6 The Vault | Module 1 Study Guide
+Module 1: The Regulatory Landscape Map
+Direct AI to map which regulations apply to any build before shipping it.
+
+What This Module Covers
+You can direct AI to build almost anything now. What AI will not do automatically is tell you that your dentist scheduling app just walked into HIPAA territory, or that your EU signups just made GDPR your problem. This module gives you the map: the categories of regulation that touch software, and how to recognize when your build crosses into one.
+
+You will learn the six regulatory categories that affect software: data privacy, industry-specific rules, consumer protection, communications law, financial regulations, and accessibility. You will also learn the distinction this course rests on: compliance awareness is not legal advice. By the end, you will be able to look at any build and name which categories it touches before a single user signs up.
+
+Why It Matters
+Real scenarios from The Faction: a builder ships a scheduling app for a dental practice, patient names and treatment notes in the booking fields. Nobody told him HIPAA existed, so nobody signed a Business Associate Agreement, and now his client is exposed and so is he. Another builder discovers GDPR when the first EU deletion request lands. A third collects card numbers in a custom form and pulls full PCI DSS weight onto a hobby-grade stack. They were not careless. They shipped without a map.
+
+Regulatory problems kill client relationships, trigger fines, and can force you to rebuild or shut down something that took months to grow. The awareness that prevents most of this takes hours to build, not years. Saying “this build touches health data, payments, and EU users, so here are three flags to resolve before launch” puts you ahead of most people shipping software.
+
+Certification Goal
+Passing this exam proves you can identify the six regulatory categories that affect software, explain what triggers each one, distinguish compliance mapping from legal advice, and describe a repeatable process for surveying regulatory exposure on any build before it ships.
+
+What You Need to Know
+Compliance Is a Builder Problem, Not Just a Lawyer Problem
+Regulations attach to what your software does, not to who wrote it or how. If your build stores health data or processes payments, the rules apply whether you hand-coded it or directed AI to build it in a weekend. Fast shipping means you can reach regulated territory without noticing you crossed the line.
+
+Data Privacy Touches Almost Everything
+If your build collects names, emails, locations, or behavior, data privacy law is in play. GDPR in the EU, CCPA and its cousins in US states, and similar frameworks worldwide govern what you collect, how long you keep it, and what users can demand back. Nearly every signup form touches this category.
+
+Industry-Specific Rules Are Triggered by Users and Data, Not Intent
+HIPAA for health information, FERPA for student records, GLBA for financial data, COPPA for kids under 13. A generic scheduling tool becomes a HIPAA concern the moment a dental office puts patient information into it. The client and the data pull the trigger.
+
+Consumer Protection and Communications Law Cover Selling and Messaging
+Consumer protection rules, FTC territory in the US, govern claims, pricing, subscriptions, cancellations, and dark patterns. Communications laws like CAN-SPAM and TCPA govern the emails and texts your build sends. Market, message, or bill people automatically and both categories are live.
+
+Financial Regulations and PCI Scope Follow the Money
+Touch payments, lending, or wallets and you enter financial regulation territory. PCI DSS scope is the classic trap: use a hosted provider like Stripe Checkout and most of the burden stays with the provider; collect card data on your own forms or servers and the burden becomes yours.
+
+Accessibility Is a Legal Requirement, Not a Nice-to-Have
+The ADA in the US and similar laws elsewhere apply to websites and apps, with WCAG as the practical standard. Lawsuits against small sites are common and cheap to file, and building to standards from day one beats retrofitting after a demand letter.
+
+The Map Is Not Legal Advice
+This course teaches you to identify which regulations touch a build and when to escalate. It does not qualify you to declare anything compliant, for yourself or a client. Build the map, flag the exposures, bring in licensed professionals for the territory.
+
+Your Toolkit
+The Six-Category Sweep: A scan you run on every build: data privacy, industry rules, consumer protection, communications, financial, accessibility. Write down every yes or maybe.
+
+The Trigger Question List: Five questions that surface exposure fast: Who are the users? What data flows through? Where do users live? Does money move? Does it send messages?
+
+AI Regulatory Survey Prompts: Structured prompts, like the template below, that direct your AI to enumerate the categories touching your build. AI supplies breadth; you supply judgment.
+
+The Escalation Threshold: A written rule for when awareness ends and professional help begins: health data, payments beyond hosted providers, children's data, or financial products all mean a real professional.
+
+Exam Topics
+The six regulatory categories that affect software builds and one example law in each
+
+What triggers HIPAA exposure for a builder who is not a healthcare provider
+
+Why GDPR can apply to a US-based builder with no EU office
+
+The PCI scope difference between hosted payment providers and collecting card data yourself
+
+The distinction between compliance mapping and legal advice, and what a builder can and cannot claim
+
+Which laws govern automated emails and text messages sent by a product
+
+Why accessibility is a regulatory category, and the standard commonly referenced
+
+The trigger questions used to survey a new build's regulatory exposure before launch
+
+Common Pitfalls
+Assuming small means invisible: Regulators and plaintiffs do not check your MRR before acting. Small builds get letters too.
+
+Thinking the vendor's compliance covers your build: A HIPAA-eligible host or PCI certified provider does not make your application compliant. Configuration, agreements, and your own code all matter.
+
+Discovering regulations after launch: Retrofitting consent flows, deletion capabilities, or payment architecture costs ten times what designing for them costs. Map first, ship second.
+
+Playing lawyer for clients: Telling a client "this is compliant" is a claim you are not qualified to make and a liability you do not want. Present the map, flag exposures, recommend professionals.
+
+Paralysis in the other direction: Regulatory risk is managed, not eliminated. Most builds need a handful of concrete actions, not a legal department, so keep shipping.
+
+Ignoring where users actually live: Your users' locations matter more than yours. An EU visitor at your signup form can pull your build into GDPR regardless of where you sleep.
+
+Self-Assessment Checklist
+I can name the six regulatory categories that affect software builds and give an example of each
+
+I can explain why directing AI to build software carries the same regulatory exposure as hand-coding it
+
+I can identify what makes a scheduling app for dentists different, legally, from one for barbers
+
+I can explain the PCI scope difference between hosted checkout and collecting card data myself
+
+I can describe the boundary between compliance mapping and legal advice, and state what I will never claim
+
+I can run a trigger-question survey on any build and list the regulatory categories it touches
+
+I can name three situations where my next step is a licensed professional, not another prompt
+
+AI Audit Prompt Template
+Copy this prompt into your AI, fill in the brackets, and treat the output as the first draft of your regulatory map, never as a final answer.
+
+Survey the regulatory exposure of my software build. I am not asking for legal advice, only a map of categories to investigate further. My build: [describe the product in 2-3 sentences] Users: [who uses it, including their industry] Data collected: [every type of data stored or processed] User locations: [countries and US states] Money: [payments and how: hosted provider, custom forms, subscriptions] Messaging: [emails, texts, or notifications sent] Special populations: [children under 13, patients, students, financial customers] For each of these six categories, state whether my build likely touches it, why, and which law to read about first: 1) data privacy, 2) industry-specific rules, 3) consumer protection, 4) communications law, 5) financial regulations, 6) accessibility. List the top three exposures by severity, flag anything needing a licensed professional before launch, and format the output as a table I can save as my regulatory map.
+What's Next
+You now have the map of the whole landscape. Module 2: Which Laws Apply To Your Build narrows the lens from categories to your specific product, turning this module's survey skills into a concrete list of the actual laws in play. Bring a real project, because Module 2 works best against something you actually plan to ship.
+
+Module 2: Which Laws Apply To Your Build — Study Guide
+Matt Murphy
+💎
+Compliance Foundations for Builders
+T6 The Vault | Module 2 Study Guide
+Module 2: Which Laws Apply To Your Build
+Direct AI to map which regulations apply to any build before shipping it.
+
+What This Module Covers
+Module 1 gave you the regulatory landscape. Module 2 puts your specific build on that map and answers the question that matters before you ship: which laws actually apply to this thing? You will learn a repeatable decision tree with three trigger categories: the data you collect, the industry you touch, and where your users live.
+
+You will apply the tree to real builds. A scheduling app for dentists is not "just a calendar," it touches patient information. A SaaS tool with signups from Berlin operates under GDPR. A checkout page touching card numbers pulls you into PCI DSS scope whether you knew the acronym or not.
+
+By the end, you can direct your AI to run the tree against any product description and list the likely applicable regulations. That list is not legal advice and does not make you compliant. It tells you what to investigate and when to call a professional.
+
+Why It Matters
+The builders who get burned are rarely reckless. They just did not know a regulation existed. The Faction member who shipped a scheduling app for a dental office did solid work: clean auth, happy client. Nobody told them appointment records tied to patients can be protected health information, or that HIPAA required a business associate agreement first. The exposure hit the builder and the client at once.
+
+Regulators do not grade on effort, and "my AI built it" is not a defense. GDPR fines reach into the millions, CCPA violations stack per consumer, and a PCI incident can end a client's ability to take cards. Running the tree costs an hour with your AI. Skipping it can cost the business.
+
+Certification Goal
+Passing the Module 2 exam proves you can take any product description, identify its data, industry, and geography triggers, name the regulations each points to, and produce a compliance map that flags what needs professional review. It certifies boundary knowledge: what applies and when to escalate, not practicing law.
+
+What You Need to Know
+The Three-Trigger Decision Tree
+Every applicability question breaks into three passes: what data the build touches, what industry it serves, and where the users are. Run all three every time. A single build can trip HIPAA, CCPA, and PCI DSS at once.
+
+Data Privacy Triggers
+Who the data belongs to determines which law fires. EU residents trigger GDPR. California residents trigger CCPA and its expansion CPRA. Children under 13 trigger COPPA, student education records trigger FERPA, and patient health information triggers HIPAA. Collecting anything tied to a person probably puts at least one in play.
+
+Industry Triggers
+Some regulations attach to what the data is, not who it belongs to. Card payments put you in PCI DSS scope, even if a processor like Stripe carries most of the burden. Consumer financial data triggers GLBA, health information triggers HIPAA, and legal records carry privilege and retention rules. If your client is in a regulated industry, assume their rules reach into your build until proven otherwise.
+
+Geography Triggers: Users Over Location
+Where your users are matters more than where you are. A solo builder in Ohio serving EU users is subject to GDPR. Privacy laws follow the data subject, not the company headquarters, so "I am not based there" never ends the analysis.
+
+Regulations Stack, They Do Not Replace Each Other
+Meeting GDPR does not cover you for HIPAA, and passing a PCI questionnaire says nothing about COPPA. Each triggered regulation adds its own obligations, so your map lists each one separately with its own trigger and open questions.
+
+The Map Is the Deliverable, Not a Verdict
+The output is a compliance map: each likely regulation, why it applies, and what needs professional confirmation. You never conclude "we are compliant." You conclude "here is what applies, and here is what a professional needs to review."
+
+Your Toolkit
+The Three-Pass Trigger Sheet: A one-page worksheet forcing you through data, industry, and geography passes before you write a single feature spec.
+
+The Data Inventory Prompt: Direct your AI to enumerate every field your product collects or infers, then classify each against the trigger list.
+
+The Regulation-to-Trigger Table: A reference mapping GDPR, CCPA/CPRA, COPPA, FERPA, HIPAA, PCI DSS, and GLBA to the trigger that activates each. Use it to double-check your AI's output.
+
+The Escalation Flag: A standing rule: any high-stakes regulation marked likely, like HIPAA or PCI DSS, gets a professional review line item before launch.
+
+Exam Topics
+The three trigger categories and the order to run them
+
+Which regulation applies to EU residents' data versus California residents' data
+
+The population COPPA protects and its age threshold
+
+The difference between FERPA and HIPAA triggers
+
+What puts a build in PCI DSS scope and how a processor changes, but does not eliminate, that scope
+
+Which regulation governs consumer financial data (GLBA) and how it differs from PCI DSS
+
+Why user location controls applicability more than company location
+
+The required elements of a compliance map and why "we are compliant" is never one of them
+
+Common Pitfalls
+Assuming your industry defines your obligations: Your client is a dental office, so their exposure reaches into your build. HIPAA does not care what your LLC's business code says.
+
+Treating geography as your address: Launching worldwide by default triggers worldwide regulations by default. The founder who "launched in the EU" the moment a German user signed up learned this the hard way.
+
+Believing Stripe makes PCI someone else's problem: A processor shrinks your PCI scope, it does not delete it. If your pages touch the payment flow, you have obligations.
+
+Stopping at the first match: Finding GDPR and quitting leaves CCPA, COPPA, or PCI DSS undiscovered. Regulations stack, so run every pass.
+
+Confusing the map with clearance: A finished map means you know what applies, not that you comply. Blur that line and you make promises a regulator later grades.
+
+Letting AI output stand unverified: Your AI can miss a trigger or invent one. Check it against the Regulation-to-Trigger Table.
+
+Self-Assessment Checklist
+I can run the three trigger categories against any product description
+
+I can match GDPR, CCPA/CPRA, COPPA, FERPA, and HIPAA to the population or data that triggers each
+
+I can explain PCI DSS scope and what a processor does and does not take off my plate
+
+I can explain why a US-based builder can still be subject to EU regulations
+
+I can spot stacked regulations, like a kids' tutoring app that takes card payments
+
+I can produce a map listing each likely regulation, its trigger, and what needs professional review
+
+I can state why my map identifies applicability but never certifies compliance
+
+AI Audit Prompt Template
+Fill in your product description and direct your AI to walk the full decision tree.
+
+You are my compliance mapping assistant. I am a builder, not a lawyer. I need a regulatory applicability map, not legal advice. MY PRODUCT: [what it does, who uses it, what data it collects, how users pay, which countries or states users can sign up from] Walk the three-pass decision tree. Skip nothing. PASS 1, DATA: List every category of personal data collected or inferred. Flag likely triggers: GDPR (EU residents), CCPA/CPRA (California residents), COPPA (under 13), FERPA (student records), HIPAA (patient health information). PASS 2, INDUSTRY: Flag payments (PCI DSS), consumer financial data (GLBA), health information (HIPAA), or legal records, and what activates each. PASS 3, GEOGRAPHY: Based on where users can be located, not where I am based, list which jurisdictions' laws likely apply. OUTPUT: A table: Regulation, Trigger, Confidence (likely/possible/unlikely), Open Questions, Needs Professional Review (yes/no). Mark HIPAA and PCI DSS "yes" for review whenever likely or possible. End with: "This map identifies likely applicable regulations. It is not legal advice and does not establish compliance."
+What's Next
+Your map now tells you which regulations apply. Module 3, Data Residency and Cross-Border Rules, goes deeper: where your data physically lives and what happens when it crosses borders. If Pass 3 lit up more than one country, Module 3 shows what that means for your database and hosting choices.
+
+Module 3: Data Residency and Cross-Border Rules — Study Guide
+Matt Murphy
+💎
+Compliance Foundations for Builders
+T6 The Vault | Module 3 Study Guide
+Module 3: Data Residency and Cross-Border Rules
+Direct AI to map which regulations apply to any build before shipping it.
+
+What This Module Covers
+Every piece of data your app collects lives somewhere physical. A row in your Supabase table sits on a server in a specific country, under that country's laws. Module 3 teaches you to answer a question most builders never ask: where does my data actually live, and what does that location legally obligate me to do?
+
+You will learn the major data residency regimes by region: the EU, Canada, Australia, India, Brazil, and the Middle East. You will learn the three mechanisms that make cross-border transfers legal: adequacy decisions, Standard Contractual Clauses, and binding corporate rules. Then you will connect all of it to decisions you actually make. Picking an AWS region, spinning up a Supabase project, or deploying Vercel edge functions are not just technical choices. Each one creates or removes compliance obligations, and this module shows you how to direct AI to audit those choices before you ship.
+
+Why It Matters
+In Module 2 you met the SaaS founder who launched in the EU without GDPR compliance. Here is the sequel: even a founder who knows GDPR exists can get burned by residency. She hosts everything in us-east-1 because that was the default, signs an EU customer, and now personal data flows from Europe to the United States with no transfer mechanism in place. The customer's legal team asks one question, "where is our data processed?", and the deal stalls. Data location questions kill B2B deals every week, and builders who can answer them cleanly win the contracts.
+
+The stakes run the other direction too. If you build for clients, they inherit your hosting decisions without knowing it. You deploy their app on a global edge network, user data replicates across regions, and now they have obligations in countries they have never heard of. You do not need to become a lawyer to prevent this. You need to know the problem exists, where the tripwires are, and when to route the question to a professional. That is the boundary knowledge this module builds.
+
+Certification Goal
+Passing the Module 3 exam proves you can identify where an application's data physically resides, name the residency expectations of major regions, recognize the legal mechanisms that permit cross-border transfers, and explain how hosting choices create compliance obligations. It proves you can build the residency portion of a compliance map, not that any build is compliant. That judgment belongs to professionals, and knowing when to bring them in is part of what you are certified on.
+
+What You Need to Know
+Data Residency vs. Data Sovereignty
+Residency is where data is stored and processed. Sovereignty is whose laws govern it, which can follow the data after it leaves a country. A French user's data hosted in Virginia is physically resident in the US but still subject to EU rules because of who the user is.
+
+The Regional Landscape
+The EU restricts transfers of personal data outside the European Economic Area unless a legal mechanism covers them. Canada's PIPEDA allows transfers with accountability, but some provinces and public-sector contracts expect Canadian hosting. Australia restricts offshore disclosure, with strict rules for health records. India's DPDP Act permits transfers except to blocklisted countries. Brazil's LGPD mirrors the GDPR transfer model. Middle East regimes vary sharply by country and sector, so check each market individually.
+
+Transfer Mechanisms
+Three names to recognize on sight. Adequacy decisions: one government declares another country's protections good enough, so data flows freely, like the EU-US Data Privacy Framework. Standard Contractual Clauses (SCCs): pre-approved contract terms between sender and receiver, the workhorse most SaaS vendors rely on. Binding corporate rules: regulator-approved internal policies for transfers inside one multinational. A transfer leaving a regulated region with none of these is a flag for professional review.
+
+Your Hosting Choices Are Legal Choices
+The AWS region dropdown, the Supabase project location picker, the Vercel deployment settings: each is a legal decision wearing a technical costume. Choosing eu-central-1 versus us-east-1 changes which transfer questions you must answer. Defaults are not neutral.
+
+Third Parties Move Your Data Too
+Analytics, error tracking, email delivery, AI APIs, payment processors: every third-party service that touches user data processes it somewhere, usually the US. Your app can be perfectly hosted in Frankfurt while your logging tool ships personal data to California on every request. The full residency picture includes every service in the chain.
+
+Edge and Replication Complications
+Edge functions, CDNs, and multi-region replicas execute and copy data in many countries at once. Caching personal data at 30 edge locations can mean 30 jurisdictions. Serve static assets from the edge freely, but know exactly which personal data, if any, follows them there.
+
+Your Toolkit
+The Data Location Inventory. A table listing every place your app stores or processes data: primary database, backups, file storage, logs, and each third party, with region and country. This is the core artifact of this module and a section of your Module 7 compliance map.
+
+Provider Region Documentation. AWS, Supabase, Vercel, and every serious vendor publish region lists and data processing terms. Bookmark them, and check where backups and support access happen, not just primary storage.
+
+Sub-processor Lists. Reputable vendors publish who they share data with and where. A vendor's sub-processor page tells you where your users' data really travels after it leaves your code.
+
+The AI Residency Audit. The prompt template in this guide, run against your actual stack, produces a draft data flow map in minutes. Verify it against provider docs, because the map is only as good as its accuracy.
+
+Exam Topics
+The difference between data residency and data sovereignty, with an example of each
+
+The general shape of each regional regime: EU, Canada, Australia, India, Brazil, Middle East
+
+The three transfer mechanisms and when each typically applies
+
+How choosing an AWS region or Supabase project location creates or avoids transfer obligations
+
+Why third-party services like analytics, email, and AI APIs are part of your residency picture
+
+How edge functions, CDNs, and replication complicate where data lives
+
+What belongs in a data location inventory and why backups and logs are included
+
+Which residency findings signal it is time to involve a professional
+
+Common Pitfalls
+Accepting the default region. us-east-1 is a decision, not a neutral starting point. Builders who never touch the region picker discover their obligations only when a customer asks.
+
+Auditing the database and nothing else. Your Postgres instance in Frankfurt means little if your error tracker, analytics, and email provider process the same personal data in the US with no transfer mechanism.
+
+Assuming EU rules stop at storage. Processing, support access, and backups count. An EU-hosted database administered from a US laptop still raises transfer questions.
+
+Treating the Middle East as one jurisdiction. Localization rules differ by country and sector. What is fine for the UAE may not be fine for Saudi Arabia.
+
+Confusing a transfer mechanism with compliance. Seeing "SCCs" in a vendor's terms means a mechanism exists, not that your specific use is covered. That distinction is where professionals earn their fee.
+
+Deploying globally because the platform makes it easy. Edge-first platforms default to worldwide distribution, which can create obligations in markets where you have zero users.
+
+Self-Assessment Checklist
+I can explain data residency versus data sovereignty in plain language.
+
+I can describe each covered region's general stance on cross-border transfers.
+
+I can define adequacy decisions, SCCs, and binding corporate rules and say when each shows up.
+
+I can explain how a hosting region choice creates or avoids compliance obligations.
+
+I can build a data location inventory covering my database, backups, logs, and third-party services.
+
+I can identify when edge functions or replication put personal data in additional jurisdictions.
+
+I can recognize residency findings that require a professional before I ship.
+
+AI Audit Prompt Template
+Give your AI this prompt, filled in with your real stack, to draft the residency section of your compliance map.
+
+You are auditing the data residency of my application. Do not give legal advice. Your job is to map where data physically lives and flag cross-border flows for professional review. MY STACK: - App type and what it does: [describe] - Primary database and region: [e.g., Supabase project in us-east-1] - Hosting/deployment: [e.g., Vercel with edge functions, default regions] - File storage and region: [e.g., S3 us-east-1] - Third-party services touching user data: [analytics, email, error tracking, AI APIs, payments, auth, etc.] - Where my users are located: [countries/regions] - Types of personal data collected: [emails, names, payment info, health info, etc.] PRODUCE: 1. A data location inventory: every place data is stored or processed, with region and country, including backups and logs where known. 2. A cross-border flow list: every flow where data moves from a user's region to another country, especially out of the EU, Canada, Australia, India, Brazil, or Middle East markets I serve. 3. For each flow, note whether a transfer mechanism likely applies (adequacy decision, SCCs, binding corporate rules) based on the vendor's public terms, and mark anything uncertain as UNVERIFIED. 4. A list of architecture changes that would simplify my residency picture, such as region changes or EU-hosted alternatives. 5. A "professional review" list: every finding a qualified privacy professional should confirm before I ship or sign a customer. Ask me clarifying questions before answering if anything is ambiguous.
+What's Next
+You now know where data lives and how it crosses borders. Module 4, Industry-Specific Trigger Points, adds the other axis of the map: what kind of data you handle and for whom. Residency told you where the dentist's scheduling data sits. Module 4 tells you why the word "dentist" changed everything the moment it entered the spec.
+
+
+Module 4: Industry-Specific Trigger Points — Study Guide
+Matt Murphy
+💎
+Compliance Foundations for Builders
+T6 The Vault | Module 4 Study Guide
+Module 4: Industry-Specific Trigger Points
+Direct AI to map which regulations apply to any build before shipping it.
+
+What This Module Covers
+Modules 1 through 3 gave you the wide view: the landscape, which laws touch your build, and where data can live. Module 4 zooms in on the question that actually burns builders: what changes when your product touches a specific industry? A scheduling app is just a scheduling app, until a dentist buys it. Then it might be a HIPAA problem.
+
+This module walks the five industries where builders trip most often: healthcare, education, financial, legal, and government. For each, you learn what triggers the regulation, what that means for your architecture and contracts, and the moment to stop and get counsel. By the end, you can name the triggers on any build and direct your AI to audit it before anyone signs up. The skill is not knowing every rule; it is knowing which rules are watching.
+
+Why It Matters
+Seen in The Faction more than once: a builder ships a scheduling app for a dental practice. Patient names, appointment types, a notes field. Nobody said "HIPAA" on the sales call. But the moment that app handles protected health information for a covered entity, the builder may be a business associate under federal law, with obligations they never agreed to and penalties they never priced in. A $3,000 project becomes a five-figure problem.
+
+Industry triggers are invisible from inside the code. Stripe does not pop a modal saying "you may have entered GLBA scope." The SaaS founder who launched in the EU without GDPR at least saw cookie banners as a hint; industry rules give you none. The only defense is a map of trigger points, checked before you ship, every time.
+
+Certification Goal
+Passing this exam proves you can identify trigger points in healthcare, education, financial, legal, and government builds, explain what each means for design and contracts, and name the point where licensed counsel must come in. It certifies boundary knowledge, not legal judgment: you know where the lines are, not that you can clear them alone.
+
+What You Need to Know
+HIPAA: The Business Associate Trigger
+HIPAA does not cover health data in general; it covers protected health information handled by covered entities (providers, health plans, clearinghouses) and their business associates. You become a business associate when you create, receive, maintain, or transmit PHI on behalf of a covered entity, which means a signed Business Associate Agreement before data flows. A wellness app selling directly to consumers, with no covered entity in the chain, typically sits outside HIPAA, though FTC health data rules may still apply. If you cannot say whether a covered entity is in your chain, that is a counsel question, not a guess.
+
+FERPA and COPPA: Students and Kids
+FERPA triggers when your product handles student education records for federally funded schools, and it constrains reuse and disclosure. COPPA triggers when you collect personal information from children under 13, or your service is directed at them, and it demands verifiable parental consent and strict data limits. An edtech build can trip both at once: if your product touches classrooms or a young user base, treat both as live until proven otherwise.
+
+Financial Triggers: GLBA, Money Transmission, and the SEC
+GLBA scope opens when you handle nonpublic personal information as a financial institution or its service provider, which reaches beyond banks to lenders and payment-adjacent tools. State money transmitter laws trigger when you hold or move other people's money: licensing is state by state, expensive, and criminal to skip in some states. Anything touching securities, investment advice, or tokenized assets raises SEC questions no builder should self-answer. Each of those is a hard stop for counsel.
+
+Legal Industry: Privilege and Bar Rules
+Build for lawyers and you inherit attorney-client privilege plus bar rules on technology competence and confidentiality. Piping client documents through a third-party AI API without safeguards can put privilege at risk and put your client in front of their bar. Lawyers must vet their vendors, so design for confidentiality from day one, and pause for counsel before any feature exposes privileged material to an outside system.
+
+Government Work: CMMC, FedRAMP, and Accessibility
+Selling into government, even as a subcontractor, triggers certification-heavy frameworks: CMMC for defense supply chain work, FedRAMP for cloud services used by federal agencies, and accessibility mandates like Section 508 and WCAG. You need awareness, not mastery: these take months and real money, and "we will deal with it after the contract" is how builds die. Accessibility is increasingly enforced against private builds too, so treat it as a default.
+
+The Trigger, Meaning, Counsel Pattern
+Every rule here follows one pattern: what triggers the requirement, what it means for the build, and when the question requires a professional. Running your AI through that pattern per industry is the core move, and it feeds the compliance map you ship in Module 7.
+
+Your Toolkit
+Industry Trigger Checklist: A one-page list per industry of yes/no questions like "Is a covered entity in the data chain?" Run it at intake, before you quote a price.
+
+Client Intake Questions: Five questions for every client: who are your users, whose data is it, what industry are you in, who regulates you, do you have counsel.
+
+AI Trigger Audit: The prompt template below, run against your actual data model and user flows. It flags likely triggers and drafts questions for a professional.
+
+Counsel Escalation Log: A running record of every point where you decided counsel was or was not needed, and why. It protects you if a decision is questioned later.
+
+Exam Topics
+When a builder becomes a HIPAA business associate, and the role of the Business Associate Agreement.
+
+When a health-related app likely falls outside HIPAA, and what rules may still apply.
+
+What triggers FERPA scope for a product used by schools, and what it restricts.
+
+COPPA's under-13 trigger, the "directed at children" concept, and verifiable parental consent.
+
+When GLBA applies to a builder as a service provider to a financial institution.
+
+What triggers state money transmitter licensing, and why holding client funds is a hard stop.
+
+How privilege and bar rules constrain legal-industry builds, especially AI features.
+
+What CMMC, FedRAMP, and Section 508 each apply to, and when each triggers.
+
+Common Pitfalls
+Assuming the client will mention the regulation: The dentist does not say "HIPAA" and the school does not say "FERPA." The trigger map is your job.
+
+Treating all health data as HIPAA data: You waste effort on builds outside scope and miss the FTC and state health privacy rules that do apply.
+
+Touching money "just briefly": Even momentarily holding user funds can trigger money transmitter laws. Route funds through licensed processors, not your own accounts.
+
+Piping regulated data through AI APIs by default: Sending PHI, student records, or privileged documents to a third-party model without proper agreements can itself be the violation.
+
+Ignoring accessibility until launch: Retrofitting WCAG costs multiples of building it in, and government clients reject noncompliant deliverables.
+
+Confusing awareness with clearance: Knowing CMMC or GLBA exists does not make you compliant. The map shows where to bring in professionals; it is not a substitute for them.
+
+Self-Assessment Checklist
+I can explain when a builder becomes a HIPAA business associate and what a BAA is for.
+
+I can judge whether an app likely sits inside or outside HIPAA scope, and say why.
+
+I can name the triggers for FERPA and COPPA and what each demands of a build.
+
+I can list the financial triggers: GLBA scope, money transmission, and SEC territory.
+
+I can explain why legal builds need special handling for privilege and AI features.
+
+I can describe what CMMC, FedRAMP, and accessibility mandates apply to.
+
+I can name the moments in each industry when the right move is to stop and get counsel.
+
+AI Audit Prompt Template
+Give your AI this prompt with your build details filled in, and have it map industry trigger points before you ship.
+
+You are auditing my build for industry-specific regulatory trigger points. You are not my lawyer and must not tell me I am compliant. Flag triggers and tell me where a licensed professional is needed. MY BUILD: [product, who buys it, who uses it] DATA I TOUCH: [all data types, including free-text fields] MONEY FLOWS: [do I hold, move, or store payment or account info] AI FEATURES: [what data goes to which third-party models or APIs] Check each industry: 1. HEALTHCARE: Is a covered entity in my data chain? Am I plausibly a business associate? If not HIPAA, what health rules apply? 2. EDUCATION: Do I touch student education records for a school? Could my product be directed at children under 13? 3. FINANCIAL: Could I be a GLBA service provider? Do any flows look like money transmission, securities, or investment advice? 4. LEGAL: Could my build handle privileged client material? Do any AI features send it to outside systems? 5. GOVERNMENT: Is any buyer a government agency or contractor? Could CMMC, FedRAMP, or accessibility mandates apply? For every trigger flagged, give me: (a) what activates it, (b) what it means for my architecture, contracts, or marketing, and (c) a STOP AND GET COUNSEL note with the exact questions to bring to a professional. End with a summary table: trigger, risk level, next step. Mark anything uncertain as "needs professional review."
+What's Next
+You can now spot the triggers. Module 5, Compliance Documentation Systems, teaches you how to prove you spotted them: intake records, data maps, and decision logs that turn "I thought about this" into evidence a client, auditor, or attorney can use. Your trigger map becomes the backbone of that system.
+
+Module 5: Compliance Documentation Systems — Study Guide
+Matt Murphy
+💎
+Compliance Foundations for Builders
+T6 The Vault | Module 5 Study Guide
+Module 5: Compliance Documentation Systems
+Direct AI to map which regulations apply to any build before shipping it.
+
+What This Module Covers
+Modules 1 through 4 taught you which regulations touch your build. This module covers the paper trail: privacy policies, terms of service, cookie and tracking disclosures, Data Processing Agreements for B2B, and the records that let you prove what your product does when someone asks.
+
+Any builder in The Faction can direct AI to generate a privacy policy in thirty seconds, and that is exactly the danger. A generic policy makes promises your app does not keep and misses disclosures it actually needs. The gap between “we have a privacy policy” and “our privacy policy matches our data practices” is where builders get hurt. You will learn what each document is for and how to direct AI to draft documentation that is accurate, not merely present. This is boundary knowledge, not legal advice: you build the map, and you bring in a professional when the stakes call for it.
+
+Why It Matters
+Remember the builder who shipped a scheduling app for dentists without knowing HIPAA existed? The documentation version happens every week: a builder pastes a template policy saying “we do not share your data with third parties,” while the app quietly sends events to three analytics SDKs and a session replay tool. That is a false statement to users, exactly what regulators like the FTC act on. Your app’s behavior is the ground truth; the documents either match it or they are a liability.
+
+The stakes go beyond regulators. The SaaS founder who launched in the EU without GDPR compliance watched an enterprise deal stall when the customer asked for a Data Processing Agreement before signing. Documentation is a sales asset, not just defense. Builders who can produce an accurate policy, a real DPA, and clean records close deals faster.
+
+Certification Goal
+Passing this exam proves you can identify which compliance documents a build requires, explain what each must accurately reflect, describe baseline record-keeping, and direct AI to audit documentation against the app’s real data practices. It proves you can build and verify the paper trail, not that any product is compliant.
+
+What You Need to Know
+The Accuracy Principle
+Every compliance document is a claim about how your product behaves, and the product is the ground truth. A policy that overstates protections or omits real data flows is a misrepresentation, often a violation on its own. Make the documents match the build, and keep them matched as it changes.
+
+Privacy Policies That Match Reality
+A real privacy policy answers: what data you collect (including automatically, via SDKs and logs), why, who you share it with, how long you keep it, and what rights users have. Templates answer these for someone else’s app. Inventory your actual data flows first, then write the policy from the inventory.
+
+Terms of Service Basics
+Terms of service define the deal with your users: what the service is, what users may not do, how accounts end, liability limits, and dispute handling. Builders lean hardest on acceptable use, disclaimers, and termination. Terms must be actually agreed to, so signup checkboxes and dated versions matter.
+
+Cookie Consent and Tracking Disclosures
+If your app sets non-essential cookies or trackers, GDPR and EU ePrivacy rules, plus US state laws like CCPA, require disclosure and, in the EU, consent before trackers fire. A banner appearing after analytics scripts already loaded is theater. Know exactly what your app loads and when.
+
+Data Processing Agreements for B2B
+When your product processes personal data for a business customer, you are the processor, they are the controller, and GDPR requires a written DPA. It specifies what you process, your security obligations, your subprocessors (hosting and AI API vendors count), and what happens on breach or termination.
+
+Record-Keeping and Producibility
+Compliance is partly the ability to produce evidence on request: a data inventory, processing records if GDPR applies, timestamped consent logs, DPAs and vendor agreements, dated versions of every published policy, and logs of deletion or access requests. Keep records long enough to prove what you did, but do not hoard personal data past its stated retention.
+
+Your Toolkit
+Data Flow Inventory: A living list of every category of data your app touches, where it enters, where it is stored, which vendors receive it, and how long it lives. The source of truth every other document is written from.
+
+Policy-to-Practice Audit Prompt: A repeatable AI prompt (template below) comparing your published documents against your actual codebase and vendor list. Run it before every major release.
+
+Document Version Log: A dated archive of every published version of your policy, terms, and DPA, plus what changed and when users were notified.
+
+Vendor and Subprocessor Register: Every third-party service that touches user data, what each receives, and links to their DPAs. Feeds your policy, DPA annex, and security questionnaires.
+
+Exam Topics
+Why a privacy policy that does not match actual practices creates legal exposure.
+
+The core questions an accurate privacy policy must answer: what is collected, why, shared with whom, retention, and user rights.
+
+Why policies get written from a data flow inventory, not a template.
+
+The essential terms of service sections and why versioning and affirmative agreement matter.
+
+When cookie consent is required, what counts as non-essential, and why consent must precede trackers firing in the EU.
+
+What a DPA is, when B2B builders need one, and what a subprocessor is.
+
+Baseline record-keeping: consent logs, processing records, dated policy versions, deletion request logs, producibility on request.
+
+How to direct AI to audit documentation against the real app instead of generating generic documents.
+
+Common Pitfalls
+Shipping a template policy untouched: It describes someone else’s app, so it makes false promises and misses your required disclosures. Regulators treat false statements as violations on their own.
+
+Writing the policy before the inventory: If you do not know your own data flows, your policy is fiction by construction.
+
+Forgetting the SDKs: Analytics, crash reporting, session replay, and AI APIs all receive user data. Leaving them out is the most common mismatch in vibecoded apps.
+
+Consent banners that do nothing: A banner appearing after trackers already fired is theater with no legal effect where consent is required.
+
+No version history: If you update policies silently, you cannot prove what any user agreed to.
+
+Treating documentation as one-and-done: New features, vendors, or data fields invalidate documents. They drift unless auditing is part of your release process.
+
+Self-Assessment Checklist
+I can build a data flow inventory including third-party SDKs and vendors.
+
+I can check my privacy policy against my inventory using the core disclosure questions.
+
+I can explain the essential terms of service sections and why versioned agreement matters.
+
+I can determine whether my app needs cookie consent and verify trackers respect it.
+
+I can explain what a DPA is, when I need one, and what belongs in a subprocessor list.
+
+I can name the records I should keep, how long, and what I must produce on request.
+
+I can direct AI to audit my documents against my app's actual behavior and act on the mismatches.
+
+AI Audit Prompt Template
+Give your AI this prompt along with your published privacy policy, your cookie disclosure, and access to your codebase or a description of your stack and vendors.
+
+You are auditing my compliance documentation against my app's actual behavior. Do not flatter me. Find every mismatch. INPUTS: (1) my privacy policy, (2) my cookie disclosure and consent banner behavior, (3) my codebase or full stack list: SDKs, analytics, payment processors, hosting, AI services. DO THE FOLLOWING: 1. Build a data inventory from the app itself: every category of personal data collected, where it enters, where it is stored, and every third party that receives it. 2. Compare that inventory line by line against my policy. Flag: data the policy never mentions, claims the app does not honor, vendors omitted, retention statements with no matching deletion behavior. 3. List every tracker actually set, whether each is essential, and whether any fire before consent. 4. Flag statements a regulator could treat as false or misleading, ranked by severity. 5. Output a mismatch table: App Behavior | What My Documents Say | Gap | Suggested Fix. 6. List anything needing professional review rather than a wording fix, and why. Do not tell me I am compliant. Tell me where my documents and my product disagree.
+What’s Next
+Module 6, When To Bring In Professionals, picks up where this audit leaves off. Some mismatches are wording fixes; others, like a DPA for a big enterprise deal or a policy covering health data, are signals to bring in a lawyer or compliance specialist. Module 6 teaches you to tell the difference and scope the engagement.
+
+
+
+Module 6: When To Bring In Professionals — Study Guide
+Matt Murphy
+💎
+Compliance Foundations for Builders
+T6 The Vault | Module 6 Study Guide
+Module 6: When To Bring In Professionals
+Direct AI to map which regulations apply to any build before shipping it.
+
+What This Module Covers
+Everything in this course so far has trained you to build the map: which regulations exist (M1), which apply to your build (M2), where your data can live (M3), which industries flip the risk switch (M4). This module answers the question that map raises: where does your job end and a lawyer’s job begin? You are a builder, not counsel, and pretending otherwise is how builders in The Faction get themselves and their clients into real trouble.
+
+You will learn the signals that mean it is time to bring in a professional, and the skill most builders never develop: briefing a lawyer efficiently, so a one-hour consult produces answers instead of burning the session explaining what an API is. You will also learn the economics: what review costs, what getting it wrong costs, and why building a counsel relationship before you urgently need one is the cheapest insurance a builder can buy.
+
+Why It Matters
+Think back to the builder who shipped a scheduling app for dentists without knowing HIPAA existed. The mistake was not ignorance of a statute. It was never asking whether anyone with a license should look at the build before launch. A two-hour consult would have flagged it for a few hundred dollars. Instead: potential breach notification, a furious dental practice, a dead reputation in that niche. Same story for the founder who launched in the EU without GDPR review and the vibebuilder who wired up payments without understanding PCI scope.
+
+Knowing when you are out of your depth is a professional skill, and it is the one clients quietly judge you on. A builder who says “this touches health data, I want counsel to review the data flow before we ship” looks more credible, not less. This module gives you the trigger list, the briefing method, and the cost logic to make that call with confidence.
+
+Certification Goal
+Passing this module’s exam proves you can recognize the signals that require professional legal counsel, prepare a technical brief that makes a lawyer’s time count, and articulate the cost tradeoff between legal review and shipping unreviewed. It certifies boundary judgment, not legal knowledge: you know when to hand off.
+
+What You Need to Know
+The Builder’s Scope vs the Lawyer’s Scope
+Your scope is identification and preparation: mapping which regulations plausibly apply, documenting data flows, flagging open questions. The lawyer’s scope is interpretation and judgment: what the law requires in your situation, how much risk an approach carries, what goes in your contracts and policies. Never present your regulatory map as a compliance verdict. It tells you where to point counsel, not whether you are compliant.
+
+The Escalation Signals
+Seven triggers make professional review automatic: operating in a regulated industry, processing sensitive data categories (biometrics, children’s data, precise location), moving data across international borders, contracting with government entities, hosting user-generated content at scale, adding fintech features (payments, lending, stored value, crypto), or touching health data in any form. Hit even one and counsel review moves from optional to necessary before launch.
+
+One Signal Is Enough
+Builders often wait for multiple red flags before calling a lawyer, reasoning that “it’s just one thing.” That logic is backwards. A single trigger, like storing patient appointment notes or processing EU user data, can carry the full weight of a regulatory regime. Severity scales with what the worst signal exposes you to, not how many you count.
+
+The Efficient Brief
+Lawyers bill by time, and the most expensive part of any engagement is educating them about your system. Cut that cost by arriving with a technical brief: what the product does, who uses it, a plain-language architecture summary, every data category collected, where each is stored, which third parties receive it, and your open questions. Counsel who gets this in advance spends the hour giving answers instead of asking questions.
+
+The Cost Math
+A startup-stage review runs from a few hundred dollars for a scoped consult to a few thousand for a full data-practices review. The other side of the ledger: GDPR fines in the millions, HIPAA penalties per violation, breach notification costs, contract termination, and unbillable weeks rebuilding a product that should have been structured right the first time. Legal review is the cheapest line item in your risk budget.
+
+Relationship Before Emergency
+The worst time to find a lawyer is the day you receive a demand letter or discover a breach. Establish a relationship early with an intro call or a small scoped engagement, so when something urgent happens you are an existing client calling someone who knows your product. Existing clients get callbacks in hours. Strangers wait weeks.
+
+Your Toolkit
+The Escalation Trigger List: A checklist of the seven signals (regulated industry, sensitive data, cross-border transfers, government contracts, UGC at scale, fintech, health data) run against every build before shipping.
+
+The Counsel Brief Template: A one-to-two page document covering product purpose, user base, architecture, data inventory, third-party processors, and numbered open questions. Built once, reused every engagement.
+
+The Cost-of-Wrong Ledger: A two-column comparison: cost of scoped legal review on one side, realistic downside exposure (fines, breach costs, lost contracts, rebuild time) on the other.
+
+The Counsel Rolodex: At least one vetted tech-savvy attorney contact established before you urgently need one, sourced through founder communities or other builders in The Faction.
+
+Exam Topics
+The builder’s scope (identify, document, flag) versus the lawyer’s scope (interpret, judge, draft)
+
+The seven escalation signals that indicate legal counsel is needed
+
+Why a single escalation signal is sufficient to require review
+
+The components of an efficient technical brief for legal counsel
+
+What architecture and data flow information a lawyer needs before a consult
+
+Comparing the cost of legal review against the cost of getting it wrong
+
+Why establishing a counsel relationship before an emergency changes response time and outcomes
+
+Why a builder must never present a regulatory map as a compliance determination
+
+Common Pitfalls
+Waiting for a problem to find a lawyer: Emergency engagements cost more, move slower, and start with counsel who knows nothing about your system, exactly when speed matters most.
+
+Walking into a consult unprepared: You pay hourly rates for the lawyer to interview you about your own product. An unprepared hour buys almost no advice.
+
+Treating your AI-generated map as legal clearance: The map is a research artifact that directs review. Telling a client “we’re compliant” based on it exposes you to liability you cannot cover.
+
+Assuming small scale means low risk: Regulators do not check your MRR. A ten-user app handling health data carries the same categorical obligations as a large one.
+
+Shopping purely on price: A generalist attorney reviewing your data architecture can be worse than no review, because it produces false confidence. You need technology and privacy experience.
+
+Hiding the messy parts from counsel: Omitting the sketchy analytics script means the advice does not cover your actual system. Lawyers are bound by confidentiality; give them the real picture.
+
+Self-Assessment Checklist
+I can name the seven escalation signals that mean a build needs legal review
+
+I can explain where my scope ends and a lawyer’s scope begins
+
+I can prepare a brief covering architecture, data flows, user base, and open questions
+
+I can explain why one escalation signal is enough to trigger review
+
+I can walk a client through review cost versus the cost of getting it wrong
+
+I can describe how to establish a counsel relationship before an emergency
+
+I can explain why I never tell a client “you’re compliant” based on my own research
+
+AI Audit Prompt Template
+Direct your AI to turn your project context into a counsel-ready brief with this prompt.
+
+You are helping me prepare a technical brief for a legal consultation. I am a builder, not a lawyer, and I need this brief to make a one-hour consult as efficient as possible. Using my project details below, produce a brief with these sections: 1. PRODUCT SUMMARY: What the product does and its business model, in plain language a non-technical reader can follow. 2. USER BASE: Who uses it, where they are located, approximate scale, and whether any users could be minors, patients, or government personnel. 3. ARCHITECTURE OVERVIEW: Hosting provider and regions, major services and third-party APIs, and authentication method. High level, no jargon. 4. DATA INVENTORY: Every category of data collected, where each is stored, retention period, who it is shared with, and which categories may be sensitive (health, financial, biometric, children's, location). 5. DATA FLOW NARRATIVE: Trace one typical user's data from signup to deletion, including every third party that touches it. 6. REGULATORY FLAGS: List the regulations that plausibly apply and why. Label this section "for counsel review, not conclusions." 7. OPEN QUESTIONS FOR COUNSEL: Numbered questions I need answered, ordered by launch-blocking priority. Flag anything incomplete or contradictory before finalizing. Do not offer legal conclusions anywhere in the brief. My project details: [PASTE ARCHITECTURE NOTES, DATA INVENTORY, USER INFO, AND YOUR REGULATORY MAP FROM MODULES 2 THROUGH 4]
+What’s Next
+Module 7 is the capstone: Ship: Compliance Map For Your Product. You will take everything from M1 through M6 and direct your AI to produce a complete compliance map for a real build. That map, with its “bring in counsel here” flags, is your ship deliverable for certification
+
+
+Module 7: Ship: Compliance Map For Your Product — Study Guide
+Matt Murphy
+💎
+Compliance Foundations for Builders
+T6 The Vault | Module 7 Study Guide
+Module 7: Ship: Compliance Map For Your Product
+Direct AI to map which regulations apply to any build before shipping it.
+
+What This Module Covers
+This is the capstone. Modules 1 through 6 converge into one deliverable: a complete compliance map for a real or planned product. You walk your actual build through the full decision tree and find out which regulations your data, users, locations, and industry trigger.
+
+For every applicable regulation you document the requirement, your current status, and the gap. Then you sort every gap into two buckets: builder work, like a privacy policy, cookie consent, and data deletion flows, and professional-review work, like BAAs, DPAs, and industry certifications. That sorting decision is the skill this course has been building toward.
+
+The final piece is making the map a living document. Products change and user bases grow into new regions and industries. A stale map is how builders get blindsided, so you will set up the triggers that tell you when it needs another pass.
+
+Why It Matters
+Think back to Module 1: the builder who shipped a scheduling app for dentists without knowing HIPAA existed, the founder who launched in the EU without a GDPR story, the vibebuilder who collected card numbers without understanding PCI scope. They were not reckless. They shipped without a map. The map is the difference between finding a trigger before launch and finding it in a demand letter after.
+
+There is also a client-facing stake. If you build for others, the map is proof you did the diligence a professional builder is expected to do. When a client asks about GDPR, you hand them a document, not a shrug. The map does not make anyone compliant, and you never claim it does. It makes you informed, organized, and ready to involve the right professional at the right moment.
+
+Certification Goal
+Passing this exam proves you can run any product through the full compliance decision tree, produce a documented map of applicable regulations, status, and gaps, and correctly sort each gap into builder work versus professional review.
+
+What You Need to Know
+The Compliance Decision Tree
+The tree runs in a fixed order: what data you collect, who your users are, where they live, what industry you serve, and which regulations those answers activate. Each answer narrows the next question. A B2B tool with EU users produces a very different map than a consumer app for US dental offices, and the tree finds that out systematically, not by accident.
+
+The Three-Column Map
+Every applicable regulation gets three entries: the requirement, your current status, and the gap. “GDPR Article 17 requires deletion on request, we have no deletion flow, gap: build one” is a complete row. A map that only lists regulations is a reading list. The gap column turns the map into a work plan.
+
+Builder-Handled vs Professional-Review Work
+Some gaps you close by directing AI: drafting a privacy policy for review, wiring up cookie consent, building deletion and export flows. Others are professional territory: BAAs, DPAs, SOC 2, anything where a signature creates legal obligations. The Module 6 rule applies: contracts, certifications, and regulated industry sign-off go to professionals, no exceptions.
+
+Documenting Without Overclaiming
+The map records what you found and what you did about it. It never declares “we are compliant,” because that is a legal conclusion you are not qualified to make. The honest framing: these regulations appear to apply, here is our status, here is what a professional still needs to review. That framing protects you and is more credible anyway.
+
+Update Triggers
+A living map needs defined events that force a review: a new data type, a new country or region, a new industry vertical, adding payments, or crossing thresholds that activate state privacy statutes. Write the triggers into the map so future you does not have to remember them.
+
+Directing AI Through the Map
+AI is your research assistant, not your lawyer. Direct it to walk the decision tree, surface candidate regulations, draft the map, and audit for gaps. Then verify against primary sources and route anything consequential to a professional. AI output is the starting point, never the final word.
+
+Your Toolkit
+The Compliance Map Template: One document: decision tree answers, the three-column table of regulation, status, and gap, the builder versus professional sort, and the update triggers. One file, one source of truth.
+
+The Decision Tree Walkthrough: The five-question sequence from Module 2, run in order against your real product, in writing. Answers you only think about never make the map.
+
+The Gap Sort Rule: For every gap ask: does closing this involve a contract, a certification, or a regulated-industry judgment call? If yes, professional column. If no, builder column.
+
+The Review Calendar: A recurring quarterly review plus event-based triggers written into the map. The calendar catches drift the triggers miss.
+
+Exam Topics
+The five questions of the compliance decision tree and their order
+
+The three columns of the map and what a complete row contains
+
+Which gap types belong in the builder column versus professional review
+
+Why BAAs, DPAs, and industry certifications always require professionals
+
+Events that trigger a map update: new regions, data types, industries, payments
+
+Why the map documents applicability and status but never declares compliance
+
+How to direct AI to audit a map for missed triggers and stale entries
+
+How the map connects Modules 1 through 6 into one shipping-gate document
+
+Common Pitfalls
+Mapping the product you planned, not the one you shipped: Scope drifts. If you added analytics or a new signup field, the shipped product is what the tree evaluates.
+
+Listing regulations without status and gaps: A regulation list feels like progress but gives you nothing to act on.
+
+Sorting professional items into the builder column to save money: Drafting your own BAA or self-serving a DPA is how builders end up personally exposed.
+
+Declaring the product compliant on your site or pitch deck: That is a legal claim. “We maintain a documented compliance process” is defensible. “We are HIPAA compliant” from a non-professional is a liability.
+
+Treating the map as done at launch: The first EU signup, dental office client, or stored card number each activate a new branch of the tree. No triggers means no warning.
+
+Letting AI output go unverified onto the map: AI can miss a state statute or cite a stale threshold. Verify before you record.
+
+Self-Assessment Checklist
+I can walk a real product through all five decision tree questions in order
+
+I can produce a map row with requirement, status, and gap for each regulation
+
+I can sort any gap into builder or professional-review using the contract and certification test
+
+I can list the builder items I can direct AI to help close, like privacy policies and deletion flows
+
+I can name my product’s update triggers and why each forces a map review
+
+I can describe my compliance posture to a client without claiming compliance
+
+I can direct AI to audit my map and route the right findings to a professional
+
+AI Audit Prompt Template
+Paste your completed compliance map below this prompt and let your AI run the audit.
+
+You are auditing a compliance map for a software product. I am a builder, not a lawyer. I need a gap check, not legal advice. My map includes decision tree answers (data, user types, locations, industry), a table of regulations with status and gaps, the builder versus professional sort, and update triggers. Audit for: 1. Missed triggers: regulations or state privacy laws that plausibly apply but are not on the map, with why. 2. Stale entries: thresholds or requirements that may have changed, with what to verify against primary sources. 3. Incomplete rows: any regulation missing a status or documented gap. 4. Mis-sorted gaps: builder-column items involving contracts, certifications, or regulated-industry judgment that belong with professionals. 5. Missing triggers: roadmap events that should force a review but are not written in. Output a prioritized list: professional counsel items, then verification tasks, then builder fixes. Do not tell me I am compliant. Tell me what is missing. [PASTE YOUR COMPLIANCE MAP HERE]
+What’s Next
+Ship your compliance map, pass the exam, and claim your Compliance Foundations Specialist badge. Keep the map close: it is the reference document every other Vault compliance and regulatory course builds on. Revisit it whenever the product grows, the user base crosses a border, or a new industry shows up in your signups. The Faction builders who stay out of trouble keep their maps no more than one release behind reality.

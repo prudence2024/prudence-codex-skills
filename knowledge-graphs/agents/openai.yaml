@@ -1,0 +1,4 @@
+interface:
+  display_name: Knowledge Graphs
+  short_description: Model and use entity-relationship knowledge for agent systems. Use when Codex needs graph memory, temporal relationships, provenance-aware retrieval, or to evaluate graph technologies without hard-coding ADE to one implementation.
+  default_prompt: Use this skill to handle the requested knowledge graphs work with evidence, provenance, and clear boundaries.

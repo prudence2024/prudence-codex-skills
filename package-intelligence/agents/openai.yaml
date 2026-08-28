@@ -1,0 +1,4 @@
+interface:
+  display_name: Package Intelligence
+  short_description: Evaluate tools, libraries, SDKs, and packages before adoption. Use when Codex needs to decide whether to install or use a package based on need, existing solutions, docs, maintenance, compatibility, security, license, performance, install, and tests.
+  default_prompt: Use this skill to handle the requested package intelligence work with evidence, provenance, and clear boundaries.
