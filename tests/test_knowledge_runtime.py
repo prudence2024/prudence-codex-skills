@@ -19,16 +19,26 @@ from skill_ecosystem.knowledge_core import (
     SourceDerivation,
 )
 from skill_ecosystem.knowledge_runtime import (
+    CorpusIntegrityChecker,
+    DocumentLocator,
     GovernanceReranker,
+    HermesRuntimeAdapter,
+    InMemoryObservabilitySink,
     JsonManifestSourceRepository,
     KnowledgeRetrievalRuntime,
+    NoConfiguredEmbeddingProvider,
+    PostgresKnowledgeStoreAdapter,
     Principal,
     PrototypeFullTextProvider,
     PrototypeStructuredStore,
     PrototypeVectorProvider,
+    RetryPolicy,
+    RuntimeProviderUnavailable,
     RuntimeQuery,
+    SourceRevocationService,
     evaluate_runtime,
     load_phase_2_5_runtime,
+    run_with_retry,
 )
 
 
@@ -304,3 +314,119 @@ def test_empty_retrieval_results_are_explainable_by_metrics():
     assert packet.results == ()
     assert packet.metrics["candidate_count"] == 1
     assert packet.metrics["result_count"] == 0
+
+
+
+def test_pdf_document_locator_preserves_precision_without_fabrication():
+    locator = DocumentLocator(
+        source_id="SRC-PDF",
+        document_type="pdf",
+        page_number=2,
+        character_start=10,
+        character_end=40,
+        locator="page 2 chars 10-40",
+        locator_precision="page_and_offset",
+    )
+    assert locator.page_number == 2
+    assert locator.locator_precision == "page_and_offset"
+
+    source_only = DocumentLocator(source_id="SRC-PDF", document_type="pdf")
+    assert source_only.page_number is None
+    assert source_only.locator_precision == "source_only"
+
+    with pytest.raises(ValueError):
+        DocumentLocator(source_id="SRC-PDF", document_type="pdf", page_number=0)
+
+
+def test_corpus_integrity_checker_detects_orphaned_knowledge_item():
+    repo = InMemoryKnowledgeRepository()
+    repo.create(item("ITEM-ORPHAN-CHECK", "orphan integrity check", source_id="SRC-NOT-REAL"))
+    checker = CorpusIntegrityChecker(
+        PrototypeStructuredStore(repo),
+        JsonManifestSourceRepository(Path(__file__).resolve().parents[1]),
+    )
+    report = checker.check()
+    assert report.source_count == 40
+    assert report.orphaned_items == ("ITEM-ORPHAN-CHECK",)
+    assert not report.passed
+
+
+def test_current_corpus_integrity_checker_passes_for_40_source_runtime():
+    corpus = Path(__file__).resolve().parents[1] / "docs" / "knowledge" / "ADE-EXTRACTED-ITEMS.jsonl"
+    runtime = load_phase_2_5_runtime(corpus)
+    report = CorpusIntegrityChecker(runtime.store, runtime.source_repository).check()
+    assert report.source_count == 40
+    assert report.item_count == 932
+    assert report.passed
+
+
+def test_source_revocation_service_archives_derived_items_and_emits_event():
+    repo = InMemoryKnowledgeRepository()
+    repo.create(item("ITEM-REV-1", "revocation runtime evidence", source_id="SRC-REV"))
+    sink = InMemoryObservabilitySink()
+    store = PrototypeStructuredStore(repo)
+    result = SourceRevocationService(store, sink).revoke("SRC-REV")
+    assert result.archived_item_ids == ("ITEM-REV-1",)
+    assert runtime_for(repo).retrieve(RuntimeQuery("revocation runtime", limit=5)).results == ()
+    assert sink.events[-1].name == "source_revoked"
+
+
+def test_postgres_adapter_boundary_fails_clearly_without_connection():
+    adapter = PostgresKnowledgeStoreAdapter()
+    with pytest.raises(RuntimeProviderUnavailable, match="PostgreSQL knowledge store adapter is not configured"):
+        adapter.list()
+
+
+def test_embedding_provider_fails_clearly_when_unconfigured():
+    provider = NoConfiguredEmbeddingProvider()
+    with pytest.raises(RuntimeProviderUnavailable, match="No production embedding provider is configured"):
+        provider.embed("semantic query")
+
+
+def test_hermes_adapter_returns_context_without_owning_knowledge_storage():
+    repo = InMemoryKnowledgeRepository()
+    repo.create(item("ITEM-HERMES", "Hermes requests source-backed knowledge through ADE"))
+    sink = InMemoryObservabilitySink()
+    adapter = HermesRuntimeAdapter(runtime_for(repo), observability=sink)
+    principal = Principal("hermes-agent")
+    context = adapter.retrieve_context("source-backed knowledge", principal, limit=3)
+    assert context["knowledge_packet"].results[0].source_id == "SRC-TEST"
+    assert "source-backed knowledge" in context["boundaries"]
+    observation = adapter.record_observation({"task": "runtime gate", "outcome": "pass candidate"})
+    assert observation["status"] == "observation_recorded_not_promoted"
+    memory = adapter.propose_memory({"scope": "project", "principal_id": "hermes-agent", "content": "candidate only"})
+    assert memory["status"] == "candidate_for_review"
+    research = adapter.request_research("current package version", "time-sensitive claim")
+    assert research.status == "research_required"
+    assert sink.events[-1].name == "research_requested"
+
+
+def test_retry_policy_is_bounded_and_emits_observability():
+    sink = InMemoryObservabilitySink()
+    attempts = {"count": 0}
+
+    def flaky():
+        attempts["count"] += 1
+        raise RuntimeProviderUnavailable("temporary vector outage")
+
+    result = run_with_retry(flaky, RetryPolicy(max_attempts=2), sink)
+    assert not result.ok
+    assert result.attempts == 2
+    assert attempts["count"] == 2
+    assert [event.name for event in sink.events] == ["retry_operation_failed", "retry_operation_failed"]
+
+
+def test_runtime_observability_emits_retrieval_metrics():
+    repo = InMemoryKnowledgeRepository()
+    repo.create(item("ITEM-OBS", "observability result count latency"))
+    sink = InMemoryObservabilitySink()
+    runtime = KnowledgeRetrievalRuntime(
+        PrototypeStructuredStore(repo),
+        PrototypeFullTextProvider(),
+        PrototypeVectorProvider(),
+        observability=sink,
+    )
+    packet = runtime.retrieve(RuntimeQuery("observability latency", limit=1))
+    assert packet.metrics["result_count"] == 1
+    assert [event.name for event in sink.events] == ["retrieval_started", "retrieval_completed"]
+    assert sink.events[-1].fields["result_count"] == 1

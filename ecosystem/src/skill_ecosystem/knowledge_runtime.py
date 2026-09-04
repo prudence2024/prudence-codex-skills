@@ -16,7 +16,7 @@ import math
 import re
 import time
 from pathlib import Path
-from typing import Iterable, Protocol
+from typing import Any, Callable, Iterable, Protocol
 
 from .knowledge_core import (
     AccessScope,
@@ -106,6 +106,28 @@ class ContextPacket:
     results: tuple[ExplainableResult, ...]
     metrics: dict[str, float | int]
     filters: dict[str, str | bool | None]
+
+
+@dataclass(frozen=True)
+class DocumentLocator:
+    """Precise source-location metadata when extraction can provide it."""
+
+    source_id: str
+    document_type: str
+    page_number: int | None = None
+    section: str | None = None
+    character_start: int | None = None
+    character_end: int | None = None
+    locator: str = ""
+    locator_precision: str = "source_only"
+
+    def __post_init__(self) -> None:
+        if self.page_number is not None and self.page_number < 1:
+            raise ValueError("page_number must be 1-based when present")
+        if self.character_start is not None and self.character_start < 0:
+            raise ValueError("character_start must be non-negative")
+        if self.character_end is not None and self.character_start is not None and self.character_end < self.character_start:
+            raise ValueError("character_end must be greater than or equal to character_start")
 
 
 @dataclass(frozen=True)
@@ -244,6 +266,41 @@ class Reranker(Protocol):
     def rerank(self, query: RuntimeQuery, hits: list[RetrievalHit]) -> list[RetrievalHit]: ...
 
 
+class KnowledgeStore(StructuredStore, Protocol):
+    """Canonical knowledge-store boundary for production adapters."""
+
+
+class TextRetriever(FullTextProvider, Protocol):
+    """Keyword retrieval boundary, typically PostgreSQL full-text search."""
+
+
+class VectorRetriever(VectorProvider, Protocol):
+    """Semantic/vector retrieval boundary, typically pgvector or equivalent."""
+
+
+class HybridRetriever(Protocol):
+    name: str
+    def fuse(self, rankings: Iterable[list[RetrievalHit]]) -> list[RetrievalHit]: ...
+
+
+class EmbeddingProvider(Protocol):
+    model_identity: str
+    model_version: str
+    dimension: int
+    def embed(self, text: str) -> tuple[float, ...]: ...
+    def embed_batch(self, texts: Iterable[str]) -> list[tuple[float, ...]]: ...
+
+
+class GraphStore(Protocol):
+    def find_related(self, entity_id: str, relationship_type: str | None = None) -> list[dict[str, Any]]: ...
+    def is_available(self) -> bool: ...
+
+
+class MemoryStore(Protocol):
+    def retrieve(self, scope: str, principal: Principal) -> list[dict[str, Any]]: ...
+    def propose(self, candidate: dict[str, Any]) -> dict[str, Any]: ...
+
+
 class PrototypeStructuredStore:
     """PostgreSQL-shaped store contract backed by the existing in-memory repo."""
 
@@ -325,6 +382,263 @@ class GovernanceReranker:
         return _rank(adjusted)
 
 
+
+
+class RuntimeProviderUnavailable(RuntimeError):
+    """Raised when a configured runtime provider cannot serve a request."""
+
+
+@dataclass(frozen=True)
+class ObservabilityEvent:
+    name: str
+    fields: dict[str, Any] = field(default_factory=dict)
+
+
+class ObservabilitySink(Protocol):
+    def emit(self, event: ObservabilityEvent) -> None: ...
+
+
+class NullObservabilitySink:
+    def emit(self, event: ObservabilityEvent) -> None:
+        return None
+
+
+class InMemoryObservabilitySink:
+    def __init__(self) -> None:
+        self.events: list[ObservabilityEvent] = []
+
+    def emit(self, event: ObservabilityEvent) -> None:
+        self.events.append(event)
+
+
+class RrfHybridRetriever:
+    name = "rrf_hybrid"
+
+    def fuse(self, rankings: Iterable[list[RetrievalHit]]) -> list[RetrievalHit]:
+        return _fuse_rrf(rankings)
+
+
+class NoConfiguredEmbeddingProvider:
+    model_identity = "unconfigured"
+    model_version = "none"
+    dimension = 0
+
+    def embed(self, text: str) -> tuple[float, ...]:
+        raise RuntimeProviderUnavailable("No production embedding provider is configured")
+
+    def embed_batch(self, texts: Iterable[str]) -> list[tuple[float, ...]]:
+        raise RuntimeProviderUnavailable("No production embedding provider is configured")
+
+
+class PostgresKnowledgeStoreAdapter:
+    """Production-shaped adapter boundary; unit tests do not require PostgreSQL."""
+
+    def __init__(self, connection_factory: Callable[[], Any] | None = None) -> None:
+        self.connection_factory = connection_factory
+
+    def _connection(self) -> Any:
+        if self.connection_factory is None:
+            raise RuntimeProviderUnavailable("PostgreSQL knowledge store adapter is not configured")
+        return self.connection_factory()
+
+    def search(self, query: KnowledgeSearchQuery) -> list[KnowledgeItem]:
+        self._connection()
+        raise NotImplementedError("PostgreSQL search implementation requires production migrations")
+
+    def list(self) -> list[KnowledgeItem]:
+        self._connection()
+        raise NotImplementedError("PostgreSQL list implementation requires production migrations")
+
+    def conflicts_for(self, item_id: str) -> list[ConflictRecord]:
+        self._connection()
+        raise NotImplementedError("PostgreSQL conflict lookup requires production migrations")
+
+    def archive_source(self, source_id: str) -> list[KnowledgeItem]:
+        self._connection()
+        raise NotImplementedError("PostgreSQL source archival requires production migrations")
+
+
+@dataclass(frozen=True)
+class SourceRevocationResult:
+    source_id: str
+    archived_item_ids: tuple[str, ...]
+
+
+class SourceRevocationService:
+    def __init__(self, store: StructuredStore, observability: ObservabilitySink | None = None) -> None:
+        self.store = store
+        self.observability = observability or NullObservabilitySink()
+
+    def revoke(self, source_id: str) -> SourceRevocationResult:
+        archived = self.store.archive_source(source_id)
+        result = SourceRevocationResult(source_id, tuple(item.id for item in archived))
+        self.observability.emit(ObservabilityEvent("source_revoked", {"source_id": source_id, "archived_items": len(result.archived_item_ids)}))
+        return result
+
+
+@dataclass(frozen=True)
+class CorpusIntegrityReport:
+    source_count: int
+    item_count: int
+    missing_raw_files: int
+    missing_text_dumps: int
+    hash_mismatches: int
+    missing_inputs: int
+    input_hash_mismatches: int
+    orphaned_items: tuple[str, ...]
+    duplicate_source_ids: tuple[str, ...]
+    impossible_lifecycle_states: tuple[str, ...]
+
+    @property
+    def passed(self) -> bool:
+        return not any((
+            self.missing_raw_files,
+            self.missing_text_dumps,
+            self.hash_mismatches,
+            self.missing_inputs,
+            self.input_hash_mismatches,
+            self.orphaned_items,
+            self.duplicate_source_ids,
+            self.impossible_lifecycle_states,
+        ))
+
+
+class CorpusIntegrityChecker:
+    def __init__(self, store: StructuredStore, source_repository: SourceRepository) -> None:
+        self.store = store
+        self.source_repository = source_repository
+
+    def check(self) -> CorpusIntegrityReport:
+        source_integrity = self.source_repository.verify_integrity()
+        sources = self.source_repository.list_sources()
+        seen: set[str] = set()
+        duplicate_source_ids: list[str] = []
+        for source in sources:
+            if source.source_id in seen:
+                duplicate_source_ids.append(source.source_id)
+            seen.add(source.source_id)
+        orphaned = []
+        impossible = []
+        for item in self.store.list():
+            if item.source_id not in seen:
+                orphaned.append(item.id)
+            if item.superseded_by and item.status != KnowledgeStatus.SUPERSEDED:
+                impossible.append(item.id)
+        return CorpusIntegrityReport(
+            source_count=source_integrity.source_count,
+            item_count=len(self.store.list()),
+            missing_raw_files=source_integrity.missing_raw_files,
+            missing_text_dumps=source_integrity.missing_text_dumps,
+            hash_mismatches=source_integrity.hash_mismatches,
+            missing_inputs=source_integrity.missing_inputs,
+            input_hash_mismatches=source_integrity.input_hash_mismatches,
+            orphaned_items=tuple(sorted(orphaned)),
+            duplicate_source_ids=tuple(sorted(duplicate_source_ids)),
+            impossible_lifecycle_states=tuple(sorted(impossible)),
+        )
+
+
+class InMemoryRuntimeMemoryStore:
+    def __init__(self) -> None:
+        self.records: list[dict[str, Any]] = []
+
+    def retrieve(self, scope: str, principal: Principal) -> list[dict[str, Any]]:
+        return [record for record in self.records if record.get("scope") == scope and record.get("principal_id") in {None, principal.principal_id}]
+
+    def propose(self, candidate: dict[str, Any]) -> dict[str, Any]:
+        stored = {**candidate, "status": "candidate_for_review"}
+        self.records.append(stored)
+        return stored
+
+
+@dataclass(frozen=True)
+class ResearchRequest:
+    claim: str
+    reason: str
+    status: str = "research_required"
+
+
+class HermesRuntimeAdapter:
+    """Minimal Hermes-facing boundary. Hermes does not own ADE storage."""
+
+    def __init__(self, runtime: KnowledgeRetrievalRuntime, memory_store: MemoryStore | None = None, observability: ObservabilitySink | None = None) -> None:
+        self.runtime = runtime
+        self.memory_store = memory_store or InMemoryRuntimeMemoryStore()
+        self.observability = observability or NullObservabilitySink()
+
+    def retrieve_knowledge(self, text: str, principal: Principal, **filters: Any) -> ContextPacket:
+        return self.runtime.retrieve(RuntimeQuery(text=text, principal=principal, **filters))
+
+    def retrieve_memory(self, scope: str, principal: Principal) -> list[dict[str, Any]]:
+        return self.memory_store.retrieve(scope, principal)
+
+    def retrieve_context(self, task: str, principal: Principal, **filters: Any) -> dict[str, Any]:
+        knowledge = self.retrieve_knowledge(task, principal, **filters)
+        memory = self.retrieve_memory(filters.get("memory_scope", "project"), principal)
+        context = {
+            "task": task,
+            "knowledge_packet": knowledge,
+            "memory": memory,
+            "research_decision": "required_if_results_empty_stale_or_conflicting",
+            "boundaries": ("source-backed knowledge", "memory", "research finding", "AI inference"),
+        }
+        self.observability.emit(ObservabilityEvent("hermes_context_assembled", {"result_count": len(knowledge.results), "memory_count": len(memory)}))
+        return context
+
+    def record_observation(self, observation: dict[str, Any]) -> dict[str, Any]:
+        candidate = {**observation, "status": "observation_recorded_not_promoted"}
+        self.observability.emit(ObservabilityEvent("observation_recorded", {"status": candidate["status"]}))
+        return candidate
+
+    def propose_memory(self, candidate: dict[str, Any]) -> dict[str, Any]:
+        return self.memory_store.propose(candidate)
+
+    def request_research(self, claim: str, reason: str) -> ResearchRequest:
+        request = ResearchRequest(claim, reason)
+        self.observability.emit(ObservabilityEvent("research_requested", {"reason": reason}))
+        return request
+
+
+@dataclass(frozen=True)
+class RetryPolicy:
+    max_attempts: int = 3
+    backoff_seconds: float = 0.0
+    retryable_exceptions: tuple[type[Exception], ...] = (RuntimeProviderUnavailable,)
+
+    def __post_init__(self) -> None:
+        if self.max_attempts < 1:
+            raise ValueError("max_attempts must be at least 1")
+        if self.backoff_seconds < 0:
+            raise ValueError("backoff_seconds must be non-negative")
+
+
+@dataclass(frozen=True)
+class RetryResult:
+    ok: bool
+    attempts: int
+    value: Any = None
+    error: str | None = None
+
+
+def run_with_retry(operation: Callable[[], Any], policy: RetryPolicy, observability: ObservabilitySink | None = None) -> RetryResult:
+    sink = observability or NullObservabilitySink()
+    attempts = 0
+    while attempts < policy.max_attempts:
+        attempts += 1
+        try:
+            value = operation()
+            sink.emit(ObservabilityEvent("retry_operation_succeeded", {"attempts": attempts}))
+            return RetryResult(True, attempts, value=value)
+        except policy.retryable_exceptions as exc:
+            sink.emit(ObservabilityEvent("retry_operation_failed", {"attempts": attempts, "error": type(exc).__name__}))
+            if attempts >= policy.max_attempts:
+                return RetryResult(False, attempts, error=str(exc))
+            if policy.backoff_seconds:
+                time.sleep(policy.backoff_seconds)
+
+    return RetryResult(False, attempts, error="retry policy exhausted")
+
+
 class KnowledgeRetrievalRuntime:
     """End-to-end non-production retrieval runtime."""
 
@@ -335,19 +649,28 @@ class KnowledgeRetrievalRuntime:
         vector: VectorProvider,
         reranker: Reranker | None = None,
         source_repository: SourceRepository | None = None,
+        hybrid: HybridRetriever | None = None,
+        observability: ObservabilitySink | None = None,
     ) -> None:
         self.store = store
         self.full_text = full_text
         self.vector = vector
         self.reranker = reranker
         self.source_repository = source_repository
+        self.hybrid = hybrid or RrfHybridRetriever()
+        self.observability = observability or NullObservabilitySink()
 
     def retrieve(self, query: RuntimeQuery) -> ContextPacket:
         started = time.perf_counter()
+        self.observability.emit(ObservabilityEvent("retrieval_started", {"query": query.text, "principal_id": query.principal.principal_id}))
         candidates = self._governed_candidates(query)
-        fts_hits = self.full_text.search(query, candidates)
-        vector_hits = self.vector.search(query, candidates)
-        fused = _fuse_rrf((fts_hits, vector_hits))
+        try:
+            fts_hits = self.full_text.search(query, candidates)
+            vector_hits = self.vector.search(query, candidates)
+        except RuntimeProviderUnavailable as exc:
+            self.observability.emit(ObservabilityEvent("retrieval_provider_unavailable", {"error": str(exc)}))
+            raise
+        fused = self.hybrid.fuse((fts_hits, vector_hits))
         if query.rerank and self.reranker:
             fused = self.reranker.rerank(query, fused)
         results = tuple(self._explain(query, hit) for hit in fused[: query.limit])
@@ -360,6 +683,7 @@ class KnowledgeRetrievalRuntime:
             "result_count": len(results),
             "elapsed_ms": round(elapsed_ms, 3),
         }
+        self.observability.emit(ObservabilityEvent("retrieval_completed", metrics))
         return ContextPacket(
             query=query.text,
             generated_at_ms=round(elapsed_ms, 3),
